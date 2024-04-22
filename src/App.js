@@ -6,6 +6,7 @@ import FlashCards from './AppContainer/Flashcards/Flaschards';
 import Schedule from './AppContainer/Schedule/Schedule';
 import Account from './AppContainer/Account/Account';
 import NavBar from './AppContainer/Components/NavBar/NavBar';
+import Studying from 'AppContainer/Flashcards/Studying';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/flashcards" element={<FlashCards />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/study:id" element={<Studying />} />
         </Routes>
       </BrowserRouter>
     </div>

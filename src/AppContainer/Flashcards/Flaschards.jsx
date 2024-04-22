@@ -1,33 +1,16 @@
 import DeckItem from "./DeckItem"
+import { deck, card } from "Database"
 
 export default function FlashCards() {
 
-    const decks = [
-        {
-            name: 'Nourriture',
-            cards: [
-                { recto: 'a fork', verso: 'une fourchette' },
-                { recto: 'a plate', verso: 'une assiette' },
-                { recto: 'the dining room', verso: 'la salle à manger' },
-                { recto: 'prepare the meal', verso: 'préparer le repas' }
-            ]
-        },
-        {
-            name: 'Travail',
-            cards: [
-                { recto: 'apply', verso: 'candidater' },
-                { recto: 'take time off', verso: 'prendre des congés' },
-                { recto: 'payslip', verso: 'fiche de paie' },
-            ]
-        },
-        {
-            name: 'Transport',
-            cards: [
-                { recto: 'take the train', verso: 'prendre le train' },
-                { recto: 'buy a bus ticket', verso: 'acheter un ticket de bus' }
-            ]
-        },
-    ]
+    const formatedDecks = deck.map((deck) => {
+        const deckCards = card.filter((card) => card.deck_id === deck.id)
+        return {
+            ...deck,
+            cards: deckCards,
+        }
+    })
+
     return (
         <div className="full-width flex center">
             <div className="half-width">
@@ -37,9 +20,11 @@ export default function FlashCards() {
                         <h4>reste à réviser</h4>
                     </div>
                     <div className="flex column gap-1">
-                        {decks.map(deck => {
+                        {formatedDecks.map(deck => {
                             return (
-                                <DeckItem currentDeck={deck} />
+                                <div key={deck.id}>
+                                    <DeckItem currentDeck={deck} />
+                                </div>
                             )
                         })}
                     </div>

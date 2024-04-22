@@ -1,7 +1,21 @@
 .deck-item {
     display: flex;
     justify-content: space-between;
-    border: 2px solid var(--primary-color);
-    border-radius: 15px;
     padding: 20px;
+    border-radius: 15px;
+    transition: all 0.2s;
+}
+
+.review {
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+}
+
+.review:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.revised {
+    border: 2px solid #49F149;
 }
