@@ -1,0 +1,29 @@
+.main-navigation {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    position: relative !important;
+    z-index: 1;
+    height: 100vh;
+    border-right: 2px solid var(--third-color);
+    gap: 20px;
+    padding: 0 16px;
+}
+
+@media (min-width: 1160px) {
+    .main-navigation {
+        width: calc(var(--web-ui_navbar-width, 324px) + 32px);
+    }
+}
+
+.navigation-button {
+    color: var(--forth-color);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.navigation-button.active {
+    color: var(--sixth-color);
+    font-size: 22px;
+    font-weight: 600;
+}

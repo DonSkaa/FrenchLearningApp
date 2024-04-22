@@ -3,21 +3,98 @@ html {
 }
 
 :root {
-  --primary-color: #3D553D;
+  --primary-color: #FF7036;
   --secondary-color: #FFF;
-  --third-color: #646464;
-  --forth-color: #000;
-  --fith-color: #EFF4EE;
+  --third-color: #EDEDED;
+  --forth-color: #1E1E1E;
+  --fith-color: #A9A9A9;
+  --sixth-color: #8D4ADA;
+  --seventh-color: #D9B8FF;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 body {
   margin: 0;
-  font-family: "Nexa", "Open Sans", monospace, sans-serif;
+  font-family: "Poppins", "Open Sans", monospace, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
-  background-color: var(--fith-color);
+  background-color: var(--secondary-color);
   min-height: 100%;
+}
+
+h1 {
+  margin: 30px 0px 10px;
+  text-align: left;
+  color: var(--primary-color);
+}
+
+h3 {
+  color: var(--forth-color);
+  background-color: var(--fith-color);
+  margin: 0 0 10px 0;
+  padding: 10px 3px;
+  border-radius: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+h4 {
+  color: var(--forth-color);
+  font-size: 18px;
+}
+
+
+h5 {
+  font-size: 22px;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0 5px;
+}
+
+td,
+th {
+  padding: 5px 5px
+}
+
+th {
+  font-size: 16px;
+}
+
+th {
+  border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+p {
+  font-size: 18px;
+  text-align: center;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 10px
+}
+
+.full-width {
+  width: 100%;
 }
