@@ -1,0 +1,23 @@
+html {
+  min-height: 100%;
+}
+
+:root {
+  --primary-color: #3D553D;
+  --secondary-color: #FFF;
+  --third-color: #646464;
+  --forth-color: #000;
+  --fith-color: #EFF4EE;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  margin: 0;
+  font-family: "Nexa", "Open Sans", monospace, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  background-color: var(--fith-color);
+  min-height: 100%;
+}

@@ -1,0 +1,10 @@
+#page-container {
+  width: 96%;
+  max-width: 1920px;
+  margin: 25px auto;
+  padding: 4px 6px 50px 6px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  min-height: 100%;
+}
