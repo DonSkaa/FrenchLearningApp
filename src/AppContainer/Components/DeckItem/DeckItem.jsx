@@ -1,14 +1,26 @@
+import { isToReview } from "Functions";
 import "./DeckItem.css"
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 export default function DeckItem({ currentDeck }) {
 
     const navigate = useNavigate()
-    const cardsToReview = currentDeck.cards.filter(card => card.status === 'review')
+    const [cardsToReview, setCardsToReview] = useState([])
 
     const study = () => {
         navigate(`/study`)
     }
+
+    useEffect(() => {
+        setCardsToReview(currentDeck.cards.filter(card => {
+            return isToReview(card)
+        }))
+    }, [currentDeck])
+
+    useEffect(() => {
+        console.log(cardsToReview);
+    }, [cardsToReview])
 
     return (
         <>

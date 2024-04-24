@@ -30,25 +30,22 @@ h1 {
   color: var(--primary-color);
 }
 
+h2 {
+  color: var(--forth-color);
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+}
+
 h3 {
   color: var(--forth-color);
-  background-color: var(--fith-color);
-  margin: 0 0 10px 0;
-  padding: 10px 3px;
-  border-radius: 8px;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 18px;
   text-align: center;
 }
 
 h4 {
   color: var(--forth-color);
-  font-size: 18px;
-}
-
-
-h5 {
-  font-size: 22px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -111,7 +108,15 @@ a {
   justify-content: center !important;
 }
 
+.left {
+  text-align: left !important;
+}
+
 /* MARGIN */
+.m-0 {
+  margin: 0;
+}
+
 .m-b-0 {
   margin-bottom: 0px !important;
 }
@@ -134,6 +139,10 @@ a {
 
 .m-t-25 {
   margin-top: 25px !important;
+}
+
+.m-t-40 {
+  margin-top: 40px !important;
 }
 
 .m-r-10 {

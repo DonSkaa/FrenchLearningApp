@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import MyAccount from './AppContainer/Login/MyAccount';
 import Dashboard from './AppContainer/Dashboard/Dashboard';
-import FlashCards from './AppContainer/Flashcards/Flaschards';
+import Flashcards from './AppContainer/Flashcards/Flashcards';
 import Schedule from './AppContainer/Schedule/Schedule';
 import Account from './AppContainer/Account/Account';
 import NavBar from './AppContainer/Components/NavBar/NavBar';
@@ -24,9 +24,9 @@ function App() {
           {/* <Route path="/" element={<MyAccount />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/flashcards" element={<FlashCards />} />
+          <Route path="/flashcards" element={<Flashcards />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/study:id" element={<Studying />} />
+          <Route path="/study" element={<Studying />} />
         </Routes>
       </BrowserRouter>
     </div>
