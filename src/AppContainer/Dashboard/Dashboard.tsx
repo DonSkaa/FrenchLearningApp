@@ -6,11 +6,11 @@ import EventItem from "../Components/EventItem/EventItem"
 
 export default function Dashboard() {
 
-    const [progress, setProgress] = useState(null)
+    const [progress, setProgress] = useState<number|null>(null)
 
     const currentUserId = 1
     const currentUser = user.find(user => user.id === currentUserId)
-    const currentUserPrograms = user_program.filter(program => program.id === currentUser.user_program_id)
+    const currentUserPrograms = user_program.filter(program => program.id === currentUser?.user_program_id)
     const activeCurrentUserProgram = currentUserPrograms.find(program => program.status)
     const formatedUser = { ...currentUser, user_program: activeCurrentUserProgram }
 

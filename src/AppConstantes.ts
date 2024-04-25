@@ -1,4 +1,9 @@
-export const cardLevels = [
+interface CardLevel {
+    slug: string;
+    name: string;
+}
+
+export const cardLevels: CardLevel[] = [
     {
         slug: 'easy',
         name: 'Facile',

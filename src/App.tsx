@@ -6,7 +6,7 @@ import Flashcards from './AppContainer/Flashcards/Flashcards';
 import Schedule from './AppContainer/Schedule/Schedule';
 import Account from './AppContainer/Account/Account';
 import NavBar from './AppContainer/Components/NavBar/NavBar';
-import Studying from 'AppContainer/Flashcards/Studying';
+import Studying from './AppContainer/Flashcards/Studying';
 
 function App() {
   return (

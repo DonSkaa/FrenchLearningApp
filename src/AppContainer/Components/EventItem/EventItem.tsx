@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react"
 import "./EventItem.css"
+import {Event} from "../../../Database"
 
-export default function EventItem({ event }) {
+interface TimeRemaining {
+    days: number;
+    hours: string;
+    minutes: string;
+    seconds: string;
+}
 
-    const [timeRemaining, setTimeRemaining] = useState({})
+export default function EventItem({ event }: {event:Event}): JSX.Element {
+
+    const [timeRemaining, setTimeRemaining] = useState<Partial<TimeRemaining>>({});
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -11,7 +19,7 @@ export default function EventItem({ event }) {
             const targetDate = new Date(event.start)
             const now = new Date()
 
-            const timeDifference = targetDate - now;
+            const timeDifference = targetDate.getTime() - now.getTime();
 
             if (timeDifference > 0) {
                 const seconds = Math.floor((timeDifference / 1000) % 60);
@@ -30,9 +38,9 @@ export default function EventItem({ event }) {
 
                 setTimeRemaining({
                     days: 0,
-                    hours: 0,
-                    minutes: 0,
-                    seconds: 0,
+                    hours: '0',
+                    minutes: '0',
+                    seconds: '0',
                 })
 
                 clearInterval(interval)

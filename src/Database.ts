@@ -1,4 +1,13 @@
-export const user = [
+export interface User {
+    id: number;
+    name: string;
+    last_name: string;
+    mail: string;
+    password: string;
+    user_program_id: number;
+}
+
+export const user: User[] = [
     {
         id: 1,
         name: 'Jean',
@@ -9,7 +18,18 @@ export const user = [
     },
 ]
 
-export const event = [
+
+
+export interface Event {
+    id: number;
+    event_type: string;
+    date: string;
+    start: string;
+    end: string;
+    meeting_link: string;
+}
+
+export const event :Event[]= [
     {
         id: 1,
         event_type: 'lesson',
@@ -18,17 +38,26 @@ export const event = [
         end: "2024-05-24T15:30:00Z",
         meeting_link: "https://meet.google.com/aku-afqa-vmq",
     },
-    {
-        id: 2,
-        event_type: 'studying',
-        date: "2024-05-22",
-        start: null,
-        end: null,
-        meeting_link: null,
-    },
+    // {
+    //     id: 2,
+    //     event_type: 'studying',
+    //     date: "2024-05-22",
+    //     start: null,
+    //     end: null,
+    //     meeting_link: null,
+    // },
 ]
 
-export const user_program = [
+export interface UserProgram {
+    id: number;
+    user_id: number;
+    program_id: number;
+    start_date: string;
+    end_date: string;
+    status: number;
+}
+
+export const user_program :UserProgram[]= [
     {
         id: 1,
         user_id: 1,
@@ -39,7 +68,21 @@ export const user_program = [
     }
 ]
 
-export const program = [
+
+export interface Program {
+    id: number;
+    days_duration: number;
+    thematics: Thematic[];
+}
+export interface Thematic {
+    id: number;
+    name: string;
+    week_number: number;
+    deck_id: number;
+
+}
+
+export const program :Program[]= [
     {
         id: 1,
         days_duration: 28,
@@ -72,7 +115,13 @@ export const program = [
     },
 ]
 
-export const deck = [
+
+export interface Deck {
+    id: number;
+    name: string;
+}
+
+export const deck:Deck[] = [
     {
         id: 1,
         name: 'Nourriture',
@@ -87,7 +136,20 @@ export const deck = [
     },
 ]
 
-export const card = [
+
+
+export interface Card {
+    id: number;
+    deck_id: number;
+    recto: string;
+    verso: string;
+    times_reviewed: number;
+    last_review_date: string|null;
+    last_difficulty_level: 'easy' | 'normal' | 'hard'|null;
+
+}
+
+export const card:Card[] = [
     {
         id: 1,
         deck_id: 1,
@@ -114,4 +176,3 @@ export const card = [
     { id: 8, deck_id: 3, recto: 'take the train', verso: 'prendre le train', times_reviewed: 0, last_review_date: null, last_difficulty_level: null },
     { id: 9, deck_id: 3, recto: 'buy a bus ticket', verso: 'acheter un ticket de bus', times_reviewed: 0, last_review_date: null, last_difficulty_level: null }
 ]
-
