@@ -23,11 +23,8 @@ export function calculateProgress(start_date, end_date) {
 }
 
 function addDays(date, daysToAdd) {
-    const newDate = new Date(date)
-    newDate.setDate(newDate.getDate() + daysToAdd)
-    return newDate
+    return new Date(date).getTime() + daysToAdd * 24 * 60 * 60 * 1000
 }
-
 
 export function isToReview(card) {
     if (card.times_reviewed === 0) {

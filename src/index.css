@@ -96,12 +96,24 @@ a {
   gap: 10px
 }
 
+.three-quarter-height {
+  height: 75% !important;
+}
+
 .full-width {
   width: 100%;
 }
 
 .half-width {
   width: 48%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.strong {
+  font-weight: bold !important;
 }
 
 .center {
@@ -163,4 +175,34 @@ a {
 
 .strong {
   font-weight: 600 !important;
+}
+
+/* Buttons */
+.strong-button {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #C28CFF;
+  color: var(--secondary-color);
+  border-width: 1px 1px 4px 1px;
+  border-color: var(--sixth-color);
+  border-style: solid;
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Time cursor */
+.time-cursor-container {
+  height: 16px;
+  width: 100%;
+  background-color: var(--third-color);
+  border-radius: 8px;
+}
+
+.time-cursor {
+  height: 16px;
+  width: 100%;
+  background-color: var(--primary-color);
+  border-radius: 8px;
 }

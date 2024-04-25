@@ -27,6 +27,7 @@ function App() {
           <Route path="/flashcards" element={<Flashcards />} />
           <Route path="/account" element={<Account />} />
           <Route path="/study" element={<Studying />} />
+          <Route path="/study/:id" element={<Studying />} />
         </Routes>
       </BrowserRouter>
     </div>
