@@ -4,9 +4,9 @@ import MyAccount from './AppContainer/Login/MyAccount';
 import Dashboard from './AppContainer/Dashboard/Dashboard';
 import Flashcards from './AppContainer/Flashcards/Flashcards';
 import Schedule from './AppContainer/Schedule/Schedule';
-import Account from './AppContainer/Account/Account';
 import NavBar from './AppContainer/Components/NavBar/NavBar';
 import Studying from './AppContainer/Flashcards/Studying';
+import Profile from 'AppContainer/Profile/Profile';
 
 function App() {
   return (
@@ -25,8 +25,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/flashcards" element={<Flashcards />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/study" element={<Studying />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/study/:id" element={<Studying />} />
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./EventItem.css"
-import {Event} from "../../../Database"
+import { Event } from "../../../FormatedDatabase"
 
 interface TimeRemaining {
     days: number;
@@ -9,7 +9,7 @@ interface TimeRemaining {
     seconds: string;
 }
 
-export default function EventItem({ event }: {event:Event}): JSX.Element {
+export default function EventItem({ event }: { event: Event }): JSX.Element {
 
     const [timeRemaining, setTimeRemaining] = useState<Partial<TimeRemaining>>({});
 

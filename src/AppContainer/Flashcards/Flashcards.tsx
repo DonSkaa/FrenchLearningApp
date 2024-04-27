@@ -1,15 +1,10 @@
+import { useContext } from "react"
 import DeckItem from "../Components/DeckItem/DeckItem"
-import { deck, card } from "Database"
+import { DeckContext } from "AppContainer/Context/DeckContext"
 
 export default function Flashcards() {
 
-    const formatedDecks = deck.map((deck) => {
-        const deckCards = card.filter((card) => card.deck_id === deck.id)
-        return {
-            ...deck,
-            cards: deckCards,
-        }
-    })
+    const { decks } = useContext(DeckContext)
 
     return (
         <div className="full-width flex center">
@@ -20,7 +15,7 @@ export default function Flashcards() {
                         <h4>reste à réviser</h4>
                     </div>
                     <div className="flex column gap-1">
-                        {formatedDecks.map(deck => {
+                        {decks.map(deck => {
                             return (
                                 <div key={deck.id}>
                                     <DeckItem currentDeck={deck} />

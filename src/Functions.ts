@@ -1,4 +1,4 @@
-import { Card } from "Database";
+import { Card } from "FormatedDatabase";
 
 export function calculateProgress(start_date: string, end_date: string): number {
     // Convertir les dates en objets Date
@@ -24,16 +24,14 @@ export function calculateProgress(start_date: string, end_date: string): number 
     return Math.round(progress)
 }
 
-export function addDays(date: string, daysToAdd: number): Date {
-    const newDate = new Date(date)
+export function addDays(date: string | null, daysToAdd: number): Date {
+    const newDate = new Date(date!)
     newDate.setTime(newDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000)
     return newDate
 }
 
-
-
 export function isToReview(card: Card): Card | undefined {
-    if (card.times_reviewed === 0) {
+    if (card.times_reviewed === 0 && !card.last_review_date && !card.last_difficulty_level) {
         return card;
     } else {
         let intervalRevision: number;

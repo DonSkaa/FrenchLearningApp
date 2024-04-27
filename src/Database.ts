@@ -18,8 +18,6 @@ export const user: User[] = [
     },
 ]
 
-
-
 export interface Event {
     id: number;
     event_type: string;
@@ -29,7 +27,7 @@ export interface Event {
     meeting_link: string;
 }
 
-export const event :Event[]= [
+export const event: Event[] = [
     {
         id: 1,
         event_type: 'lesson',
@@ -57,7 +55,7 @@ export interface UserProgram {
     status: number;
 }
 
-export const user_program :UserProgram[]= [
+export const user_program: UserProgram[] = [
     {
         id: 1,
         user_id: 1,
@@ -67,7 +65,6 @@ export const user_program :UserProgram[]= [
         status: 1,
     }
 ]
-
 
 export interface Program {
     id: number;
@@ -82,7 +79,7 @@ export interface Thematic {
 
 }
 
-export const program :Program[]= [
+export const program: Program[] = [
     {
         id: 1,
         days_duration: 28,
@@ -121,7 +118,7 @@ export interface Deck {
     name: string;
 }
 
-export const deck:Deck[] = [
+export const deck: Deck[] = [
     {
         id: 1,
         name: 'Nourriture',
@@ -136,20 +133,18 @@ export const deck:Deck[] = [
     },
 ]
 
-
-
 export interface Card {
     id: number;
     deck_id: number;
     recto: string;
     verso: string;
     times_reviewed: number;
-    last_review_date: string|null;
-    last_difficulty_level: 'easy' | 'normal' | 'hard'|null;
+    last_review_date: string | null;
+    last_difficulty_level: 'easy' | 'normal' | 'hard' | null;
 
 }
 
-export const card:Card[] = [
+export const card: Card[] = [
     {
         id: 1,
         deck_id: 1,

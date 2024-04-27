@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import "./Dashboard.css"
-import { user, user_program, event } from "Database"
+import { user, user_program, event } from "FormatedDatabase"
 import { calculateProgress } from "Functions"
 import EventItem from "../Components/EventItem/EventItem"
 
 export default function Dashboard() {
 
-    const [progress, setProgress] = useState<number|null>(null)
+    const [progress, setProgress] = useState<number | null>(null)
 
     const currentUserId = 1
     const currentUser = user.find(user => user.id === currentUserId)
