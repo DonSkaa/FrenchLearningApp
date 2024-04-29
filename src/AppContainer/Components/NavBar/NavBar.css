@@ -18,12 +18,23 @@
 
 .navigation-button {
     color: var(--forth-color);
+    padding: 10px;
     font-size: 22px;
     font-weight: 600;
 }
 
+.navigation-button:hover {
+    background-color: var(--seventh-color);
+    padding: 10px;
+    border-radius: 15px;
+}
+
 .navigation-button.active {
     color: var(--sixth-color);
+    background-color: var(--seventh-color);
     font-size: 22px;
     font-weight: 600;
+    padding: 10px;
+    outline: solid 2px;
+    border-radius: 15px;
 }

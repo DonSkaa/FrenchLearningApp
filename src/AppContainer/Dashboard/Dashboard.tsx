@@ -24,14 +24,19 @@ export default function Dashboard() {
         <div className="full-width flex center">
             <div className="half-width m-t-40">
                 {
-                    activeCurrentUserProgram && progress
-                        ? <div className="progression-cursor">
-                            <h3 className="m-0 left">Progression programme</h3>
-                            <div className="flex-center gap-1">
-                                <div className="cursor-container">
-                                    <div className="cursor" style={{ width: `${progress}%` }}></div>
+                    formatedUser.user_program && progress
+                        ? <div>
+                            <div className="progression-cursor">
+                                <h3 className="m-0 left">Progression programme</h3>
+                                <div className="flex-center gap-1">
+                                    <div className="cursor-container">
+                                        <div className="cursor" style={{ width: `${progress}%` }}></div>
+                                    </div>
+                                    <div>{progress}</div>
                                 </div>
-                                <div>{progress}</div>
+                            </div>
+                            <div>
+                                Bloc de la semaine :
                             </div>
                         </div>
                         : <div>Pas de programme en cours</div>

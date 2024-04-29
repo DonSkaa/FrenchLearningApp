@@ -1,7 +1,18 @@
 import { Card } from "FormatedDatabase";
 
-export function calculateProgress(start_date: string, end_date: string): number {
-    // Convertir les dates en objets Date
+export function calculateweek(start_date: string, end_date: string): number {
+    const start = new Date(start_date)
+    const current = new Date()
+
+    const differenceInMilliseconds = current.getTime() - start.getTime()
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24))
+
+    const weekNumber = Math.floor(differenceInDays / 7) + 1
+  
+    return weekNumber;
+}
+
+ export function calculateProgress(start_date: string, end_date: string): number {
     const start = new Date(start_date)
     const end = new Date(end_date)
     const current = new Date()

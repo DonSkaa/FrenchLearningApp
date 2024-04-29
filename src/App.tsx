@@ -17,7 +17,7 @@ function App() {
             { to: "/dashboard", name: "accueil" },
             { to: "/schedule", name: "agenda" },
             { to: "/flashcards", name: "fiches" },
-            { to: "/account", name: "profil" },
+            { to: "/profile", name: "profil" },
           ]
         } />
         <Routes>

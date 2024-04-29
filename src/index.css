@@ -10,6 +10,7 @@ html {
   --fith-color: #A9A9A9;
   --sixth-color: #8D4ADA;
   --seventh-color: #D9B8FF;
+  --eighth-color: #ffe6d6;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
@@ -49,6 +50,12 @@ h4 {
   text-align: center;
 }
 
+h5 {
+  color: var(--forth-color);
+  font-size: 14px;
+  text-align: center;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0 5px;
@@ -77,9 +84,21 @@ a {
   text-decoration: none;
 }
 
+.display-flex {
+  display: flex;
+}
+
 .flex {
   display: flex;
   justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .column {
@@ -96,6 +115,7 @@ a {
   gap: 10px
 }
 
+
 .three-quarter-height {
   height: 75% !important;
 }
@@ -106,6 +126,10 @@ a {
 
 .half-width {
   width: 48%;
+}
+
+.quarter-width {
+  width: 25% !important;
 }
 
 .text-center {
@@ -122,6 +146,10 @@ a {
 
 .left {
   text-align: left !important;
+}
+
+.right {
+  text-align: right !important;
 }
 
 /* MARGIN */
@@ -178,6 +206,20 @@ a {
 }
 
 /* Buttons */
+.default-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  text-transform: none;
+  appearance: none;
+}
+
 .strong-button {
   font-weight: bold;
   font-size: 18px;
@@ -205,4 +247,17 @@ a {
   width: 100%;
   background-color: var(--primary-color);
   border-radius: 8px;
+}
+
+/* Completed Icon */
+.completed-icon-container {
+  background-color: #49F149;
+  border-radius: 1000px;
+  height: 28px;
+  width: 28px;
+}
+
+.completed-icon {
+  height: 22px;
+  width: 22px;
 }

@@ -12,7 +12,7 @@ export default function Flashcards() {
                 <div className="m-b-40">
                     <div className="flex">
                         <h3>Liste des paquets</h3>
-                        <h4>reste à réviser</h4>
+                        <h5>reste à réviser</h5>
                     </div>
                     <div className="flex column gap-1">
                         {decks.map(deck => {

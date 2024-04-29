@@ -18,7 +18,9 @@ export default function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
                     </Link>
                     : <div className="deck-item revised">
                         <div className="strong">{currentDeck.name}</div>
-                        <div className="strong">✅</div>
+                        <div className="completed-icon-container display-flex justify-center align-center">
+                            <img className="completed-icon" src="completed.png"></img>
+                        </div>
                     </div>
             }
         </>
