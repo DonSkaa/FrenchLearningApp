@@ -8,7 +8,7 @@ export default function Flashcards() {
 
     return (
         <div className="full-width flex center">
-            <div className="half-width">
+            <div className="half-width m-t-40">
                 <div className="m-b-40">
                     <div className="flex">
                         <h3>Liste des paquets</h3>

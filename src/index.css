@@ -45,9 +45,10 @@ h3 {
 }
 
 h4 {
-  color: var(--forth-color);
-  font-size: 16px;
+  color: var(--fith-color);
+  font-size: 14px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 h5 {
@@ -115,6 +116,9 @@ a {
   gap: 10px
 }
 
+.gap-3 {
+  gap: 30px
+}
 
 .three-quarter-height {
   height: 75% !important;
@@ -152,7 +156,12 @@ a {
   text-align: right !important;
 }
 
-/* MARGIN */
+/* Padding */
+.p-0 {
+  padding: 0;
+}
+
+/* Margin */
 .m-0 {
   margin: 0;
 }
@@ -205,6 +214,36 @@ a {
   font-weight: 600 !important;
 }
 
+/* Global style */
+.primary-color {
+  color: var(--primary-color) !important;
+}
+
+.secondary-color {
+  color: var(--secondary-color) !important;
+}
+
+.sixth-color {
+  color: var(--sixth-color) !important;
+}
+
+.description {
+  color: rgb(97, 97, 97);
+  line-height: 25px;
+}
+
+.grey-bg {
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--third-color);
+}
+
+.grey-border {
+  padding: 20px;
+  border-radius: 15px;
+  border: solid 2px var(--third-color);
+}
+
 /* Buttons */
 .default-button {
   cursor: pointer;
@@ -232,6 +271,17 @@ a {
   border-radius: 15px;
   padding: 20px;
   width: 100%;
+}
+
+.link-button {
+  font-weight: 600;
+  color: var(--sixth-color);
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.link-button:hover {
+  color: var(--secondary-color);
 }
 
 /* Time cursor */

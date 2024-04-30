@@ -7,3 +7,14 @@
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
 }
+
+.now {
+    transition: all 0.2s;
+    border: 2px solid var(--sixth-color);
+    color: var(--sixth-color);
+}
+
+.now:hover {
+    color: var(--secondary-color);
+    background-color: var(--sixth-color);
+}

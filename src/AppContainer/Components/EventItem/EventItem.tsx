@@ -12,6 +12,15 @@ interface TimeRemaining {
 export default function EventItem({ event }: { event: Event }): JSX.Element {
 
     const [timeRemaining, setTimeRemaining] = useState<Partial<TimeRemaining>>({});
+    const [isNow, setIsNow] = useState<true | false>(false)
+
+    useEffect(() => {
+        if (timeRemaining.days === 0 && timeRemaining.hours === '0' && timeRemaining.minutes === '0' && timeRemaining.seconds === '0') {
+            setIsNow(true)
+        } else {
+            setIsNow(false)
+        }
+    }, [timeRemaining])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,14 +44,12 @@ export default function EventItem({ event }: { event: Event }): JSX.Element {
                 })
 
             } else {
-
                 setTimeRemaining({
                     days: 0,
                     hours: '0',
                     minutes: '0',
                     seconds: '0',
                 })
-
                 clearInterval(interval)
             }
         }, 1000)
@@ -51,12 +58,20 @@ export default function EventItem({ event }: { event: Event }): JSX.Element {
     }, [event])
 
     return (
-        <div className="event-item">
-            <div>
-                {event.event_type === 'lesson' ? 'Conversation' : 'Révision'}
+        <a
+            className="link-button"
+            href={isNow ? event.meeting_link : '#'}
+            target="blank"
+        >
+            <div className={isNow ? "event-item now" : "event-item"}>
+                <div>{event.event_type === 'lesson' ? 'Conversation' : 'Révision'}</div>
+                {!isNow
+                    ? <div>
+                        commence dans {timeRemaining.days ? `${timeRemaining.days} jours et` : null}
+                        {timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}
+                    </div>
+                    : <div>Accéder</div>}
             </div>
-            <div>commence dans {timeRemaining.days ? `${timeRemaining.days} jours et` : null}
-                {timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds} </div>
-        </div>
+        </a>
     )
 }
