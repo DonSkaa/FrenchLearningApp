@@ -121,11 +121,15 @@ a {
 }
 
 .three-quarter-height {
-  height: 75% !important;
+  height: 74% !important;
 }
 
 .full-width {
   width: 100%;
+}
+
+.three-quarter-width {
+  width: 74%;
 }
 
 .half-width {
@@ -133,7 +137,7 @@ a {
 }
 
 .quarter-width {
-  width: 25% !important;
+  width: 24% !important;
 }
 
 .text-center {
@@ -223,6 +227,14 @@ a {
   color: var(--secondary-color) !important;
 }
 
+.third-color {
+  color: var(--third-color) !important;
+}
+
+.fith-color {
+  color: var(--fith-color) !important;
+}
+
 .sixth-color {
   color: var(--sixth-color) !important;
 }
@@ -282,6 +294,10 @@ a {
 
 .link-button:hover {
   color: var(--secondary-color);
+}
+
+.link-desactivated {
+  pointer-events: none;
 }
 
 /* Time cursor */

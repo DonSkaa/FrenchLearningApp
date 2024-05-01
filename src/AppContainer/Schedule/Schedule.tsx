@@ -4,12 +4,26 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import frLocale from '@fullcalendar/core/locales/fr';
+import { useContext, useEffect, useState } from 'react';
+import { EventContext } from 'AppContainer/Context/EventContext';
+import { CalendarEvent } from 'FormatedDatabase'
+
 export default function Schedule(): JSX.Element {
 
+    const { events } = useContext(EventContext)
+
+    const [userEvents, setUserEvents] = useState<CalendarEvent[]>([])
+
+    useEffect(() => {
+        if (events && events.length) {
+            const formatedEvents = events.map(event => ({ ...event, id: String(event.id) }))
+            setUserEvents(formatedEvents)
+        }
+    }, [events])
 
     return (
         <div className="full-width flex center">
-            <div className="half-width m-t-40">
+            <div className="three-quarter-width m-t-40">
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
@@ -18,11 +32,9 @@ export default function Schedule(): JSX.Element {
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek'
                     }}
-                    events={[
-                        { title: 'Event 1', date: '2024-05-01' },
-                        { title: 'Event 2', date: '2024-05-02' },
-                    ]}
+                    events={userEvents}
                     locale={frLocale}
+                    height={"600px"}
                 />
             </div>
         </div>

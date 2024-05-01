@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./EventItem.css"
 import { Event } from "../../../FormatedDatabase"
+import Skeleton from "../Skeleton/Skeleton";
 
 interface TimeRemaining {
     days: number;
@@ -58,20 +59,25 @@ export default function EventItem({ event }: { event: Event }): JSX.Element {
     }, [event])
 
     return (
-        <a
-            className="link-button"
-            href={isNow ? event.meeting_link : '#'}
-            target="blank"
-        >
-            <div className={isNow ? "event-item now" : "event-item"}>
-                <div>{event.event_type === 'lesson' ? 'Conversation' : 'Révision'}</div>
-                {!isNow
-                    ? <div>
-                        commence dans {timeRemaining.days ? `${timeRemaining.days} jours et` : null}
-                        {timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}
+        <>
+            {timeRemaining.hasOwnProperty('days')
+                ? <a
+                    className={isNow ? "link-button" : "link-button link-desactivated"}
+                    href={isNow ? event.meeting_link : '#'}
+                    target="blank"
+                >
+                    <div className={isNow ? "event-item now" : "event-item"}>
+                        <div>{event.title}</div>
+                        {!isNow
+                            ? <div>
+                                commence dans : {timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}
+                            </div>
+                            : <div>Accéder</div>}
                     </div>
-                    : <div>Accéder</div>}
-            </div>
-        </a>
+                </a>
+                : <Skeleton
+                    height={"65px"}
+                />}
+        </>
     )
 }

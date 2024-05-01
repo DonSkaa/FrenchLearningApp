@@ -21,7 +21,7 @@ function App() {
           ]
         } />
         <Routes>
-          {/* <Route path="/" element={<MyAccount />} /> */}
+          <Route path="/" element={<MyAccount />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/flashcards" element={<Flashcards />} />

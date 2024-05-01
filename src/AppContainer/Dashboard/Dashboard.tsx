@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "./Dashboard.css"
 import { user, user_program, program, event, Thematic } from "FormatedDatabase"
 import { calculateProgress, calculateWeek } from "Functions"
 import EventItem from "../Components/EventItem/EventItem"
 import DayExpression from "AppContainer/DayExpression/DayExpression"
+import { EventContext } from "AppContainer/Context/EventContext"
 
 export default function Dashboard() {
 
+    const { events } = useContext(EventContext)
     const [progress, setProgress] = useState<number | null>(null)
     const [currentThematic, setCurrentThematic] = useState<Thematic | undefined>(undefined)
 
@@ -45,19 +47,22 @@ export default function Dashboard() {
                                     <div>Bloc de la semaine :</div>
                                     <div className="primary-color">{currentThematic.name}</div>
                                 </div>
-                                : null}
+                                : null
+                                }
                         </div>
                         : <div>Pas de programme en cours</div>
                 }
                 <h2 className="left m-t-25">Tâches du jour</h2>
                 <div className="flex column gap-1">
-                    {event?.map(event => {
-                        return (
-                            <div key={event.id}>
-                                <EventItem event={event} />
-                            </div>
-                        )
-                    })}
+                    {events
+                        .filter(event => new Date(event.end) > new Date())
+                        .map(event => {
+                            return (
+                                <div key={event.id}>
+                                    <EventItem event={event} />
+                                </div>
+                            )
+                        })}
                 </div>
                 <h2 className="left m-t-25">Agenda</h2>
             </div>

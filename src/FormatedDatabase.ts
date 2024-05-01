@@ -20,7 +20,20 @@ export const user: User[] = [
 
 export interface Event {
     id: number;
+    user_id: number;
     event_type: string;
+    title: string;
+    date: string;
+    start: string;
+    end: string;
+    meeting_link: string;
+}
+
+export interface CalendarEvent {
+    id: string;
+    user_id: number;
+    event_type: string;
+    title: string;
     date: string;
     start: string;
     end: string;
@@ -30,20 +43,44 @@ export interface Event {
 export const event: Event[] = [
     {
         id: 1,
+        user_id: 1,
         event_type: 'lesson',
+        title: 'Conversation',
         date: "2024-04-24",
         start: "2024-04-24T14:30:00Z",
-        end: "2024-05-24T15:30:00Z",
+        end: "2024-04-24T15:00:00Z",
         meeting_link: "https://meet.google.com/aku-afqa-vmq",
     },
-    // {
-    //     id: 2,
-    //     event_type: 'studying',
-    //     date: "2024-05-22",
-    //     start: null,
-    //     end: null,
-    //     meeting_link: null,
-    // },
+    {
+        id: 2,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Mise en situation',
+        date: "2024-05-01",
+        start: "2024-04-26T19:30:00Z",
+        end: "2024-04-26T20:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 3,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Conversation',
+        date: "2024-05-01",
+        start: "2024-05-01T19:30:00Z",
+        end: "2024-05-01T20:30:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 4,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Mise en situation',
+        date: "2024-05-01",
+        start: "2024-05-03T15:30:00Z",
+        end: "2024-05-03T16:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
 ]
 
 export interface UserProgram {
