@@ -20,10 +20,6 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
         setEvents(userEvents)
     }, [])
 
-    useEffect(() => {
-        console.log(event);
-    }, [event])
-
     const getEvents = (userId: number) => {
         return events.filter(event => event.user_id === userId)
     }

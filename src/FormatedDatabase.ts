@@ -2,6 +2,7 @@ export interface User {
     id: number;
     name: string;
     last_name: string;
+    profile_image_path: string;
     mail: string;
     password: string;
     user_program_id: number;
@@ -12,6 +13,7 @@ export const user: User[] = [
         id: 1,
         name: 'Jean',
         last_name: 'Dupont',
+        profile_image_path: '',
         mail: 'jean.dupont@gmail.com',
         password: '1234',
         user_program_id: 1,
@@ -57,8 +59,8 @@ export const event: Event[] = [
         event_type: 'lesson',
         title: 'Mise en situation',
         date: "2024-05-01",
-        start: "2024-04-26T19:30:00Z",
-        end: "2024-04-26T20:00:00Z",
+        start: "2024-04-26T14:30:00Z",
+        end: "2024-04-26T15:00:00Z",
         meeting_link: "https://meet.google.com/aku-afqa-vmq",
     },
     {
@@ -67,8 +69,8 @@ export const event: Event[] = [
         event_type: 'lesson',
         title: 'Conversation',
         date: "2024-05-01",
-        start: "2024-05-01T19:30:00Z",
-        end: "2024-05-01T20:30:00Z",
+        start: "2024-05-01T14:30:00Z",
+        end: "2024-05-01T15:00:00Z",
         meeting_link: "https://meet.google.com/aku-afqa-vmq",
     },
     {
@@ -77,8 +79,48 @@ export const event: Event[] = [
         event_type: 'lesson',
         title: 'Mise en situation',
         date: "2024-05-01",
-        start: "2024-05-03T15:30:00Z",
-        end: "2024-05-03T16:00:00Z",
+        start: "2024-05-03T14:30:00Z",
+        end: "2024-05-03T15:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 5,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Conversation',
+        date: "2024-05-01",
+        start: "2024-05-08T14:30:00Z",
+        end: "2024-05-08T15:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 6,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Mise en situation',
+        date: "2024-05-01",
+        start: "2024-05-10T14:30:00Z",
+        end: "2024-05-10T15:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 7,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Conversation',
+        date: "2024-05-01",
+        start: "2024-05-15T14:30:00Z",
+        end: "2024-05-15T15:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+    },
+    {
+        id: 8,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Mise en situation',
+        date: "2024-05-01",
+        start: "2024-05-17T14:30:00Z",
+        end: "2024-05-17T15:00:00Z",
         meeting_link: "https://meet.google.com/aku-afqa-vmq",
     },
 ]
@@ -113,7 +155,6 @@ export interface Thematic {
     name: string;
     week_number: number;
     deck_id: number;
-
 }
 
 export const program: Program[] = [
@@ -123,27 +164,51 @@ export const program: Program[] = [
         thematics: [
             {
                 id: 1,
-                name: 'Nourriture',
+                name: 'La nourriture',
                 week_number: 1,
                 deck_id: 1,
             },
             {
                 id: 2,
-                name: 'Travail',
+                name: 'Le travail',
                 week_number: 2,
                 deck_id: 2,
             },
             {
                 id: 3,
-                name: 'Transport',
+                name: 'Les transports',
                 week_number: 3,
                 deck_id: 3,
             },
             {
                 id: 4,
-                name: 'Sport',
+                name: 'La salle de sport',
                 week_number: 4,
                 deck_id: 4,
+            },
+            {
+                id: 5,
+                name: 'La plage',
+                week_number: 5,
+                deck_id: 5,
+            },
+            {
+                id: 6,
+                name: 'La ville',
+                week_number: 6,
+                deck_id: 6,
+            },
+            {
+                id: 7,
+                name: 'La fête',
+                week_number: 7,
+                deck_id: 7,
+            },
+            {
+                id: 8,
+                name: 'La cuisine',
+                week_number: 8,
+                deck_id: 8,
             }
         ]
     },
@@ -169,7 +234,7 @@ export interface Deck {
 export const deck: Deck[] = [
     {
         id: 1,
-        name: 'Nourriture',
+        name: 'La nourriture',
         cards: [
             {
                 id: 1,
@@ -211,7 +276,7 @@ export const deck: Deck[] = [
     },
     {
         id: 2,
-        name: 'Travail',
+        name: 'Le travail',
         cards: [
             {
                 id: 5,
@@ -244,7 +309,7 @@ export const deck: Deck[] = [
     },
     {
         id: 3,
-        name: 'Transport',
+        name: 'Les transports',
         cards: [
             {
                 id: 8,
@@ -260,6 +325,30 @@ export const deck: Deck[] = [
                 deck_id: 3,
                 recto: 'buy a bus ticket',
                 verso: 'acheter un ticket de bus',
+                times_reviewed: 0,
+                last_review_date: null,
+                last_difficulty_level: null
+            }
+        ]
+    },
+    {
+        id: 4,
+        name: 'La salle de sport',
+        cards: [
+            {
+                id: 10,
+                deck_id: 4,
+                recto: 'go to the gym',
+                verso: 'aller à la salle',
+                times_reviewed: 0,
+                last_review_date: null,
+                last_difficulty_level: null
+            },
+            {
+                id: 11,
+                deck_id: 4,
+                recto: 'bench press',
+                verso: 'le développé couché',
                 times_reviewed: 0,
                 last_review_date: null,
                 last_difficulty_level: null
