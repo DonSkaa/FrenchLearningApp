@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import DeckItem from "../Components/DeckItem/DeckItem"
 import { DeckContext } from "AppContainer/Context/DeckContext"
+import DeckItem from "../Components/DeckItem/DeckItem"
 
 export default function Flashcards() {
 

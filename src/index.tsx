@@ -5,14 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import DeckContextProvider from 'AppContainer/Context/DeckContext';
 import EventContextProvider from 'AppContainer/Context/EventContext';
 import UserProgramContextProvider from 'AppContainer/Context/UserProgramContext';
+import ExpressionContextProvider from 'AppContainer/Context/ExpressionContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
-  <UserProgramContextProvider>
-    <EventContextProvider>
-      <DeckContextProvider>
-        <App />
-      </DeckContextProvider>
-    </EventContextProvider>
-  </UserProgramContextProvider>
+  <ExpressionContextProvider>
+    <UserProgramContextProvider>
+      <EventContextProvider>
+        <DeckContextProvider>
+          <App />
+        </DeckContextProvider>
+      </EventContextProvider>
+    </UserProgramContextProvider>
+  </ExpressionContextProvider>
 );

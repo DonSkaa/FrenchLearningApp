@@ -1,19 +1,14 @@
+import { ExpressionContext } from "AppContainer/Context/ExpressionContext"
 import { Expression, expression } from "FormatedDatabase"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 export default function DayExpression() {
 
     const [currentExpression, setCurrentExpression] = useState<Expression | undefined>(undefined)
+    const { getExpressions } = useContext(ExpressionContext)
 
     useEffect(() => {
-        // FUTUR 
-        //   axios.get('/api/expression').then((response) => {
-        //     setExpression(response.data)
-        //   })
-
-        // waiting back end
-        setCurrentExpression(expression[0])
-
+        setCurrentExpression(getExpressions())
     }, [])
 
     return (

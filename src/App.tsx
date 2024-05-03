@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import MyAccount from './AppContainer/Login/MyAccount';
 import Dashboard from './AppContainer/Dashboard/Dashboard';
 import Flashcards from './AppContainer/Flashcards/Flashcards';
 import Schedule from './AppContainer/Schedule/Schedule';
@@ -21,7 +20,6 @@ function App() {
           ]
         } />
         <Routes>
-          <Route path="/" element={<MyAccount />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/flashcards" element={<Flashcards />} />

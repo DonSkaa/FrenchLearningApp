@@ -3,7 +3,7 @@ import "./Dashboard.css"
 import { user, user_program, program, event, Thematic } from "FormatedDatabase"
 import { calculateProgress, calculateWeek } from "Functions"
 import EventItem from "../Components/EventItem/EventItem"
-import DayExpression from "AppContainer/DayExpression/DayExpression"
+import Expression from "AppContainer/Expression/Expression"
 import { EventContext } from "AppContainer/Context/EventContext"
 
 export default function Dashboard() {
@@ -48,7 +48,7 @@ export default function Dashboard() {
                                     <div className="primary-color">{currentThematic.name}</div>
                                 </div>
                                 : null
-                                }
+                            }
                         </div>
                         : <div>Pas de programme en cours</div>
                 }
@@ -67,7 +67,7 @@ export default function Dashboard() {
                 <h2 className="left m-t-25">Agenda</h2>
             </div>
             <div className="quarter-width m-t-40">
-                <DayExpression />
+                <Expression />
             </div>
         </div>
     )
