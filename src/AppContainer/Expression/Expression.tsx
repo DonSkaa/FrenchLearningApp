@@ -1,5 +1,5 @@
 import { ExpressionContext } from "AppContainer/Context/ExpressionContext"
-import { Expression, expression } from "FormatedDatabase"
+import { Expression } from "FormatedDatabase"
 import { useContext, useEffect, useState } from "react"
 
 export default function DayExpression() {
@@ -8,7 +8,9 @@ export default function DayExpression() {
     const { getExpressions } = useContext(ExpressionContext)
 
     useEffect(() => {
-        setCurrentExpression(getExpressions())
+        getExpressions().then(res => {
+            console.log(res)
+        })
     }, [])
 
     return (

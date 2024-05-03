@@ -4,11 +4,11 @@ import axios from 'axios'
 import { FLA_ENDPOINT } from "AppConstantes"
 
 interface ExpressionContextType {
-    getExpressions: () => Expression[];
+    getExpressions: () => Promise<Expression[]>
 }
 
 export const ExpressionContext = createContext<ExpressionContextType>({
-    getExpressions: () => []
+    getExpressions: async () => []
 })
 
 function ExpressionContextProvider(props: React.PropsWithChildren<{}>) {
