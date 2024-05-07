@@ -9,7 +9,7 @@ export function calculateWeek(start_date: string): number {
 
     const weekNumber = Math.floor(differenceInDays / 7) + 1
 
-    return weekNumber;
+    return weekNumber
 }
 
 export function calculateProgress(start_date: string, end_date: string): number {
@@ -43,20 +43,20 @@ export function addDays(date: string | null, daysToAdd: number): Date {
 
 export function isToReview(card: Card): Card | undefined {
     if (card.times_reviewed === 0 && !card.last_review_date && !card.last_difficulty_level) {
-        return card;
+        return card
     } else {
-        let intervalRevision: number;
+        let intervalRevision: number
 
         switch (card.last_difficulty_level) {
             case 'easy':
                 intervalRevision = 5;
-                break;
+                break
             case 'normal':
                 intervalRevision = 3;
-                break;
+                break
             case 'hard':
                 intervalRevision = 1;
-                break;
+                break
             default:
                 throw new Error(`Niveau de difficulté inconnu: ${card.last_difficulty_level}`)
         }
@@ -68,5 +68,5 @@ export function isToReview(card: Card): Card | undefined {
         }
     }
 
-    return undefined;
+    return undefined
 }

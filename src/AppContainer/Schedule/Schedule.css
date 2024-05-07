@@ -1,0 +1,8 @@
+.fc-v-event {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.fc-daygrid-event-dot {
+    border: calc(var(--primary-color) / 2) solid var(--primary-color);
+}

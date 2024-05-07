@@ -6,6 +6,7 @@ import Schedule from './AppContainer/Schedule/Schedule';
 import NavBar from './AppContainer/Components/NavBar/NavBar';
 import Studying from './AppContainer/Flashcards/Studying';
 import Profile from 'AppContainer/Profile/Profile';
+import Login from 'AppContainer/Profile/Login';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           ]
         } />
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/flashcards" element={<Flashcards />} />

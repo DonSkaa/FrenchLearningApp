@@ -9,13 +9,13 @@ import ExpressionContextProvider from 'AppContainer/Context/ExpressionContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
-  <ExpressionContextProvider>
-    <UserProgramContextProvider>
+  <UserProgramContextProvider>
+    <ExpressionContextProvider>
       <EventContextProvider>
         <DeckContextProvider>
           <App />
         </DeckContextProvider>
       </EventContextProvider>
-    </UserProgramContextProvider>
-  </ExpressionContextProvider>
+    </ExpressionContextProvider>
+  </UserProgramContextProvider>
 );

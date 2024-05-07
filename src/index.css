@@ -15,6 +15,10 @@ html {
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Poppins", "Open Sans", monospace, sans-serif;
@@ -83,6 +87,14 @@ p {
 a {
   color: var(--primary-color);
   text-decoration: none;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
 }
 
 .display-flex {
@@ -277,12 +289,18 @@ a {
   text-transform: uppercase;
   background-color: #C28CFF;
   color: var(--secondary-color);
-  border-width: 1px 1px 4px 1px;
+  border-width: 0px 0px 3px 0px;
   border-color: var(--sixth-color);
   border-style: solid;
   border-radius: 15px;
   padding: 20px;
   width: 100%;
+  transition: all 0.2s;
+}
+
+.strong-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .link-button {
@@ -298,6 +316,38 @@ a {
 
 .link-desactivated {
   pointer-events: none;
+}
+
+.input-icon-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Inputs */
+input {
+  font-size: 18px;
+  background-color: #f7f7f7;
+  border: 2px;
+  border-color: var(--third-color);
+  border-style: solid;
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+}
+
+input::placeholder {
+  color: var(--fith-color);
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 /* Time cursor */
