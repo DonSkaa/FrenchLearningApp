@@ -14,20 +14,20 @@ export default function Login(): JSX.Element {
         e.preventDefault()
 
         try {
-            const response =
-                await axios.post('http://localhost:4000/login',
-                    {
-                        email,
-                        password,
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
+            await axios.post('http://localhost:4000/login',
+                {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
                     }
-                )
+                }
+            )
+
             navigate("/dashboard")
-            // console.log('Utilisateur connecté', response.data)
+
         } catch (error) {
             console.error('Erreur lors de la connexion de l\'utilisateur', error)
         }

@@ -1,4 +1,49 @@
-import { Card } from "FormatedDatabase";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Card } from "FormatedDatabase"
+
+axios.defaults.withCredentials = true
+
+interface CallApiOptions extends AxiosRequestConfig {
+    method?: 'get' | 'post' | 'put' | 'delete';
+}
+
+export const useCallApi = () => {
+
+    const callApi = async (
+        uri: string,
+        options: CallApiOptions = { method: 'get' },
+        abortSignal?: AbortSignal | null,
+        data?: Record<string, unknown>
+    ): Promise<AxiosResponse<any>> => {
+
+        const APIoptions: CallApiOptions = {
+            ...options,
+            signal: abortSignal ?? undefined,
+            headers: {
+                ...options.headers,
+            },
+            url: uri,
+            withCredentials: true,
+        }
+
+        if (options.method === 'get') {
+            APIoptions.params = data
+        } else {
+            APIoptions.data = data
+        }
+
+        try {
+            const response = await axios(APIoptions);
+            return response
+        } catch (error: any) {
+            console.error(error)
+            throw new Error('Unauthorized')
+        }
+    }
+
+    return callApi
+}
+
 
 export function calculateWeek(start_date: string): number {
     const start = new Date(start_date)

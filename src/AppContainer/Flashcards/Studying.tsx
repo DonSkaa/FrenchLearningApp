@@ -55,9 +55,14 @@ export default function Studying(): JSX.Element {
     return (
         <div className="full-width flex center">
             {
-                currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length 
+                currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length
                     ? <div className="half-width m-t-40">
                         <div className="flex-center gap-1 m-b-40">
+                            <div style={{ maxHeight: "32px" }}>
+                                <button className='default-button'>
+                                    <img src="/assets/close.png" alt="" />
+                                </button>
+                            </div>
                             <div className="time-cursor-container">
                                 <div
                                     className="time-cursor"

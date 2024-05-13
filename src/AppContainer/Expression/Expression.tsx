@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 export default function DayExpression() {
 
     const [currentExpression, setCurrentExpression] = useState<Expression | undefined>(undefined)
-    const { getExpressions, getDayExpression } = useContext(ExpressionContext)
+    const { getDayExpression } = useContext(ExpressionContext)
 
     useEffect(() => {
         getDayExpression()
@@ -14,10 +14,6 @@ export default function DayExpression() {
             })
             .catch(error => console.error("Error fetching expressions:", error))
     }, [])
-
-    useEffect(() => {
-        console.log(currentExpression);
-    }, [currentExpression])
 
     return (
         <>
