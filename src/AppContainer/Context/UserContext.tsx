@@ -1,14 +1,22 @@
-// import { createContext } from "react"
+import React, { createContext, useState } from "react";
+import { CurrentUser } from "FormatedDatabase";
 
-// export const UserContext = createContext<UserContextType | null>(null)
+interface UserContextType {
+    currentUser: CurrentUser | null;
+    setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUser | null>>
+}
 
-// function UserContextProvider(props: React.PropsWithChildren<{}>) {
-   
-//     return (
-//         <UserContext.Provider value={{ }}>
-//             {props.children}
-//         </UserContext.Provider>
-//     )
-// }
+export const UserContext = createContext<UserContextType | null>(null)
 
-// export default UserContextProvider
+function UserContextProvider(props: React.PropsWithChildren<{}>) {
+
+    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+
+    return (
+        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+            {props.children}
+        </UserContext.Provider>
+    )
+}
+
+export default UserContextProvider

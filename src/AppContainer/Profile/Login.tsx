@@ -1,37 +1,51 @@
-import axios from 'axios';
-import { useState, FormEvent } from 'react';
+import { FLA_ENDPOINT } from 'AppConstantes';
+import { UserContext } from 'AppContainer/Context/UserContext';
+import { useCallApi } from 'Functions';
+import axios, { AxiosError } from 'axios';
+import { useState, FormEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login(): JSX.Element {
 
     const navigate = useNavigate()
+    const callApi = useCallApi()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [wrongPassword, setWrongPassword] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
+    const userContext = useContext(UserContext)
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-
+        setWrongPassword(false)
         try {
-            await axios.post('http://localhost:4000/login',
-                {
-                    email,
-                    password,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
+            await callApi(`${FLA_ENDPOINT}/login`, { method: "post" }, null, {
+                email,
+                password,
+            })
+                .then(res => {
+                    const userData = res.data.dataValues
+                    if (userContext) {
+                        userContext.setCurrentUser(userData)
                     }
-                }
-            )
+                    console.log(userData)
+                })
 
             navigate("/dashboard")
 
-        } catch (error) {
-            console.error('Erreur lors de la connexion de l\'utilisateur', error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                if (error.status === 401) {
+                    setWrongPassword(true)
+                }
+                console.error('Erreur lors de la connexion de l\'utilisateur', error)
+            }
         }
     }
+
+    useEffect(() => {
+        console.log(userContext?.currentUser);
+    }, [userContext?.currentUser])
 
     return (
         <div className="full-width flex center gap-3">
@@ -67,6 +81,11 @@ export default function Login(): JSX.Element {
                             }
                         </button>
                     </div>
+                    {
+                        wrongPassword
+                            ? <div className='warning'>L'identifiant ou le mot de passe est erroné</div>
+                            : null
+                    }
                     <button className='strong-button' type="submit">Connexion</button>
                 </form>
             </div>

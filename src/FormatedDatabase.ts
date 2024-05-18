@@ -20,6 +20,11 @@ export const user: User[] = [
     },
 ]
 
+export interface CurrentUser {
+    id: number;
+    name: string;
+}
+
 export interface Event {
     id: number;
     user_id: number;

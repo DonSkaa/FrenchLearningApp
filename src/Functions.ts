@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Card } from "FormatedDatabase"
+import { useNavigate } from 'react-router-dom';
 
 axios.defaults.withCredentials = true
 
@@ -8,6 +9,8 @@ interface CallApiOptions extends AxiosRequestConfig {
 }
 
 export const useCallApi = () => {
+
+    const navigate = useNavigate()
 
     const callApi = async (
         uri: string,
@@ -37,13 +40,18 @@ export const useCallApi = () => {
             return response
         } catch (error: any) {
             console.error(error)
+            if (error.response.status === 401) {
+                navigate('/')
+            }
             throw new Error('Unauthorized')
         }
     }
-
     return callApi
 }
 
+export function isAuthenticated() {
+    return true
+}
 
 export function calculateWeek(start_date: string): number {
     const start = new Date(start_date)

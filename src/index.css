@@ -354,6 +354,11 @@ input:focus {
   outline: none;
 }
 
+/* Warning */
+.warning {
+  color: #ff2626;
+}
+
 /* Time cursor */
 .time-cursor-container {
   height: 16px;
