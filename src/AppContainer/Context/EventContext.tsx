@@ -1,36 +1,46 @@
-import { createContext, useEffect, useState } from "react"
-import { event, Event } from "FormatedDatabase"
+import { createContext, useContext, useEffect, useState } from "react";
+import { Event } from "FormatedDatabase";
+import { useCallApi } from "Functions";
+import { FLA_ENDPOINT } from "AppConstantes";
+import { UserContext } from "./UserContext";
 
 interface EventContextType {
-    events: Event[];
-    getEvents: (userId: number) => Event[] | [];
+    events: Event[]
 }
 
 export const EventContext = createContext<EventContextType>({
     events: [],
-    getEvents: () => [],
 })
 
 function EventContextProvider(props: React.PropsWithChildren<{}>) {
 
-    const [events, setEvents] = useState<Event[]>(event)
+    const controller = new AbortController()
+    const [events, setEvents] = useState<Event[]>([])
+    const userContext = useContext(UserContext)
 
-    useEffect(() => {
-        const userEvents = getEvents(1)
-        setEvents(userEvents)
-    }, [])
+    const callApi = useCallApi()
 
-    const getEvents = (userId: number) => {
-        return events.filter(event => event.user_id === userId)
+    const getCurrentUserEvents = async (userId: number): Promise<Event[]> => {
+        const response = await callApi(`${FLA_ENDPOINT}/events`, { method: "get" }, controller.signal, { user_id: userId })
+        return response.data.data
     }
 
+    useEffect(() => {
+        const fetchUserEvents = async () => {
+            if (userContext?.currentUser?.id) {
+                const userEvents = await getCurrentUserEvents(userContext?.currentUser?.id)
+                setEvents(userEvents)
+            }
+        }
+
+        fetchUserEvents()
+    }, [userContext?.currentUser])
+
     return (
-        <EventContext.Provider value={{ events, getEvents }}>
+        <EventContext.Provider value={{ events }}>
             {props.children}
         </EventContext.Provider>
     )
 }
 
 export default EventContextProvider
-
-

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Dashboard from './AppContainer/Dashboard/Dashboard'
 import Flashcards from './AppContainer/Flashcards/Flashcards'

@@ -1,7 +1,7 @@
 import { FLA_ENDPOINT } from 'AppConstantes';
 import { UserContext } from 'AppContainer/Context/UserContext';
 import { useCallApi } from 'Functions';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useState, FormEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,11 +24,10 @@ export default function Login(): JSX.Element {
                 password,
             })
                 .then(res => {
-                    const userData = res.data.dataValues
+                    const userData = res.data
                     if (userContext) {
                         userContext.setCurrentUser(userData)
                     }
-                    console.log(userData)
                 })
 
             navigate("/dashboard")
@@ -42,10 +41,6 @@ export default function Login(): JSX.Element {
             }
         }
     }
-
-    useEffect(() => {
-        console.log(userContext?.currentUser);
-    }, [userContext?.currentUser])
 
     return (
         <div className="full-width flex center gap-3">

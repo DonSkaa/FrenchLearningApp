@@ -36,7 +36,7 @@ export const useCallApi = () => {
         }
 
         try {
-            const response = await axios(APIoptions);
+            const response = await axios(APIoptions)
             return response
         } catch (error: any) {
             console.error(error)
