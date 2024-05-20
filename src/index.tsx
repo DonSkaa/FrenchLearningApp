@@ -5,14 +5,14 @@ import DeckContextProvider from 'AppContainer/Context/DeckContext';
 import EventContextProvider from 'AppContainer/Context/EventContext';
 import ExpressionContextProvider from 'AppContainer/Context/ExpressionContext';
 import UserContextProvider from 'AppContainer/Context/UserContext';
-import PopupContextProvider from 'AppContainer/Context/PopupContext';
 import { BrowserRouter } from 'react-router-dom';
+import UserProgramContextProvider from 'AppContainer/Context/UserProgramContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <BrowserRouter>
-    <PopupContextProvider>
-      <UserContextProvider>
+    <UserContextProvider>
+      <UserProgramContextProvider>
         <ExpressionContextProvider>
           <EventContextProvider>
             <DeckContextProvider>
@@ -20,7 +20,7 @@ root.render(
             </DeckContextProvider>
           </EventContextProvider>
         </ExpressionContextProvider>
-      </UserContextProvider>
-    </PopupContextProvider>
+      </UserProgramContextProvider>
+    </UserContextProvider>
   </BrowserRouter>
 )

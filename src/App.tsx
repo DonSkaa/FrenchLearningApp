@@ -7,8 +7,33 @@ import NavBar from './AppContainer/Components/NavBar/NavBar'
 import Studying from './AppContainer/Flashcards/Studying'
 import Profile from 'AppContainer/Profile/Profile'
 import Login from 'AppContainer/Profile/Login'
+import { useContext, useEffect } from 'react'
+import { UserContext } from 'AppContainer/Context/UserContext'
+import { FLA_ENDPOINT } from 'AppConstantes'
+import { useCallApi } from 'Functions'
 
 function App() {
+
+  const userContext = useContext(UserContext)
+  const callApi = useCallApi()
+
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await callApi(`${FLA_ENDPOINT}/user`, { method: "get" }, null)
+          .then(res => {
+            const userData = res.data
+            if (userContext) {
+              userContext.setCurrentUser(userData)
+            }
+          })
+      } catch (error: unknown) {
+        console.log(error)
+      }
+    })()
+  }, [])
+
   return (
     <div className='flex'>
       <NavBar menu={

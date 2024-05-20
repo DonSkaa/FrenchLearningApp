@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { Event } from "FormatedDatabase";
-import { useCallApi } from "Functions";
-import { FLA_ENDPOINT } from "AppConstantes";
-import { UserContext } from "./UserContext";
+import { createContext, useContext, useEffect, useState } from "react"
+import { Event } from "FormatedDatabase"
+import { useCallApi } from "Functions"
+import { FLA_ENDPOINT } from "AppConstantes"
+import { UserContext } from "./UserContext"
 
 interface EventContextType {
     events: Event[]

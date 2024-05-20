@@ -53,6 +53,14 @@ export function isAuthenticated() {
     return true
 }
 
+export function isToday(dateString: string): boolean {
+    const today = new Date()
+
+    const formattedToday = today.toISOString().split('T')[0]
+
+    return dateString === formattedToday
+}
+
 export function calculateWeek(start_date: string): number {
     const start = new Date(start_date)
     const current = new Date()

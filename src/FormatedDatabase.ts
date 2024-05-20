@@ -136,19 +136,19 @@ export interface UserProgram {
     program_id: number;
     start_date: string;
     end_date: string;
-    status: number;
+    deck_ids: number[];
 }
 
-export const user_program: UserProgram[] = [
-    {
-        id: 1,
-        user_id: 1,
-        program_id: 1,
-        start_date: "2024-04-23",
-        end_date: "2024-05-20",
-        status: 1,
-    }
-]
+export const user_program: UserProgram =
+{
+    id: 1,
+    user_id: 1,
+    program_id: 1,
+    start_date: "2024-04-23",
+    end_date: "2024-05-20",
+    deck_ids: [1, 2, 3, 4],
+}
+
 
 export interface Program {
     id: number;
@@ -232,14 +232,14 @@ export interface Card {
 
 export interface Deck {
     id: number;
-    name: string;
+    thematic: string;
     cards: Card[],
 }
 
 export const deck: Deck[] = [
     {
         id: 1,
-        name: 'La nourriture',
+        thematic: 'La nourriture',
         cards: [
             {
                 id: 1,
@@ -281,7 +281,7 @@ export const deck: Deck[] = [
     },
     {
         id: 2,
-        name: 'Le travail',
+        thematic: 'Le travail',
         cards: [
             {
                 id: 5,
@@ -314,7 +314,7 @@ export const deck: Deck[] = [
     },
     {
         id: 3,
-        name: 'Les transports',
+        thematic: 'Les transports',
         cards: [
             {
                 id: 8,
@@ -338,7 +338,7 @@ export const deck: Deck[] = [
     },
     {
         id: 4,
-        name: 'La salle de sport',
+        thematic: 'La salle de sport',
         cards: [
             {
                 id: 10,

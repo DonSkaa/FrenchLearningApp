@@ -10,14 +10,14 @@ export default function Studying(): JSX.Element {
     let deckId = Number(params.id)
     const navigate = useNavigate()
 
-    const { getDeck, updateDeck } = useContext(DeckContext)
+    // const { getDeck, updateDeck } = useContext(DeckContext)
     const [currentDeck, setCurrentDeck] = useState<Deck | undefined>(undefined)
     const [cardIndex, setCardIndex] = useState<number>(0)
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
 
     useEffect(() => {
         if (deckId) {
-            setCurrentDeck(getDeck(deckId) as Deck)
+            // setCurrentDeck(getDeck(deckId) as Deck)
         }
     }, [deckId])
 
@@ -46,8 +46,8 @@ export default function Studying(): JSX.Element {
 
     useEffect(() => {
         if (currentDeck && cardIndex === currentDeck.cards.length) {
-            updateDeck(currentDeck)
-            navigate('/flashcards');
+            // updateDeck(currentDeck)
+            navigate('/flashcards')
         }
     }, [currentDeck])
 
