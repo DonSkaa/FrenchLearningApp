@@ -21,7 +21,7 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
     const callApi = useCallApi()
 
     const getCurrentUserEvents = async (userId: number): Promise<Event[]> => {
-        const response = await callApi(`${FLA_ENDPOINT}/events`, { method: "get" }, controller.signal, { user_id: userId })
+        const response = await callApi(`/api/events`, { method: "get" }, controller.signal, { user_id: userId })
         return response.data.data
     }
 

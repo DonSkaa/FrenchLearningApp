@@ -24,7 +24,7 @@ function DeckContextProvider(props: React.PropsWithChildren<{}>) {
     const callApi = useCallApi()
 
     const getCurrentDecks = async (deckIds: number[]): Promise<Deck[]> => {
-        const response = await callApi(`${FLA_ENDPOINT}/decks`, { method: "get" }, controller.signal, { deck_ids: deckIds })
+        const response = await callApi(`/api/decks`, { method: "get" }, controller.signal, { deck_ids: deckIds })
         return response.data.data
     }
 

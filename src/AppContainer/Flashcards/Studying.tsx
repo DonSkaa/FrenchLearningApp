@@ -8,6 +8,7 @@ export default function Studying(): JSX.Element {
 
     const params = useParams()
     let deckId = Number(params.id)
+    const { decks } = useContext(DeckContext)
     const navigate = useNavigate()
 
     // const { getDeck, updateDeck } = useContext(DeckContext)
@@ -17,7 +18,8 @@ export default function Studying(): JSX.Element {
 
     useEffect(() => {
         if (deckId) {
-            // setCurrentDeck(getDeck(deckId) as Deck)
+            const studyingDeck = decks.find(deck => deck.id === deckId)
+            setCurrentDeck(studyingDeck)
         }
     }, [deckId])
 

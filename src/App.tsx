@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        await callApi(`${FLA_ENDPOINT}/user`, { method: "get" }, null)
+        await callApi(`/api/user`, { method: "get" }, null)
           .then(res => {
             const userData = res.data
             if (userContext) {

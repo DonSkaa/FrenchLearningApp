@@ -19,13 +19,11 @@ function UserProgramContextProvider(props: React.PropsWithChildren<{}>) {
     const callApi = useCallApi()
 
     const getCurrentUserProgram = async (userId: number): Promise<UserProgram> => {
-        const response = await callApi(`${FLA_ENDPOINT}/user-program`, { method: "get" }, controller.signal, { user_id: userId })
+        const response = await callApi(`/api/user-program`, { method: "get" }, controller.signal, { user_id: userId })
         return response.data.data
     }
 
     useEffect(() => {
-        console.log('le current user a changé');
-
         const fetchUserProgram = async () => {
             if (userContext?.currentUser?.id) {
                 const userProgram = await getCurrentUserProgram(userContext?.currentUser?.id)
@@ -34,10 +32,6 @@ function UserProgramContextProvider(props: React.PropsWithChildren<{}>) {
         }
         fetchUserProgram()
     }, [userContext?.currentUser])
-
-    useEffect(() => {
-        console.log(currentUserProgram)
-    }, [currentUserProgram])
 
     return (
         <UserProgramContext.Provider value={{ currentUserProgram, setCurrentUserProgram }}>

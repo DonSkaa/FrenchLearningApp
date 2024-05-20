@@ -20,7 +20,7 @@ function ExpressionContextProvider(props: React.PropsWithChildren<{}>) {
     const callApi = useCallApi()
 
     const getDayExpression = async (): Promise<Expression> => {
-        const response = await callApi(`${FLA_ENDPOINT}/day-expression`, { method: "get" }, controller.signal)
+        const response = await callApi(`/api/day-expression`, { method: "get" }, controller.signal)
 
         return response.data.data
     }

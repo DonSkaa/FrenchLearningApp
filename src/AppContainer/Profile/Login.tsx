@@ -19,7 +19,7 @@ export default function Login(): JSX.Element {
         e.preventDefault()
         setWrongPassword(false)
         try {
-            await callApi(`${FLA_ENDPOINT}/login`, { method: "post" }, null, {
+            await callApi(`/api/login`, { method: "post" }, null, {
                 email,
                 password,
             })
