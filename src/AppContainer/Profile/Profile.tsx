@@ -1,10 +1,14 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import './Profile.css'
 import { UserContext } from 'AppContainer/Context/UserContext'
 
 export default function Profile(): JSX.Element {
 
     const userContext = useContext(UserContext)
+
+    useEffect(() => {
+        console.log(userContext?.currentUser)
+    }, [userContext])
 
     return (
         <div className="full-width flex center m-t-40">
@@ -18,7 +22,7 @@ export default function Profile(): JSX.Element {
                     </div>
                     <div className='quarter-width right'>
                         <button className='default-button'>
-                            <img src="settings.svg" alt="" />
+                            <img src="assets/settings.png" alt="" />
                         </button>
                     </div>
                 </>

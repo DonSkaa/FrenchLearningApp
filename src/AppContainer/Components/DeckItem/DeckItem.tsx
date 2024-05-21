@@ -1,9 +1,10 @@
-import "./DeckItem.css";
-import { Link } from 'react-router-dom';
+import "./DeckItem.css"
+import { Link } from 'react-router-dom'
 import { Deck } from 'FormatedDatabase'
+import { useEffect } from "react"
 
 interface DeckItemProps {
-    currentDeck: Deck;
+    currentDeck: Deck
 }
 
 export default function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {

@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import "./Dashboard.css"
-import { user, user_program, program } from "FormatedDatabase"
 import { calculateProgress, isToday } from "Functions"
 import EventItem from "../Components/EventItem/EventItem"
 import Expression from "AppContainer/Expression/Expression"
 import { EventContext } from "AppContainer/Context/EventContext"
+import { UserContext } from "AppContainer/Context/UserContext"
 
 export default function Dashboard() {
 
     const { events } = useContext(EventContext)
     const [progress, setProgress] = useState<number | null>(null)
+    const userContext = useContext(UserContext)
 
-    const currentUserId = 1
-    const currentUser = user.find(user => user.id === currentUserId)
     // const currentUserPrograms = user_program.filter(program => program.id === currentUser?.user_program_id)
     // const activeCurrentUserProgram = currentUserPrograms.find(program => program.status)
     // const currentProgram = program.find(program => program.id === activeCurrentUserProgram?.program_id)

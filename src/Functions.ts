@@ -103,12 +103,11 @@ export function addDays(date: string | null, daysToAdd: number): Date {
 }
 
 export function isToReview(card: Card): Card | undefined {
-    if (card.times_reviewed === 0 && !card.last_review_date && !card.last_difficulty_level) {
+    if (card.user_meta.times_reviewed === 0 && !card.user_meta.last_review_date && !card.user_meta.last_difficulty_level) {
         return card
     } else {
         let intervalRevision: number
-
-        switch (card.last_difficulty_level) {
+        switch (card.user_meta.last_difficulty_level) {
             case 'easy':
                 intervalRevision = 5;
                 break
@@ -119,10 +118,10 @@ export function isToReview(card: Card): Card | undefined {
                 intervalRevision = 1;
                 break
             default:
-                throw new Error(`Niveau de difficulté inconnu: ${card.last_difficulty_level}`)
+                throw new Error(`Niveau de difficulté inconnu: ${card.user_meta.last_difficulty_level}`)
         }
 
-        const newRevisionDate = addDays(card.last_review_date, intervalRevision);
+        const newRevisionDate = addDays(card.user_meta.last_review_date, intervalRevision)
 
         if (newRevisionDate.getTime() === new Date().getTime()) {
             return card

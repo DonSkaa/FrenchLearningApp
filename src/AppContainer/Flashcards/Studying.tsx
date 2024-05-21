@@ -1,17 +1,18 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { cardLevels } from "AppConstantes";
+import { useContext, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { cardLevels } from "AppConstantes"
 import { Card, Deck } from "FormatedDatabase"
-import { DeckContext } from "AppContainer/Context/DeckContext";
+import { DeckContext } from "AppContainer/Context/DeckContext"
+import { UserMetaContext } from "AppContainer/Context/UserMetaContext"
 
 export default function Studying(): JSX.Element {
 
     const params = useParams()
     let deckId = Number(params.id)
-    const { decks } = useContext(DeckContext)
+    const { decks, setDecks } = useContext(DeckContext)
+    const { updateUserMeta } = useContext(UserMetaContext)
     const navigate = useNavigate()
 
-    // const { getDeck, updateDeck } = useContext(DeckContext)
     const [currentDeck, setCurrentDeck] = useState<Deck | undefined>(undefined)
     const [cardIndex, setCardIndex] = useState<number>(0)
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
@@ -24,36 +25,50 @@ export default function Studying(): JSX.Element {
     }, [deckId])
 
     const updateCardLevel = (level: string, cardId: Card['id']): void => {
-        setCurrentDeck(prvDeck => {
-            if (!prvDeck?.cards) return prvDeck
 
-            const newCards = prvDeck.cards.map((card) => {
-                if (card.id === cardId) {
-                    return {
-                        ...card,
-                        times_reviewed: card.times_reviewed + 1,
-                        last_review_date: new Date().toISOString(),
-                        last_difficulty_level: level,
-                    }
-                }
-                return card
-            })
+        const currentCard = currentDeck?.cards.find(card => card.id === cardId)
 
-            setCardIndex((prevIdx) => prevIdx + 1)
-            setShowAnswer(false)
+        if (currentCard && currentCard.user_meta) {
+            const updatedUserMeta = {
+                ...currentCard.user_meta,
+                times_reviewed: currentCard.user_meta.times_reviewed + 1,
+                last_review_date: new Date().toISOString(),
+                last_difficulty_level: level,
+            }
+            updateUserMeta(updatedUserMeta)
+                .then(updatedUserMeta => {
+                    setCurrentDeck(prvDeck => {
+                        if (!prvDeck?.cards) return prvDeck
 
-            return { ...prvDeck, cards: newCards }
-        })
+                        const newCards = prvDeck.cards.map((card) => {
+                            if (card.id === cardId) {
+                                return {
+                                    ...card,
+                                    user_meta: updatedUserMeta,
+                                }
+                            }
+                            return card
+                        })
+
+                        setCardIndex((prevIdx) => prevIdx + 1)
+                        setShowAnswer(false)
+
+                        return { ...prvDeck, cards: newCards }
+                    })
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     useEffect(() => {
-        if (currentDeck && cardIndex === currentDeck.cards.length) {
-            // updateDeck(currentDeck)
-            navigate('/flashcards')
+        if (currentDeck) {
+            setDecks(pvsDeck => pvsDeck.map(deck => deck.id === currentDeck.id ? currentDeck : deck))
+            if (cardIndex === currentDeck.cards.length) {
+                navigate('/flashcards')
+            }
         }
     }, [currentDeck])
 
-    // Rendu du composant
     return (
         <div className="full-width flex center">
             {
