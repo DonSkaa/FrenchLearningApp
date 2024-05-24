@@ -109,13 +109,15 @@ export interface Card {
 export interface Deck {
     id: number;
     thematic: string;
-    cards: Card[],
+    cards: Card[];
+    updated: true | false;
 }
 
 export const deck: Deck[] = [
     {
         id: 1,
         thematic: 'La nourriture',
+        updated: false,
         cards: [
             {
                 id: 1,
@@ -131,21 +133,6 @@ export const deck: Deck[] = [
                     last_difficulty_level: 'easy'
                 }
             },
-        ]
-    },
-    {
-        id: 2,
-        thematic: 'Le travail',
-        cards: [
-            // {
-            //     id: 5,
-            //     deck_id: 2,
-            //     recto: 'apply',
-            //     verso: 'candidater',
-            //     times_reviewed: 0,
-            //     last_review_date: null,
-            //     last_difficulty_level: null
-            // },
         ]
     },
 ]

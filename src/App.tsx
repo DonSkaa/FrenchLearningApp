@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react'
 import { UserContext } from 'AppContainer/Context/UserContext'
 import { FLA_ENDPOINT } from 'AppConstantes'
 import { useCallApi } from 'Functions'
+import SignUp from 'AppContainer/Profile/SignUp'
 
 function App() {
 

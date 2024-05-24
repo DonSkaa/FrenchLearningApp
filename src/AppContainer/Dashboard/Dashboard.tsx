@@ -5,10 +5,13 @@ import EventItem from "../Components/EventItem/EventItem"
 import Expression from "AppContainer/Expression/Expression"
 import { EventContext } from "AppContainer/Context/EventContext"
 import { UserContext } from "AppContainer/Context/UserContext"
+import { DeckContext } from "AppContainer/Context/DeckContext"
+import DeckItem from "AppContainer/Components/DeckItem/DeckItem"
 
 export default function Dashboard() {
 
     const { events } = useContext(EventContext)
+    const { decks } = useContext(DeckContext)
     const [progress, setProgress] = useState<number | null>(null)
     const userContext = useContext(UserContext)
 
@@ -54,8 +57,19 @@ export default function Dashboard() {
                                 )
                             })
                     }
+                    {
+                        decks
+                            .filter(deck => deck.cards.length)
+                            .map(deck => {
+                                return (
+                                    <div key={deck.id}>
+                                        <DeckItem currentDeck={deck} />
+                                    </div>
+                                )
+                            })
+
+                    }
                 </div>
-                <h2 className="left m-t-25">Agenda</h2>
             </div>
             <div className="quarter-width m-t-40">
                 <Expression />

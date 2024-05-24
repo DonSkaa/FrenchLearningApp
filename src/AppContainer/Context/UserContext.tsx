@@ -12,10 +12,6 @@ function UserContextProvider(props: React.PropsWithChildren<{}>) {
 
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
 
-    useEffect(() => {
-        console.log(currentUser);
-    }, [currentUser])
-
     return (
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
             {props.children}

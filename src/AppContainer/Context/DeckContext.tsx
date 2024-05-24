@@ -14,13 +14,14 @@ export const DeckContext = createContext<DeckContextType>({
     decks: [],
     setDecks: function (value: SetStateAction<Deck[] | []>): void {
         throw new Error("Function not implemented.")
-    }
+    },
 })
 
 function DeckContextProvider(props: React.PropsWithChildren<{}>) {
 
     const controller = new AbortController()
     const [decks, setDecks] = useState<Deck[]>([])
+    const [updateDecks, setUpdateDecks] = useState<boolean>(false)
     const userProgramContext = useContext(UserProgramContext)
     const callApi = useCallApi()
 
@@ -57,6 +58,10 @@ function DeckContextProvider(props: React.PropsWithChildren<{}>) {
     //         )
     //     })
     // }
+
+    useEffect(() => {
+        console.log(decks)
+    }, [decks])
 
     return (
         <DeckContext.Provider value={{ decks, setDecks }}>

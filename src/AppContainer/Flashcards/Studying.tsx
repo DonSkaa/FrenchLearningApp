@@ -62,12 +62,27 @@ export default function Studying(): JSX.Element {
 
     useEffect(() => {
         if (currentDeck) {
-            setDecks(pvsDeck => pvsDeck.map(deck => deck.id === currentDeck.id ? currentDeck : deck))
+
+            setDecks(pvsDeck => pvsDeck.map(deck => {
+                if (deck.id === currentDeck.id) {
+                    console.log('updating deck', deck.id, currentDeck.id);
+                    console.log('current deck', currentDeck);
+
+                    return currentDeck
+                } else {
+                    return deck
+                }
+            }))
+
             if (cardIndex === currentDeck.cards.length) {
                 navigate('/flashcards')
             }
         }
     }, [currentDeck])
+
+    // useEffect(() => {
+    //     console.log(decks);
+    // }, [decks])
 
     return (
         <div className="full-width flex center">

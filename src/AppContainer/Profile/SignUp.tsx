@@ -1,37 +1,42 @@
+import { UserContext } from 'AppContainer/Context/UserContext';
+import { useCallApi } from 'Functions';
 import axios from 'axios';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp(): JSX.Element {
 
+    const navigate = useNavigate()
+    const callApi = useCallApi()
     const [userProgramId, setUserProgramId] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const userContext = useContext(UserContext)
     const [isVisible, setIsVisible] = useState(false)
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
         try {
-            const response =
-                await axios.post('http://localhost:4000/signup',
-                    {
-                        userProgramId,
-                        name,
-                        email,
-                        password,
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
+            await callApi(`/api/signup`, { method: "post" }, null, {
+                userProgramId,
+                name,
+                email,
+                password,
+            })
+                .then(res => {
+                    const userData = res.data
+                    if (userContext) {
+                        userContext.setCurrentUser(userData)
                     }
-                )
+                })
+            navigate("/dashboard")
 
-            console.log('Utilisateur créé', response.data)
-        } catch (error) {
-            console.error('Erreur lors de la création de l\'utilisateur', error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                console.error('Erreur lors de la création de l\'utilisateur', error)
+            }
         }
     }
 

@@ -103,7 +103,7 @@ export function addDays(date: string | null, daysToAdd: number): Date {
 }
 
 export function isToReview(card: Card): Card | undefined {
-    if (card.user_meta.times_reviewed === 0 && !card.user_meta.last_review_date && !card.user_meta.last_difficulty_level) {
+    if (card.user_meta.times_reviewed === 0 || !card.user_meta.times_reviewed && !card.user_meta.last_review_date && !card.user_meta.last_difficulty_level) {
         return card
     } else {
         let intervalRevision: number
