@@ -19,7 +19,6 @@ function App() {
   const userContext = useContext(UserContext)
   const callApi = useCallApi()
 
-
   useEffect(() => {
     (async () => {
       try {
