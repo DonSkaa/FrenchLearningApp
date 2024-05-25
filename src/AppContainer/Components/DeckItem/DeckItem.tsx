@@ -1,7 +1,8 @@
 import "./DeckItem.css"
 import { Link } from 'react-router-dom'
 import { Deck } from 'FormatedDatabase'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { isToReview } from "Functions"
 
 interface DeckItemProps {
     currentDeck: Deck
@@ -9,10 +10,17 @@ interface DeckItemProps {
 
 export default function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
 
+    const [formattedCurrentDeck, setFormattedCurrentDeck] = useState<Deck | undefined>(undefined)
+
+    useEffect(() => {
+        const formattedCards = currentDeck.cards.filter(card => isToReview(card))
+        setFormattedCurrentDeck({ ...currentDeck, cards: formattedCards })
+    }, [currentDeck])
+
     return (
         <>
             {
-                currentDeck.cards.length > 0
+                formattedCurrentDeck && formattedCurrentDeck.cards.length > 0
                     ? <Link className="deck-item review" to={`/study/${currentDeck.id}`}>
                         <div className="strong">{currentDeck.thematic}</div>
                         <div className="strong">{currentDeck.cards.length}</div>

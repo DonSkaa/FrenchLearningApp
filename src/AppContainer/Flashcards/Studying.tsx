@@ -47,6 +47,7 @@ export default function Studying(): JSX.Element {
                                     user_meta: updatedUserMeta,
                                 }
                             }
+
                             return card
                         })
 
@@ -65,9 +66,6 @@ export default function Studying(): JSX.Element {
 
             setDecks(pvsDeck => pvsDeck.map(deck => {
                 if (deck.id === currentDeck.id) {
-                    console.log('updating deck', deck.id, currentDeck.id);
-                    console.log('current deck', currentDeck);
-
                     return currentDeck
                 } else {
                     return deck
@@ -80,18 +78,14 @@ export default function Studying(): JSX.Element {
         }
     }, [currentDeck])
 
-    // useEffect(() => {
-    //     console.log(decks);
-    // }, [decks])
-
     return (
-        <div className="full-width flex center">
+        <div className="main-section flex center">
             {
                 currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length
                     ? <div className="half-width m-t-40">
                         <div className="flex-center gap-1 m-b-40">
                             <div style={{ maxHeight: "32px" }}>
-                                <button className='default-button'>
+                                <button className='default-button' onClick={() => navigate('/flashcards')}>
                                     <img src="/assets/close.png" alt="" />
                                 </button>
                             </div>

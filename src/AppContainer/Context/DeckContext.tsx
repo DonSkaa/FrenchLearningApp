@@ -35,29 +35,12 @@ function DeckContextProvider(props: React.PropsWithChildren<{}>) {
             if (userProgramContext?.currentUserProgram?.deck_ids) {
 
                 const currentDecks = await getCurrentDecks(userProgramContext?.currentUserProgram?.deck_ids)
-                const formatedDeck = currentDecks.map(deck => {
-                    const cardsToReview = deck.cards.filter(card => isToReview(card))
-                    return {
-                        ...deck,
-                        cards: cardsToReview,
-                    }
-                })
 
-                setDecks(formatedDeck)
+                setDecks(currentDecks)
             }
         }
         fetchUserProgram()
     }, [userProgramContext?.currentUserProgram])
-
-    // const updateDeck = (updatedDeck: Deck) => {
-    //     setDecks((prvDecks) => {
-    //         return prvDecks.map((deck) =>
-    //             deck.id === updatedDeck.id
-    //                 ? { ...updatedDeck, cards: updatedDeck.cards.filter(card => isToReview(card)) }
-    //                 : deck
-    //         )
-    //     })
-    // }
 
     useEffect(() => {
         console.log(decks)

@@ -44,7 +44,7 @@ export default function Login(): JSX.Element {
 
     return (
         <div className="full-width flex center gap-3">
-            <div className="half-width m-t-40">
+            <div className="main-section m-t-40">
                 <h2>Se connecter</h2>
                 <form className="flex column gap-1" onSubmit={handleSubmit}>
                     <div>

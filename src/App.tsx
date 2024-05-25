@@ -12,6 +12,7 @@ import { UserContext } from 'AppContainer/Context/UserContext'
 import { FLA_ENDPOINT } from 'AppConstantes'
 import { useCallApi } from 'Functions'
 import SignUp from 'AppContainer/Profile/SignUp'
+import SecondNavBar from 'AppContainer/Components/SecondNavBar/SecondNavBar'
 
 function App() {
 
@@ -37,14 +38,24 @@ function App() {
 
   return (
     <div className='flex'>
-      <NavBar menu={
-        [
-          { to: "/dashboard", name: "accueil" },
-          { to: "/schedule", name: "agenda" },
-          { to: "/flashcards", name: "fiches" },
-          { to: "/profile", name: "profil" },
-        ]
-      } />
+      <NavBar
+        menu={
+          [
+            { to: "/dashboard", name: "accueil", icon: "/assets/home.png" },
+            { to: "/schedule", name: "agenda", icon: "/assets/schedule.png" },
+            { to: "/flashcards", name: "fiches", icon: "/assets/flashcards.png" },
+            { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
+          ]
+        }
+      />
+      <SecondNavBar
+        menu={
+          [
+            { to: "/terms", name: "Conditions d'utilisation" },
+            { to: "/privacy", name: "Confidentialité" },
+          ]
+        }
+      />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />

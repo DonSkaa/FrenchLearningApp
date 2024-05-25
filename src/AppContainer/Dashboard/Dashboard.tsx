@@ -27,8 +27,8 @@ export default function Dashboard() {
     // }, [formatedUser])
 
     return (
-        <div className="full-width flex center gap-3">
-            <div className="half-width m-t-40">
+        <div className="full-width flex center gap-2 m-2">
+            <div className="main-section m-t-40">
                 {/* {
                     formatedUser.user_program && progress
                         ? <div className="flex column gap-1">
@@ -71,7 +71,7 @@ export default function Dashboard() {
                     }
                 </div>
             </div>
-            <div className="quarter-width m-t-40">
+            <div className="side-section m-t-40">
                 <Expression />
             </div>
         </div>

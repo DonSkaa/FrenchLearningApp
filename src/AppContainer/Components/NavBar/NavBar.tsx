@@ -6,14 +6,22 @@ export default function NavBar({ menu }: {
     {
         name: string;
         to: string;
+        icon: string;
     }[]
 }): JSX.Element {
     return (
         <div className="main-navigation">
-            <h1>Learning French</h1>
+            <h1 className="title">Learning French</h1>
             {menu.map((menuItem, index) => (
-                <NavLink key={index} to={menuItem.to} className="navigation-button">
-                    {menuItem.name}
+                <NavLink key={index} to={menuItem.to} className="navigation-button display-flex align-center gap-1">
+                    <img
+                        className="navigation-btn-img"
+                        src={menuItem.icon}
+                        alt="icon-item-menu"
+                    />
+                    <div className="menu-item">
+                        {menuItem.name}
+                    </div>
                 </NavLink>
             ))}
         </div>
