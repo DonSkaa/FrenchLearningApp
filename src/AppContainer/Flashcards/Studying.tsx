@@ -79,58 +79,61 @@ export default function Studying(): JSX.Element {
     }, [currentDeck])
 
     return (
-        <div className="main-section flex center">
-            {
-                currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length
-                    ? <div className="half-width m-t-40">
-                        <div className="flex-center gap-1 m-b-40">
-                            <div style={{ maxHeight: "32px" }}>
-                                <button className='default-button' onClick={() => navigate('/flashcards')}>
-                                    <img src="/assets/close.png" alt="" />
-                                </button>
+        <div className="full-width flex center m-4">
+
+            <div className="main-section">
+                {
+                    currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length
+                        ? <>
+                            <div className="flex-center gap-1 m-b-40">
+                                <div style={{ maxHeight: "32px" }}>
+                                    <button className='default-button' onClick={() => navigate('/flashcards')}>
+                                        <img src="/assets/close.png" alt="" />
+                                    </button>
+                                </div>
+                                <div className="time-cursor-container">
+                                    <div
+                                        className="time-cursor"
+                                        style={{
+                                            width: `${((cardIndex + 1) / (currentDeck.cards.length)) * 100}%`
+                                        }}
+                                    ></div>
+                                </div>
                             </div>
-                            <div className="time-cursor-container">
-                                <div
-                                    className="time-cursor"
-                                    style={{
-                                        width: `${((cardIndex + 1) / (currentDeck.cards.length)) * 100}%`
-                                    }}
-                                ></div>
-                            </div>
-                        </div>
-                        <div className="flex column three-quarter-height">
-                            <div>
-                                <h3 className="text-center">{currentDeck.cards[cardIndex].recto}</h3>
+                            <div className="flex column three-quarter-height">
+                                <div>
+                                    <h3 className="text-center">{currentDeck.cards[cardIndex].recto}</h3>
+                                    {
+                                        showAnswer
+                                            ? <div>
+                                                <hr />
+                                                <h3 className="text-center">{currentDeck.cards[cardIndex].verso}</h3>
+                                            </div>
+                                            : null
+                                    }
+                                </div>
                                 {
                                     showAnswer
-                                        ? <div>
-                                            <hr />
-                                            <h3 className="text-center">{currentDeck.cards[cardIndex].verso}</h3>
+                                        ? <div className="flex gap-1">
+                                            {cardLevels.map((level, index) => (
+                                                <button
+                                                    key={index}
+                                                    className="strong-button"
+                                                    onClick={() => updateCardLevel(level.slug, currentDeck.cards[cardIndex].id)}
+                                                >
+                                                    {level.name}
+                                                </button>
+                                            ))}
                                         </div>
-                                        : null
+                                        : <button className="strong-button" onClick={() => setShowAnswer(true)}>
+                                            AFFICHER LA RÉPONSE
+                                        </button>
                                 }
                             </div>
-                            {
-                                showAnswer
-                                    ? <div className="flex gap-1">
-                                        {cardLevels.map((level, index) => (
-                                            <button
-                                                key={index}
-                                                className="strong-button"
-                                                onClick={() => updateCardLevel(level.slug, currentDeck.cards[cardIndex].id)}
-                                            >
-                                                {level.name}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    : <button className="strong-button" onClick={() => setShowAnswer(true)}>
-                                        AFFICHER LA RÉPONSE
-                                    </button>
-                            }
-                        </div>
-                    </div>
-                    : null
-            }
-        </div >
+                        </>
+                        : null
+                }
+            </div>
+        </div>
     )
 }

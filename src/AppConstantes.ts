@@ -7,6 +7,12 @@ interface CardLevel {
     name: string;
 }
 
+interface MenuItem {
+    to: string;
+    name: string;
+    icon: string;
+}
+
 export const cardLevels: CardLevel[] = [
     {
         slug: 'easy',
@@ -20,4 +26,17 @@ export const cardLevels: CardLevel[] = [
         slug: 'hard',
         name: 'Difficile',
     },
+]
+
+export const studentMenu: MenuItem[] = [
+    { to: "/dashboard", name: "accueil", icon: "/assets/home.png" },
+    { to: "/schedule", name: "agenda", icon: "/assets/schedule.png" },
+    { to: "/flashcards", name: "fiches", icon: "/assets/flashcards.png" },
+    { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
+]
+
+export const teacherMenu: MenuItem[] = [
+    { to: "/dashboard", name: "accueil", icon: "/assets/home.png" },
+    { to: "/students", name: "élèves", icon: "/assets/schedule.png" },
+    { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
 ]

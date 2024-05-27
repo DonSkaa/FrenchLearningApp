@@ -10,9 +10,11 @@ export interface User {
 
 export interface CurrentUser {
     id: number;
+    type: string;
     name: string;
     email: string;
     user_metas: [];
+    teacher_id: string;
 }
 
 export interface Event {

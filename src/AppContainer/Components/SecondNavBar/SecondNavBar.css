@@ -1,8 +1,7 @@
 @media (min-width: 500px) {
     .second-main-navigation {
         display: flex;
-        bottom: 0;
-        position: fixed;
+        flex-direction: column;
         z-index: 1;
         height: 90px;
         gap: 20px;
@@ -12,21 +11,13 @@
 
 @media (max-width: 500px) {
     .second-main-navigation {
-        border-top: 2px solid var(--third-color);
-        padding: 10px;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        height: 90px;
+        display: none;
     }
 }
 
 .second-nav-btn {
     color: var(--sixth-color);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 16px;
     text-transform: uppercase;

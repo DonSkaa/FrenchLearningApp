@@ -7,7 +7,7 @@ export default function Flashcards() {
     const { decks } = useContext(DeckContext)
 
     return (
-        <div className="full-width flex center">
+        <div className="full-width flex center m-4">
             <div className="main-section m-t-40">
                 <div className="m-b-40">
                     <div className="flex">

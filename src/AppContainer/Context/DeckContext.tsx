@@ -42,10 +42,6 @@ function DeckContextProvider(props: React.PropsWithChildren<{}>) {
         fetchUserProgram()
     }, [userProgramContext?.currentUserProgram])
 
-    useEffect(() => {
-        console.log(decks)
-    }, [decks])
-
     return (
         <DeckContext.Provider value={{ decks, setDecks }}>
             {props.children}

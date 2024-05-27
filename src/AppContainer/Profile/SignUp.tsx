@@ -1,39 +1,56 @@
 import { UserContext } from 'AppContainer/Context/UserContext';
 import { useCallApi } from 'Functions';
 import axios from 'axios';
-import { useState, FormEvent, useContext } from 'react';
+import { useState, FormEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp(): JSX.Element {
+interface SignUpProps {
+    setter?: (value: any) => void | null;
+    setterPopUp?: (value: any) => void | null;
+    type: 'teacher' | 'student';
+}
+
+export default function SignUp({ setter, setterPopUp, type = 'teacher' }: SignUpProps): JSX.Element {
 
     const navigate = useNavigate()
     const callApi = useCallApi()
-    const [userProgramId, setUserProgramId] = useState('')
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const userContext = useContext(UserContext)
     const [isVisible, setIsVisible] = useState(false)
+    const [userData, setUserData] = useState({
+        program_id: '',
+        type: type,
+        name: '',
+        email: '',
+        password: '',
+        teacher_id: type === 'teacher' ? null : userContext?.currentUser?.id,
+    })
+
+    const updateUserDataKey = (key: string, value: string) => {
+        setUserData({ ...userData, [key]: value })
+    }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
         try {
-            await callApi(`/api/signup`, { method: "post" }, null, {
-                userProgramId,
-                name,
-                email,
-                password,
-            })
+            await callApi(`/api/signup`, { method: "post" }, null, userData)
                 .then(res => {
-                    const userData = res.data
-                    if (userContext) {
-                        userContext.setCurrentUser(userData)
+                    if (type === 'teacher') {
+                        const userData = res.data
+                        setter && setter(true)
+                        if (userContext) {
+                            userContext.setCurrentUser(userData)
+                        }
+                        navigate("/dashboard")
+                    } else if (type === 'student') {
+                        setterPopUp && setterPopUp(false)
+                        setterPopUp && console.log('on est la');
+
                     }
                 })
-            navigate("/dashboard")
 
         } catch (error: unknown) {
+            setter && setter(false)
             if (axios.isAxiosError(error)) {
                 console.error('Erreur lors de la création de l\'utilisateur', error)
             }
@@ -45,30 +62,30 @@ export default function SignUp(): JSX.Element {
             <div className="half-width m-t-40">
                 <h2>Créer un compte</h2>
                 <form className="flex column gap-1" onSubmit={handleSubmit}>
-                    <div className='m-b-10'>
-                        <input
-                            type="user_program_id"
-                            placeholder='Type de programme'
-                            value={userProgramId}
-                            onChange={(e) => setUserProgramId(e.target.value)}
-                            required
-                        />
-                    </div>
+                    {
+                        type === 'student'
+                            ? <div className='m-b-10'>
+                                <input
+                                    placeholder='Type de programme'
+                                    value={userData.program_id}
+                                    onChange={(e) => updateUserDataKey('program_id', e.target.value)}
+                                    required
+                                />
+                            </div>
+                            : null}
                     <div>
                         <input
-                            type="name"
                             placeholder="Nom d'utilisateur"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={userData.name}
+                            onChange={(e) => updateUserDataKey('name', e.target.value)}
                             required
                         />
                     </div>
                     <div>
                         <input
-                            type="email"
                             placeholder='E-mail'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={userData.email}
+                            onChange={(e) => updateUserDataKey('email', e.target.value)}
                             required
                         />
                     </div>
@@ -76,8 +93,8 @@ export default function SignUp(): JSX.Element {
                         <input
                             type={isVisible ? 'text' : 'password'}
                             placeholder='Mot de passe'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={userData.password}
+                            onChange={(e) => updateUserDataKey('password', e.target.value)}
                             required
                         />
                         <button
@@ -87,8 +104,8 @@ export default function SignUp(): JSX.Element {
                         >
                             {
                                 isVisible
-                                    ? <img alt="Masquer le mot de passe" src='assets/not-visible.svg'></img>
-                                    : <img alt="Afficher le mot de passe" src='assets/visible.svg'></img>
+                                    ? <img alt="Masquer le mot de passe" src='assets/not-visible.png'></img>
+                                    : <img alt="Afficher le mot de passe" src='assets/visible.png'></img>
                             }
                         </button>
                     </div>

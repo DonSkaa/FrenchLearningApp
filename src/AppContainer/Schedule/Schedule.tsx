@@ -22,7 +22,7 @@ export default function Schedule(): JSX.Element {
     }, [events])
 
     return (
-        <div className="full-width flex center">
+        <div className="full-width flex center m-4">
             <div className="three-quarter-width m-t-40">
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

@@ -5,7 +5,11 @@ import axios from 'axios';
 import { useState, FormEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login(): JSX.Element {
+interface LoginProps {
+    setter: (value: any) => void;
+}
+
+export default function Login({ setter }: LoginProps): JSX.Element {
 
     const navigate = useNavigate()
     const callApi = useCallApi()
@@ -26,7 +30,10 @@ export default function Login(): JSX.Element {
                 .then(res => {
                     const userData = res.data
                     if (userContext) {
+                        setter(true)
                         userContext.setCurrentUser(userData)
+                    } else {
+                        setter(false)
                     }
                 })
 

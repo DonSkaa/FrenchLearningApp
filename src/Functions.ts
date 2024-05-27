@@ -49,10 +49,6 @@ export const useCallApi = () => {
     return callApi
 }
 
-export function isAuthenticated() {
-    return true
-}
-
 export function isToday(dateString: string): boolean {
     const today = new Date()
 

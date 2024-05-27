@@ -7,17 +7,20 @@ import NavBar from './AppContainer/Components/NavBar/NavBar'
 import Studying from './AppContainer/Flashcards/Studying'
 import Profile from 'AppContainer/Profile/Profile'
 import Login from 'AppContainer/Profile/Login'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from 'AppContainer/Context/UserContext'
-import { FLA_ENDPOINT } from 'AppConstantes'
+import { FLA_ENDPOINT, studentMenu, teacherMenu } from 'AppConstantes'
 import { useCallApi } from 'Functions'
+import Privacy from 'AppContainer/Privacy/Privacy'
+import Terms from 'AppContainer/Terms/Terms'
 import SignUp from 'AppContainer/Profile/SignUp'
-import SecondNavBar from 'AppContainer/Components/SecondNavBar/SecondNavBar'
+import MyStudents from 'AppContainer/MyStudents/MyStudents'
 
 function App() {
 
   const userContext = useContext(UserContext)
   const callApi = useCallApi()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -26,7 +29,10 @@ function App() {
           .then(res => {
             const userData = res.data
             if (userContext) {
+              setIsAuthenticated(true)
               userContext.setCurrentUser(userData)
+            } else {
+              setIsAuthenticated(false)
             }
           })
       } catch (error: unknown) {
@@ -37,31 +43,30 @@ function App() {
 
   return (
     <div className='flex'>
-      <NavBar
-        menu={
-          [
-            { to: "/dashboard", name: "accueil", icon: "/assets/home.png" },
-            { to: "/schedule", name: "agenda", icon: "/assets/schedule.png" },
-            { to: "/flashcards", name: "fiches", icon: "/assets/flashcards.png" },
-            { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
-          ]
-        }
-      />
-      <SecondNavBar
-        menu={
-          [
-            { to: "/terms", name: "Conditions d'utilisation" },
-            { to: "/privacy", name: "Confidentialité" },
-          ]
-        }
-      />
+      {isAuthenticated
+        ? <NavBar
+          menu={userContext?.currentUser?.type === 'teacher' ? teacherMenu : studentMenu}
+        />
+        : null}
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/flashcards" element={<Flashcards />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/study/:id" element={<Studying />} />
+        <Route path="/" element={
+          <Login setter={setIsAuthenticated} />
+          // <SignUp setter={setIsAuthenticated} />
+        } />
+        {isAuthenticated
+          ? <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/flashcards" element={<Flashcards />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/study/:id" element={<Studying />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/students" element={<MyStudents />} />
+            <Route path="/signup" element={<SignUp type='student' />} />
+          </>
+          : null
+        }
       </Routes>
     </div>
   )
