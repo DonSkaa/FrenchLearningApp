@@ -1,4 +1,5 @@
 import { UserContext } from 'AppContainer/Context/UserContext';
+import { CurrentUser } from 'FormatedDatabase';
 import { useCallApi } from 'Functions';
 import axios from 'axios';
 import { useState, FormEvent, useContext, useEffect } from 'react';
@@ -44,8 +45,7 @@ export default function SignUp({ setter, setterPopUp, type = 'teacher' }: SignUp
                         navigate("/dashboard")
                     } else if (type === 'student') {
                         setterPopUp && setterPopUp(false)
-                        setterPopUp && console.log('on est la');
-
+                        userContext?.setCurrentStudents(prevStudents => prevStudents ? [...prevStudents, res.data] : [res.data]);
                     }
                 })
 

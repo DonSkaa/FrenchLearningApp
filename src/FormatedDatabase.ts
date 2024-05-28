@@ -6,6 +6,7 @@ export interface User {
     mail: string;
     password: string;
     user_program_id: number;
+    teacher_id: number;
 }
 
 export interface CurrentUser {
@@ -25,6 +26,17 @@ export interface Event {
     date: string;
     start: string;
     end: string;
+    meeting_link: string;
+    teacher_id: number;
+}
+
+export interface EventPostData {
+    user_id: number;
+    event_type: string;
+    date: string;
+    start: string;
+    end: string;
+    teacher_id: number;
     meeting_link: string;
 }
 
@@ -47,29 +59,6 @@ export interface UserMeta {
     card_id: number;
     user_id: number;
 }
-
-export const event: Event[] = [
-    {
-        id: 1,
-        user_id: 1,
-        event_type: 'lesson',
-        title: 'Conversation',
-        date: "2024-04-24",
-        start: "2024-04-24T14:30:00Z",
-        end: "2024-04-24T15:00:00Z",
-        meeting_link: "https://meet.google.com/aku-afqa-vmq",
-    },
-    {
-        id: 2,
-        user_id: 1,
-        event_type: 'lesson',
-        title: 'Mise en situation',
-        date: "2024-05-01",
-        start: "2024-04-26T14:30:00Z",
-        end: "2024-04-26T15:00:00Z",
-        meeting_link: "https://meet.google.com/aku-afqa-vmq",
-    },
-]
 
 export interface UserProgram {
     id: number;
@@ -115,6 +104,13 @@ export interface Deck {
     updated: true | false;
 }
 
+export interface Expression {
+    id: number,
+    title: string,
+    description: string,
+    last_used_date: string | null,
+}
+
 export const deck: Deck[] = [
     {
         id: 1,
@@ -139,9 +135,16 @@ export const deck: Deck[] = [
     },
 ]
 
-export interface Expression {
-    id: number,
-    title: string,
-    description: string,
-    last_used_date: string | null,
-}
+export const event: Event[] = [
+    {
+        id: 2,
+        user_id: 1,
+        event_type: 'lesson',
+        title: 'Mise en situation',
+        date: "2024-05-01",
+        start: "2024-04-26T14:30:00Z",
+        end: "2024-04-26T15:00:00Z",
+        meeting_link: "https://meet.google.com/aku-afqa-vmq",
+        teacher_id: 1,
+    },
+]

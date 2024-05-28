@@ -126,3 +126,8 @@ export function isToReview(card: Card): Card | undefined {
 
     return undefined
 }
+
+export const isGoogleMeetLink = (url: string): boolean => {
+    const googleMeetPattern = /^https:\/\/meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}$/
+    return googleMeetPattern.test(url)
+}

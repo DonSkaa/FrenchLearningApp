@@ -7,9 +7,11 @@ import { EventContext } from "AppContainer/Context/EventContext"
 import { DeckContext } from "AppContainer/Context/DeckContext"
 import DeckItem from "AppContainer/Components/DeckItem/DeckItem"
 import { Deck, Event } from "FormatedDatabase"
+import { UserContext } from "AppContainer/Context/UserContext"
 
 export default function Dashboard() {
 
+    const userContext = useContext(UserContext)
     const { events } = useContext(EventContext)
     const { decks } = useContext(DeckContext)
     const [formatedEvents, setFormatedEvents] = useState<any>([])
@@ -31,11 +33,16 @@ export default function Dashboard() {
     return (
         <div className="full-width flex center gap-2 m-4">
             <div className="main-section m-t-40">
-                <h2 className="left m-t-25">Tâches du jour</h2>
+                <h2 className="left m-t-25">
+                    {userContext?.currentUser?.type === 'student'
+                        ? 'Tâches du jour'
+                        : 'Leçons du jour'
+                    }
+                </h2>
                 <div className="flex column gap-1">
                     {formatedEvents || formatedDecks
                         ? <>
-                            {formatedEvents
+                            {formatedEvents.length
                                 ? <h4 className="left m-0">Évènements</h4>
                                 : null}
                             {
@@ -48,7 +55,7 @@ export default function Dashboard() {
                                         )
                                     })
                             }
-                            {formatedDecks
+                            {formatedDecks.length
                                 ? <h4 className="left m-0">Révisions</h4>
                                 : null}
                             {
@@ -66,9 +73,13 @@ export default function Dashboard() {
                         : <div>Pas de tâches pour aujourd'hui</div>}
                 </div>
             </div>
-            <div className="side-section m-t-40">
-                <Expression />
-            </div>
+            {
+                userContext?.currentUser?.type === 'student'
+                    ? <div className="side-section m-t-40">
+                        <Expression />
+                    </div>
+                    : null
+            }
         </div>
     )
 }

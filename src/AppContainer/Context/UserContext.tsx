@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { SetStateAction, createContext, useEffect, useState } from "react";
 import { CurrentUser } from "FormatedDatabase";
 import { useCallApi } from "Functions";
 
@@ -6,35 +6,49 @@ interface UserContextType {
     currentUser: CurrentUser | null;
     setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUser | null>>
     currentStudents: CurrentUser[] | null;
+    setCurrentStudents: React.Dispatch<React.SetStateAction<CurrentUser[] | null>>
 }
 
-export const UserContext = createContext<UserContextType | null>(null)
+export const UserContext = createContext<UserContextType | null>({
+    currentUser: null,
+    setCurrentUser: function (value: SetStateAction<CurrentUser | null>): void {
+        throw new Error("Function not implemented.")
+    },
+    currentStudents: null,
+    setCurrentStudents: function (value: SetStateAction<CurrentUser[] | null>): void {
+        throw new Error("Function not implemented.")
+    },
+})
 
 function UserContextProvider(props: React.PropsWithChildren<{}>) {
 
-    const controller = new AbortController()
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
-    const [currentStudents, setCurrentStudents] = useState<CurrentUser[]>([])
+    const [currentStudents, setCurrentStudents] = useState<CurrentUser[] | null>(null)
 
     const callApi = useCallApi()
 
-    const getCurrentStudents = async (teacherId: number): Promise<CurrentUser[]> => {
+    const getCurrentStudents = async (teacherId: number, controller: any): Promise<CurrentUser[]> => {
         const response = await callApi(`api/users`, { method: "get" }, controller.signal, { teacher_id: teacherId })
         return response.data.data
     }
 
     useEffect(() => {
+        const controller = new AbortController()
+
         const fetchCurrentStudents = async () => {
             if (currentUser && currentUser.type === 'teacher' && currentUser.id) {
-                const currentStudents = await getCurrentStudents(currentUser.id)
+                const currentStudents = await getCurrentStudents(currentUser.id, controller)
                 setCurrentStudents(currentStudents)
             }
         }
         fetchCurrentStudents()
+        return () => {
+            controller.abort()
+        }
     }, [currentUser])
 
     return (
-        <UserContext.Provider value={{ currentUser, setCurrentUser, currentStudents }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser, currentStudents, setCurrentStudents }}>
             {props.children}
         </UserContext.Provider>
     )
