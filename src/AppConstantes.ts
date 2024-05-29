@@ -41,3 +41,16 @@ export const teacherMenu: MenuItem[] = [
     { to: "/students", name: "élèves", icon: "/assets/students.png" },
     { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
 ]
+
+export const initialErrorState = {
+    minLength: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasNumbers: false,
+    hasSpecialChars: false,
+}
+
+export const initialErrorMessages = {
+    email: '',
+    password: '',
+}

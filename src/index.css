@@ -3,17 +3,17 @@ html {
 }
 
 :root {
-  --primary-color: #FF7036;
-  --secondary-color: #FFF;
-  --third-color: #EDEDED;
-  --forth-color: #1E1E1E;
-  --fith-color: #A9A9A9;
-  --sixth-color: #8D4ADA;
-  --seventh-color: #D9B8FF;
+  --primary-color: #ff7036;
+  --secondary-color: #fff;
+  --third-color: #ededed;
+  --forth-color: #1e1e1e;
+  --fith-color: #a9a9a9;
+  --sixth-color: #8d4ada;
+  --seventh-color: #d9b8ff;
   --eighth-color: #ffe6d6;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url("https://fonts.googleapis.com/css?family=Poppins");
 
 * {
   box-sizing: border-box;
@@ -43,7 +43,7 @@ h2 {
 }
 
 h3 {
-  color: var(--forth-color);
+  color: var(--fith-color);
   font-size: 18px;
   text-align: center;
 }
@@ -68,7 +68,7 @@ table {
 
 td,
 th {
-  padding: 5px 5px
+  padding: 5px 5px;
 }
 
 th {
@@ -131,15 +131,15 @@ a {
 }
 
 .gap-1 {
-  gap: 10px
+  gap: 10px;
 }
 
 .gap-2 {
-  gap: 20px
+  gap: 20px;
 }
 
 .gap-3 {
-  gap: 30px
+  gap: 30px;
 }
 
 .full-height {
@@ -286,6 +286,11 @@ a {
   border: solid 2px var(--third-color);
 }
 
+/* Small text */
+.small-text {
+  font-size: 12px;
+}
+
 /* Buttons */
 .default-button {
   cursor: pointer;
@@ -312,8 +317,8 @@ a {
 .strong-button {
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 16px;
-  background-color: #C28CFF;
+  font-size: 14px;
+  background-color: #c28cff;
   color: var(--secondary-color);
   border-width: 0px 0px 3px 0px;
   border-color: var(--sixth-color);
@@ -364,7 +369,7 @@ input {
   border-color: var(--fith-color);
   border-style: solid;
   border-radius: 15px;
-  padding: 20px;
+  padding: 15px;
   width: 100%;
 }
 
@@ -409,6 +414,10 @@ select:focus {
   color: #ff2626;
 }
 
+.error-border {
+  border: 2px solid #ff2626;
+}
+
 /* Time cursor */
 .time-cursor-container {
   height: 16px;
@@ -426,10 +435,17 @@ select:focus {
 
 /* Completed Icon */
 .completed-icon-container {
-  background-color: #49F149;
+  background-color: #49f149;
   border-radius: 1000px;
   height: 28px;
   width: 28px;
+}
+
+.empty-icon-container {
+  border-radius: 1000px;
+  height: 15px;
+  width: 15px;
+  border: solid 2px var(--forth-color);
 }
 
 .completed-icon {

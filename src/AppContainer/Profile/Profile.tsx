@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import './Profile.css'
 import { UserContext } from 'AppContainer/Context/UserContext'
 import Progression from 'AppContainer/Components/Progression/Progression'
+import { Link } from 'react-router-dom'
 
 interface ProfileProps {
     setter?: (value: any) => void | null;
@@ -10,13 +11,6 @@ interface ProfileProps {
 export default function Profile({ setter }: ProfileProps): JSX.Element {
 
     const userContext = useContext(UserContext)
-
-    const logOutFunc = () => {
-        if (userContext) {
-            userContext.logout()
-            setter && setter(false)
-        }
-    }
 
     return (
         <div className="full-width flex center m-t-40 m-4 gap-1">
@@ -27,13 +21,9 @@ export default function Profile({ setter }: ProfileProps): JSX.Element {
                         <div className="main-section">
                             <div className='flex-center gap-1 m-b-10'>
                                 <h2 className='left'>{userContext.currentUser.name}</h2>
-                                <button
-                                    className='light-button'
-                                    onClick={() => logOutFunc()}
-                                >
-                                    Se déconnecter
-                                    {/* <img src="assets/settings.png" alt="" /> */}
-                                </button>
+                                <Link to='/settings'>
+                                    <img src="assets/settings.png" alt="" />
+                                </Link>
                             </div>
                             {
                                 userContext.currentUser.type === 'student'
