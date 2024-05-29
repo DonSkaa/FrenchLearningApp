@@ -80,7 +80,6 @@ export default function Studying(): JSX.Element {
 
     return (
         <div className="full-width flex center m-4">
-
             <div className="main-section">
                 {
                     currentDeck && currentDeck.cards && cardIndex < currentDeck.cards.length

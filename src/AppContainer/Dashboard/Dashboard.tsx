@@ -42,7 +42,7 @@ export default function Dashboard() {
                 <div className="flex column gap-1">
                     {formatedEvents || formatedDecks
                         ? <>
-                            {formatedEvents.length
+                            {userContext?.currentUser?.type === 'student' && formatedEvents.length
                                 ? <h4 className="left m-0">Évènements</h4>
                                 : null}
                             {

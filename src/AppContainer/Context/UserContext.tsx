@@ -7,6 +7,7 @@ interface UserContextType {
     setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUser | null>>
     currentStudents: CurrentUser[] | null;
     setCurrentStudents: React.Dispatch<React.SetStateAction<CurrentUser[] | null>>
+    logout: () => void
 }
 
 export const UserContext = createContext<UserContextType | null>({
@@ -18,6 +19,9 @@ export const UserContext = createContext<UserContextType | null>({
     setCurrentStudents: function (value: SetStateAction<CurrentUser[] | null>): void {
         throw new Error("Function not implemented.")
     },
+    logout: function (): void {
+        throw new Error("Function not implemented.")
+    }
 })
 
 function UserContextProvider(props: React.PropsWithChildren<{}>) {
@@ -47,8 +51,14 @@ function UserContextProvider(props: React.PropsWithChildren<{}>) {
         }
     }, [currentUser])
 
+
+    const logout = () => {
+        setCurrentUser(null)
+    }
+
+
     return (
-        <UserContext.Provider value={{ currentUser, setCurrentUser, currentStudents, setCurrentStudents }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser, currentStudents, setCurrentStudents, logout }}>
             {props.children}
         </UserContext.Provider>
     )

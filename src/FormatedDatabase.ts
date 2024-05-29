@@ -15,7 +15,7 @@ export interface CurrentUser {
     name: string;
     email: string;
     user_metas: [];
-    teacher_id: string;
+    teacher_id: number | null;
 }
 
 export interface Event {
@@ -28,6 +28,7 @@ export interface Event {
     end: string;
     meeting_link: string;
     teacher_id: number;
+    user: User;
 }
 
 export interface EventPostData {
@@ -132,19 +133,5 @@ export const deck: Deck[] = [
                 }
             },
         ]
-    },
-]
-
-export const event: Event[] = [
-    {
-        id: 2,
-        user_id: 1,
-        event_type: 'lesson',
-        title: 'Mise en situation',
-        date: "2024-05-01",
-        start: "2024-04-26T14:30:00Z",
-        end: "2024-04-26T15:00:00Z",
-        meeting_link: "https://meet.google.com/aku-afqa-vmq",
-        teacher_id: 1,
     },
 ]

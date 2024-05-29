@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 interface SignUpProps {
     setter?: (value: any) => void | null;
     setterPopUp?: (value: any) => void | null;
-    type: 'teacher' | 'student';
+    type?: 'teacher' | 'student';
 }
 
 export default function SignUp({ setter, setterPopUp, type = 'teacher' }: SignUpProps): JSX.Element {

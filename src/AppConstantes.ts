@@ -37,6 +37,7 @@ export const studentMenu: MenuItem[] = [
 
 export const teacherMenu: MenuItem[] = [
     { to: "/dashboard", name: "accueil", icon: "/assets/home.png" },
+    { to: "/schedule", name: "agenda", icon: "/assets/schedule.png" },
     { to: "/students", name: "élèves", icon: "/assets/students.png" },
     { to: "/profile", name: "profil", icon: "/assets/perfil.png" },
 ]

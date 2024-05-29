@@ -5,9 +5,10 @@ import { EventPostData, User } from "FormatedDatabase"
 
 interface EventFieldsProps {
     student: User;
+    setterPopUp: (value: boolean) => void;
 }
 
-export default function AddEvent({ student }: EventFieldsProps): JSX.Element {
+export default function AddEvent({ student, setterPopUp }: EventFieldsProps): JSX.Element {
 
     const [newEvent, setNewEvent] = useState<EventPostData>({} as EventPostData)
     const { addEvent } = useContext(EventContext)
@@ -27,6 +28,7 @@ export default function AddEvent({ student }: EventFieldsProps): JSX.Element {
     const sendNewEvent = async (newEvent: EventPostData, e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         addEvent(newEvent)
+        setterPopUp(false)
     }
 
     return (

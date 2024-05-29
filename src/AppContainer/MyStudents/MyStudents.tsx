@@ -66,7 +66,7 @@ export default function MyStudents(): JSX.Element {
                 </FullScreenPopup>
                 {student
                     ? <FullScreenPopup show={showAddEvent} onClose={() => setShowAddEvent(false)}>
-                        <AddEvent student={student} />
+                        <AddEvent student={student} setterPopUp={setShowAddEvent} />
                     </FullScreenPopup>
                     : null}
             </div>

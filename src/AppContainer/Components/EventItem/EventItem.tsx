@@ -66,8 +66,11 @@ export default function EventItem({ event }: { event: Event }): JSX.Element {
                     href={isNow ? event.meeting_link : '#'}
                     target="blank"
                 >
-                    <div className={isNow ? "event-item now" : "event-item"}>
-                        <div>{event.title}</div>
+                    <div className={isNow ? "flex align-center event-item now" : "flex align-center event-item"}>
+                        <div>
+                            {event.user ? <div>{event.user.name}</div> : null}
+                            <div>{event.title}</div>
+                        </div>
                         {!isNow
                             ? <div>
                                 commence dans : {timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}

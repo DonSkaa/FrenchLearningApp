@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { Event, EventPostData } from "FormatedDatabase"
 import { useCallApi } from "Functions"
-import { FLA_ENDPOINT } from "AppConstantes"
 import { UserContext } from "./UserContext"
 
 interface EventContextType {
@@ -23,11 +22,20 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
 
     const addEvent = async (newEvent: EventPostData) => {
         callApi(`/api/event`, { method: "post" }, null, { data: newEvent })
-            .then(res => setEvents([...events, res.data.data]))
+            .then(res => {
+                events ? setEvents([...events, res.data]) : setEvents([res.data])
+            })
     }
 
     const getCurrentUserEvents = async (userId: number, controller: any): Promise<Event[]> => {
-        const response = await callApi(`/api/events`, { method: "get" }, controller.signal, { user_id: userId })
+        const currentUserId = userContext?.currentUser?.type === 'teacher' ? { teacher_id: userId } : { user_id: userId }
+        const response =
+            await callApi(
+                `/api/events`,
+                { method: "get" },
+                controller.signal,
+                currentUserId
+            )
         return response.data.data
     }
 

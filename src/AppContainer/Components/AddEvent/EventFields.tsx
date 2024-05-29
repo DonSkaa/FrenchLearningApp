@@ -24,7 +24,10 @@ export default function EventFields({ newEvent, setter }: EventFieldsProps): JSX
 
     return (
         <div className="flex column gap-1">
-            <select value={newEvent.event_type ?? ''} onChange={(e) => updateNewEvent('event_type', e.currentTarget.value)}>
+            <select
+                value={newEvent.event_type ?? ''}
+                onChange={(e) => updateNewEvent('event_type', e.currentTarget.value)}
+            >
                 <option value="lesson">Conversation</option>
                 <option value="simulation">Mise en situation</option>
             </select>
@@ -34,6 +37,7 @@ export default function EventFields({ newEvent, setter }: EventFieldsProps): JSX
                     type="date"
                     value={newEvent.date ?? ''}
                     onInput={(e) => updateNewEvent('date', e.currentTarget.value)}
+                    required
                 />
             </div>
             <div className="flex gap-1">
@@ -43,6 +47,7 @@ export default function EventFields({ newEvent, setter }: EventFieldsProps): JSX
                         type="time"
                         value={newEvent.start ?? ''}
                         onInput={(e) => updateNewEvent('start', e.currentTarget.value)}
+                        required
                     />
                 </div>
                 <div>
@@ -51,6 +56,7 @@ export default function EventFields({ newEvent, setter }: EventFieldsProps): JSX
                         type="time"
                         value={newEvent.end ?? ''}
                         onInput={(e) => updateNewEvent('end', e.currentTarget.value)}
+                        required
                     />
                 </div>
             </div>
@@ -59,6 +65,7 @@ export default function EventFields({ newEvent, setter }: EventFieldsProps): JSX
                 <input
                     value={newEvent.meeting_link ?? ''}
                     onInput={(e) => updateNewEvent('meeting_link', e.currentTarget.value)}
+                    required
                 />
                 {linkError && <p style={{ color: 'red' }}>{linkError}</p>}
             </div>

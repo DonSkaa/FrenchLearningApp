@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import Dashboard from './AppContainer/Dashboard/Dashboard'
 import Flashcards from './AppContainer/Flashcards/Flashcards'
@@ -20,6 +20,7 @@ function App() {
 
   const userContext = useContext(UserContext)
   const callApi = useCallApi()
+  const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
@@ -41,6 +42,12 @@ function App() {
     })()
   }, [])
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
+
   return (
     <div className='flex'>
       {isAuthenticated
@@ -58,7 +65,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/flashcards" element={<Flashcards />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile setter={setIsAuthenticated} />} />
             <Route path="/study/:id" element={<Studying />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
