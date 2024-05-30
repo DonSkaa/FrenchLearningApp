@@ -4,8 +4,9 @@ import { EventContext } from "AppContainer/Context/EventContext";
 import { UserContext } from "AppContainer/Context/UserContext";
 import SignUp from "AppContainer/Profile/SignUp";
 import AddEvent from "AppContainer/Components/AddEvent/AddEvent";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { User } from "FormatedDatabase";
+import LoadMore from "AppContainer/Components/LoadMore/LoadMore";
 
 export default function MyStudents(): JSX.Element {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -49,6 +50,10 @@ export default function MyStudents(): JSX.Element {
                   </div>
                 );
               })}
+              <LoadMore
+                onLoadMore={userContext.loadMoreStudents}
+                hasMore={userContext.hasMoreStudents}
+              />
             </div>
           ) : (
             <div>Il n'y a pas d'élèves pour le moment</div>

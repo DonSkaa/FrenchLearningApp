@@ -38,7 +38,6 @@ function App() {
         if (error.response.status === 401) {
           navigate("/");
         }
-        console.log(error);
       }
     })();
   }, []);

@@ -29,6 +29,17 @@ body {
   min-height: 100%;
 }
 
+.default-button,
+.light-button,
+.light-button-2,
+.strong-button,
+.link-button {
+  font-family: "Poppins", "Open Sans", monospace, sans-serif;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
 h1 {
   margin: 30px 0px 10px;
   text-align: left;
@@ -312,6 +323,20 @@ a {
   border: none;
   color: var(--sixth-color);
   font-weight: bold;
+}
+
+.light-button-2 {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--sixth-color);
+  font-weight: bold;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.light-button-2:disabled {
+  opacity: 0.6;
 }
 
 .strong-button {

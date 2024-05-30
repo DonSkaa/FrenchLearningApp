@@ -1,8 +1,21 @@
 .fc-v-event {
-    background-color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 .fc-daygrid-event-dot {
-    border: calc(var(--primary-color) / 2) solid var(--primary-color);
+  border: calc(var(--primary-color) / 2) solid var(--primary-color);
+}
+
+.fc-toolbar-title {
+  font-size: 16px !important;
+  color: var(--forth-color) !important;
+}
+
+.fc-event-time {
+  font-size: 10px !important;
+}
+
+.fc-event-title {
+  font-size: 10px !important;
 }
