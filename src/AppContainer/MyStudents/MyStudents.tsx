@@ -1,18 +1,15 @@
-import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenPopup";
-import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
-import { EventContext } from "AppContainer/Context/EventContext";
-import { UserContext } from "AppContainer/Context/UserContext";
-import SignUp from "AppContainer/Profile/SignUp";
 import AddEvent from "AppContainer/Components/AddEvent/AddEvent";
-import { useContext, useState } from "react";
-import { User } from "FormatedDatabase";
+import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenPopup";
 import LoadMore from "AppContainer/Components/LoadMore/LoadMore";
+import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
+import SignUp from "AppContainer/Profile/SignUp";
+import { User } from "FormattedDatabase";
+import { useState } from "react";
 
 export default function MyStudents(): JSX.Element {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
   const [student, SetStudent] = useState<User>();
-  const userContext = useContext(UserContext);
 
   const addStudent = () => {
     setShowSignUp(true);

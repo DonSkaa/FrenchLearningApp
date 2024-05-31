@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Card } from "FormatedDatabase";
+import { Card } from "FormattedDatabase";
 import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;

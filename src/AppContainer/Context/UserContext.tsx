@@ -1,11 +1,11 @@
+import { CurrentUser } from "FormattedDatabase";
+import { useCallApi } from "Functions";
 import React, {
+  SetStateAction,
   createContext,
   useEffect,
   useState,
-  SetStateAction,
 } from "react";
-import { CurrentUser } from "FormatedDatabase";
-import { useCallApi } from "Functions";
 
 interface UserContextType {
   currentUser: CurrentUser | null;

@@ -1,63 +1,19 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserProgram } from "FormatedDatabase";
-import { UserContext } from "./UserContext";
 import { useCallApi } from "Functions";
-import { FLA_ENDPOINT } from "AppConstantes";
+import { store } from "store";
 
-interface UserProgramContextType {
-  currentUserProgram: UserProgram | null;
-  setCurrentUserProgram: React.Dispatch<
-    React.SetStateAction<UserProgram | null>
-  >;
-}
+const controller = new AbortController();
+const callApi = useCallApi();
 
-export const UserProgramContext = createContext<UserProgramContextType>({
-  currentUserProgram: null,
-  setCurrentUserProgram: () => {},
-});
+export const getCurrentUserProgram = async () => {
+  if (store.currentUser?.type === "teacher") {
+    return (store.currentUserProgram = []);
+  }
 
-function UserProgramContextProvider(props: React.PropsWithChildren<{}>) {
-  const controller = new AbortController();
-  const [currentUserProgram, setCurrentUserProgram] =
-    useState<UserProgram | null>(null);
-  const userContext = useContext(UserContext);
-  const callApi = useCallApi();
-
-  const getCurrentUserProgram = async (
-    userId: number
-  ): Promise<UserProgram> => {
-    const response = await callApi(
-      `/api/user-program`,
-      { method: "get" },
-      controller.signal,
-      { user_id: userId }
-    );
-    return response.data.data;
-  };
-
-  useEffect(() => {
-    const fetchUserProgram = async () => {
-      if (userContext.currentUser) {
-        if (userContext.currentUser.type === "teacher") {
-          setCurrentUserProgram(null);
-        } else {
-          const userProgram = await getCurrentUserProgram(
-            userContext.currentUser.id
-          );
-          setCurrentUserProgram(userProgram);
-        }
-      }
-    };
-    fetchUserProgram();
-  }, [userContext?.currentUser]);
-
-  return (
-    <UserProgramContext.Provider
-      value={{ currentUserProgram, setCurrentUserProgram }}
-    >
-      {props.children}
-    </UserProgramContext.Provider>
+  const response = await callApi(
+    `/api/user-program`,
+    { method: "get" },
+    controller.signal,
+    { user_id: store.currentUser?.id }
   );
-}
-
-export default UserProgramContextProvider;
+  return (store.currentUserProgram = response.data.data);
+};

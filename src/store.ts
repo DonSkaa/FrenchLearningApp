@@ -1,11 +1,11 @@
-import { makeAutoObservable } from "mobx";
 import {
-  Event,
   CurrentUser,
   Deck,
+  Event,
   Expression,
   UserProgram,
-} from "FormatedDatabase";
+} from "FormattedDatabase";
+import { makeAutoObservable } from "mobx";
 
 class Store {
   expression?: Expression;

@@ -1,11 +1,9 @@
 import React from "react";
 
-interface LoadMoreProps {
+const LoadMore: React.FC<{
   onLoadMore: () => void;
   hasMore: boolean;
-}
-
-const LoadMore: React.FC<LoadMoreProps> = ({ onLoadMore, hasMore }) => {
+}> = ({ onLoadMore, hasMore }) => {
   return (
     <div className="load-more">
       <button

@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { Event, EventPostData } from "FormatedDatabase";
+import { Event, EventPostData } from "FormattedDatabase";
 import { useCallApi } from "Functions";
-import { UserContext } from "./UserContext";
+import { createContext, useEffect, useState } from "react";
+import { store } from "store";
 
 interface EventContextType {
   events: Event[];
@@ -15,7 +15,6 @@ export const EventContext = createContext<EventContextType>({
 
 function EventContextProvider(props: React.PropsWithChildren<{}>) {
   const [events, setEvents] = useState<Event[]>([]);
-  const userContext = useContext(UserContext);
 
   const callApi = useCallApi();
 
@@ -32,7 +31,7 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
     controller: any
   ): Promise<Event[]> => {
     const currentUserId =
-      userContext?.currentUser?.type === "teacher"
+      store?.currentUser?.type === "teacher"
         ? { teacher_id: userId }
         : { user_id: userId };
     const response = await callApi(
@@ -47,9 +46,9 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
   useEffect(() => {
     const controller = new AbortController();
     const fetchUserEvents = async () => {
-      if (userContext?.currentUser?.id) {
+      if (store?.currentUser?.id) {
         const userEvents = await getCurrentUserEvents(
-          userContext.currentUser.id,
+          store.currentUser.id,
           controller
         );
         setEvents(userEvents);
@@ -59,7 +58,7 @@ function EventContextProvider(props: React.PropsWithChildren<{}>) {
     return () => {
       controller.abort();
     };
-  }, [userContext?.currentUser]);
+  }, [store?.currentUser]);
 
   return (
     <EventContext.Provider value={{ events, addEvent }}>

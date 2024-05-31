@@ -1,17 +1,16 @@
-import { FormEvent, useContext, useState } from "react";
-import { UserContext } from "AppContainer/Context/UserContext";
+import { initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { initialErrorState } from "AppConstantes";
 import { useCallApi, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
+import { FormEvent, useState } from "react";
+import { store } from "store";
 
 interface SettingsProps {
   setter?: (value: any) => void | null;
 }
 
 export default function Settings({ setter }: SettingsProps): JSX.Element {
-  const userContext = useContext(UserContext);
   const callApi = useCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,12 +34,12 @@ export default function Settings({ setter }: SettingsProps): JSX.Element {
   const submitNewPassword = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const formatedData = {
+      const formattedData = {
         ...passwords,
-        userId: userContext?.currentUser?.id,
+        userId: store?.currentUser?.id,
       };
       const res = await callApi(`/api/user`, { method: "put" }, null, {
-        formatedData,
+        formattedData,
       });
       if (res) {
         setErrorMessage("");

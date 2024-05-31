@@ -1,23 +1,16 @@
-import { UserContext } from "AppContainer/Context/UserContext";
 import { useCallApi } from "Functions";
 import axios from "axios";
-import { useState, FormEvent, useContext, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
-import { observer } from "mobx-react-lite";
 
-interface LoginProps {
-  setter: (value: any) => void;
-}
-
-export default function Login({ setter }: LoginProps): JSX.Element {
+export default function Login(): JSX.Element {
   const navigate = useNavigate();
   const callApi = useCallApi();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const userContext = useContext(UserContext);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -29,12 +22,6 @@ export default function Login({ setter }: LoginProps): JSX.Element {
       }).then((res) => {
         const userData = res.data;
         store.currentUser = userData;
-        // if (userContext) {
-        setter(true);
-        // userContext.setCurrentUser(userData);
-        // } else {
-        //   setter(false);
-        // }
       });
 
       navigate("/dashboard");

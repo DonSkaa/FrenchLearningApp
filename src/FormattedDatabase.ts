@@ -76,6 +76,7 @@ export interface Program {
   days_duration: number;
   thematics: Thematic[];
 }
+
 export interface Thematic {
   id: number;
   name: string;

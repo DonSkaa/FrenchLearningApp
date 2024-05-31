@@ -1,6 +1,5 @@
 import { getDayExpression } from "AppContainer/Context/ExpressionContext";
-import { Expression } from "FormatedDatabase";
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { store } from "store";
 
 export default function DayExpression() {

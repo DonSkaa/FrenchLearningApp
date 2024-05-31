@@ -1,12 +1,12 @@
-import "./Schedule.css";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import frLocale from "@fullcalendar/core/locales/fr";
-import { useContext, useEffect, useState } from "react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import { EventContext } from "AppContainer/Context/EventContext";
-import { CalendarEvent } from "FormatedDatabase";
+import { CalendarEvent } from "FormattedDatabase";
+import { useContext, useEffect, useState } from "react";
+import "./Schedule.css";
 
 export default function Schedule(): JSX.Element {
   const { events } = useContext(EventContext);
@@ -15,11 +15,11 @@ export default function Schedule(): JSX.Element {
 
   useEffect(() => {
     if (events && events.length) {
-      const formatedEvents = events.map((event) => ({
+      const formattedEvents = events.map((event) => ({
         ...event,
         id: String(event.id),
       }));
-      setUserEvents(formatedEvents);
+      setUserEvents(formattedEvents);
     }
   }, [events]);
 

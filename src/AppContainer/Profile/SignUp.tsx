@@ -1,12 +1,10 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { UserContext } from "AppContainer/Context/UserContext";
 import { useCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
-import { useState, FormEvent, useContext, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
 import { store } from "store";
 
 interface SignUpProps {
@@ -22,7 +20,7 @@ export default function SignUp({
 }: SignUpProps): JSX.Element {
   const navigate = useNavigate();
   const callApi = useCallApi();
-  const userContext = useContext(UserContext);
+
   // const [isVisible, setIsVisible] = useState(false);
   const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
   const [error, setError] = useState(initialErrorState);
@@ -34,7 +32,7 @@ export default function SignUp({
     name: "",
     email: "",
     password: "",
-    teacher_id: type === "teacher" ? null : userContext?.currentUser?.id,
+    teacher_id: type === "teacher" ? null : store?.currentUser?.id,
   });
 
   const updateUserDataKey = (key: string, value: string) => {
