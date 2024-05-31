@@ -6,6 +6,8 @@ import { useCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
 import { useState, FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import { store } from "store";
 
 interface SignUpProps {
   setter?: (value: any) => void | null;
@@ -68,9 +70,10 @@ export default function SignUp({
         if (type === "teacher") {
           const userData = res.data;
           setter && setter(true);
-          if (userContext) {
-            userContext.setCurrentUser(userData);
-          }
+          store.currentUser = userData;
+          // if (userContext) {
+          //   userContext.setCurrentUser(userData);
+          // }
           navigate("/dashboard");
         } else if (type === "student") {
           setterPopUp && setterPopUp(false);

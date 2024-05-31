@@ -1,9 +1,10 @@
-import { FLA_ENDPOINT } from "AppConstantes";
 import { UserContext } from "AppContainer/Context/UserContext";
 import { useCallApi } from "Functions";
 import axios from "axios";
 import { useState, FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { store } from "store";
+import { observer } from "mobx-react-lite";
 
 interface LoginProps {
   setter: (value: any) => void;
@@ -27,12 +28,13 @@ export default function Login({ setter }: LoginProps): JSX.Element {
         password,
       }).then((res) => {
         const userData = res.data;
-        if (userContext) {
-          setter(true);
-          userContext.setCurrentUser(userData);
-        } else {
-          setter(false);
-        }
+        store.currentUser = userData;
+        // if (userContext) {
+        setter(true);
+        // userContext.setCurrentUser(userData);
+        // } else {
+        //   setter(false);
+        // }
       });
 
       navigate("/dashboard");

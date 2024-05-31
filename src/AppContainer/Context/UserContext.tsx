@@ -19,7 +19,7 @@ interface UserContextType {
   logout: () => void;
 }
 
-export const UserContext = createContext<UserContextType | null>({
+export const UserContext = createContext<UserContextType>({
   currentUser: null,
   setCurrentUser: function (value: SetStateAction<CurrentUser | null>): void {
     throw new Error("Function not implemented.");
@@ -78,6 +78,9 @@ function UserContextProvider(props: React.PropsWithChildren<{}>) {
         );
         setCurrentStudents(data.data);
         setTotalItems(data.totalItems);
+      } else {
+        setCurrentStudents([]);
+        setTotalItems(0);
       }
     };
     fetchCurrentStudents();

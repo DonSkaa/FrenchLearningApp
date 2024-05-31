@@ -1,13 +1,12 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./src",
-        "jsx": "react-jsx",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "include": [
-        "src"
-    ]
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true
+  },
+  "include": ["src"]
 }

@@ -1,37 +1,10 @@
 import { createContext } from "react";
 import { Expression } from "FormatedDatabase";
-import { FLA_ENDPOINT } from "AppConstantes";
 import { useCallApi } from "Functions";
+import { store } from "store";
 
-interface ExpressionContextType {
-  getDayExpression: () => Promise<Expression>;
-}
-
-export const ExpressionContext = createContext<ExpressionContextType>({
-  getDayExpression: async () => {
-    throw new Error("Not implemented");
-  },
-});
-
-function ExpressionContextProvider(props: React.PropsWithChildren<{}>) {
-  const controller = new AbortController();
-
+export const getDayExpression = async () => {
   const callApi = useCallApi();
-
-  const getDayExpression = async (): Promise<Expression> => {
-    const response = await callApi(
-      `/api/day-expression`,
-      { method: "get" },
-      controller.signal
-    );
-    return response.data.data;
-  };
-
-  return (
-    <ExpressionContext.Provider value={{ getDayExpression }}>
-      {props.children}
-    </ExpressionContext.Provider>
-  );
-}
-
-export default ExpressionContextProvider;
+  const response = await callApi(`/api/day-expression`, { method: "get" });
+  store.expression = response.data.data;
+};

@@ -24,8 +24,8 @@ export default function MyStudents(): JSX.Element {
   };
 
   return (
-    <div className="full-width flex center m-4">
-      <div className="main-section m-t-40">
+    <div className="full-width flex center m-4  m-t-40">
+      <div className="main-section">
         <div className="flex gap-1 m-b-10">
           <button className="strong-button" onClick={() => addStudent()}>
             Ajouter un élève
@@ -55,9 +55,7 @@ export default function MyStudents(): JSX.Element {
                 hasMore={userContext.hasMoreStudents}
               />
             </div>
-          ) : (
-            <div>Il n'y a pas d'élèves pour le moment</div>
-          )
+          ) : null
         ) : (
           <Skeleton height={"65px"} />
         )}

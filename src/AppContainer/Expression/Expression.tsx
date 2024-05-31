@@ -1,31 +1,22 @@
-import { ExpressionContext } from "AppContainer/Context/ExpressionContext"
-import { Expression } from "FormatedDatabase"
-import { useContext, useEffect, useState } from "react"
+import { getDayExpression } from "AppContainer/Context/ExpressionContext";
+import { Expression } from "FormatedDatabase";
+import { useContext, useEffect, useState } from "react";
+import { store } from "store";
 
 export default function DayExpression() {
+  useEffect(() => {
+    getDayExpression();
+  }, []);
 
-    const [currentExpression, setCurrentExpression] = useState<Expression | undefined>(undefined)
-    const { getDayExpression } = useContext(ExpressionContext)
-
-    useEffect(() => {
-        getDayExpression()
-            .then(res => {
-                setCurrentExpression(res)
-            })
-            .catch(error => console.error("Error fetching expressions:", error))
-    }, [])
-
-    return (
-        <>
-            {
-                currentExpression
-                    ? <div className="grey-border flex column gap-1">
-                        <h4 className="p-0 m-0 left"> EXPRESSION DU JOUR</h4>
-                        <h3 className="p-0 m-0 left">{currentExpression.title}</h3>
-                        <div className="description">{currentExpression.description}</div>
-                    </div>
-                    : null
-            }
-        </>
-    )
+  return (
+    <>
+      {store.expression ? (
+        <div className="grey-border flex column gap-1">
+          <h4 className="p-0 m-0 left"> EXPRESSION DU JOUR</h4>
+          <h3 className="p-0 m-0 left">{store.expression.title}</h3>
+          <div className="description">{store.expression.description}</div>
+        </div>
+      ) : null}
+    </>
+  );
 }

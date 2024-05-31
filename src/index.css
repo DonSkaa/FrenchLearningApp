@@ -29,15 +29,26 @@ body {
   min-height: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Poppins", "Open Sans", monospace, sans-serif;
+}
+
 .default-button,
 .light-button,
 .light-button-2,
 .strong-button,
 .link-button {
   font-family: "Poppins", "Open Sans", monospace, sans-serif;
-  cursor: pointer;
   background: none;
   border: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 h1 {
@@ -178,7 +189,7 @@ a {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .strong {
@@ -303,6 +314,11 @@ a {
 }
 
 /* Buttons */
+.strong-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .default-button {
   cursor: pointer;
   background: none;
@@ -352,11 +368,6 @@ a {
   padding: 18px;
   width: 100%;
   transition: all 0.2s;
-}
-
-.strong-button:hover {
-  cursor: pointer;
-  opacity: 0.8;
 }
 
 .link-button {
@@ -437,6 +448,22 @@ select:focus {
 /* Warning */
 .warning {
   color: #ff2626;
+}
+
+/* item */
+.item {
+  padding: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: var(--secondary-color);
+  border: 2px solid var(--third-color);
+}
+
+.item:hover {
+  background-color: var(--third-color);
 }
 
 .error-border {
