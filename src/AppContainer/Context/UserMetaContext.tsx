@@ -1,7 +1,7 @@
 import { UserMeta } from "FormattedDatabase";
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 
-const callApi = useCallApi();
+const callApi = getCallApi();
 
 export const updateUserMeta = async (
   updatedUserMeta: UserMeta

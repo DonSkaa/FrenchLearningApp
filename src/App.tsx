@@ -7,7 +7,7 @@ import Profile from "AppContainer/Profile/Profile";
 import SignUp from "AppContainer/Profile/SignUp";
 import Settings from "AppContainer/Settings/Settings";
 import Terms from "AppContainer/Terms/Terms";
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
@@ -18,25 +18,26 @@ import Studying from "./AppContainer/Flashcards/Studying";
 import Schedule from "./AppContainer/Schedule/Schedule";
 import { store } from "./store";
 
-export async function initialize() {
-  const callApi = useCallApi();
+export async function useInitialize() {
+  const callApi = getCallApi();
   const navigate = useNavigate();
-  try {
-    const res = await callApi(`/api/user`, { method: "get" }, null);
-    const userData = res.data;
-    store.currentUser = userData;
-  } catch (error: any) {
-    if (error.response.status === 401) {
-      store.currentUser = undefined;
-      navigate("/");
-    }
-  }
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await callApi(`/api/user`, { method: "get" }, null);
+        store.currentUser = res.data;
+      } catch (error: any) {
+        if (error.response.status === 401) {
+          store.currentUser = undefined;
+          navigate("/");
+        }
+      }
+    })();
+  }, []);
 }
 
 function App() {
-  useEffect(() => {
-    initialize();
-  }, []);
+  useInitialize();
 
   return (
     <div className="flex">

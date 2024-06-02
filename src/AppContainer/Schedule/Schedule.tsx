@@ -3,25 +3,23 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { EventContext } from "AppContainer/Context/EventContext";
 import { CalendarEvent } from "FormattedDatabase";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { store } from "store";
 import "./Schedule.css";
 
 export default function Schedule(): JSX.Element {
-  const { events } = useContext(EventContext);
-
   const [userEvents, setUserEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
-    if (events && events.length) {
-      const formattedEvents = events.map((event) => ({
+    if (store.events && store.events.length) {
+      const formattedEvents = store.events.map((event) => ({
         ...event,
         id: String(event.id),
       }));
       setUserEvents(formattedEvents);
     }
-  }, [events]);
+  }, [store.events]);
 
   return (
     <div className="full-width flex center m-4">

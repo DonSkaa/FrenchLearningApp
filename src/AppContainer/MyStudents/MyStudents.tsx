@@ -1,10 +1,10 @@
 import AddEvent from "AppContainer/Components/AddEvent/AddEvent";
 import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenPopup";
-import LoadMore from "AppContainer/Components/LoadMore/LoadMore";
 import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
 import SignUp from "AppContainer/Profile/SignUp";
 import { User } from "FormattedDatabase";
 import { useState } from "react";
+import { store } from "store";
 
 export default function MyStudents(): JSX.Element {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -28,10 +28,10 @@ export default function MyStudents(): JSX.Element {
             Ajouter un élève
           </button>
         </div>
-        {userContext?.currentStudents ? (
-          userContext?.currentStudents.length ? (
+        {store.currentStudents ? (
+          store.currentStudents.length ? (
             <div className="flex column gap-1">
-              {userContext.currentStudents.map((student: any) => {
+              {store.currentStudents.map((student: any) => {
                 return (
                   <div key={student.id} className="array-item">
                     <div className="strong">{student.name}</div>
@@ -47,10 +47,10 @@ export default function MyStudents(): JSX.Element {
                   </div>
                 );
               })}
-              <LoadMore
+              {/* <LoadMore
                 onLoadMore={userContext.loadMoreStudents}
                 hasMore={userContext.hasMoreStudents}
-              />
+              /> */}
             </div>
           ) : null
         ) : (

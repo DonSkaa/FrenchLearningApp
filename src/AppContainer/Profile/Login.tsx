@@ -1,4 +1,4 @@
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { store } from "store";
 
 export default function Login(): JSX.Element {
   const navigate = useNavigate();
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);

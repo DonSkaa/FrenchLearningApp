@@ -112,27 +112,3 @@ export interface Expression {
   description: string;
   last_used_date: string | null;
 }
-
-export const deck: Deck[] = [
-  {
-    id: 1,
-    thematic: "La nourriture",
-    updated: false,
-    cards: [
-      {
-        id: 1,
-        deck_id: 1,
-        recto: "a fork",
-        verso: "une fourchette",
-        user_meta: {
-          id: 1,
-          card_id: 1,
-          user_id: 1,
-          times_reviewed: 1,
-          last_review_date: "2024-04-23",
-          last_difficulty_level: "easy",
-        },
-      },
-    ],
-  },
-];

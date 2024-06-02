@@ -1,6 +1,6 @@
-import { EventContext } from "AppContainer/Context/EventContext";
+import { addEvent } from "AppContainer/Context/EventContext";
 import { EventPostData, User } from "FormattedDatabase";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import EventFields from "./EventFields";
 
 interface EventFieldsProps {
@@ -13,7 +13,6 @@ export default function AddEvent({
   setterPopUp,
 }: EventFieldsProps): JSX.Element {
   const [newEvent, setNewEvent] = useState<EventPostData>({} as EventPostData);
-  const { addEvent } = useContext(EventContext);
 
   useEffect(() => {
     setNewEvent({

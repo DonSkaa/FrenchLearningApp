@@ -1,10 +1,10 @@
-import { getDayExpression } from "AppContainer/Context/ExpressionContext";
+import { loadDayExpression } from "AppContainer/Context/ExpressionContext";
 import { useEffect } from "react";
 import { store } from "store";
 
 export default function DayExpression() {
   useEffect(() => {
-    getDayExpression();
+    loadDayExpression();
   }, []);
 
   return (

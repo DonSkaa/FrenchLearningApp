@@ -1,19 +1,14 @@
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 import { store } from "store";
 
-const controller = new AbortController();
-const callApi = useCallApi();
-
 export const getCurrentUserProgram = async () => {
+  const callApi = getCallApi();
   if (store.currentUser?.type === "teacher") {
-    return (store.currentUserProgram = []);
+    return (store.currentUserProgram = undefined);
   }
 
-  const response = await callApi(
-    `/api/user-program`,
-    { method: "get" },
-    controller.signal,
-    { user_id: store.currentUser?.id }
-  );
+  const response = await callApi(`/api/user-program`, { method: "get" }, null, {
+    user_id: store.currentUser?.id,
+  });
   return (store.currentUserProgram = response.data.data);
 };

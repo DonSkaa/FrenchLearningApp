@@ -1,7 +1,7 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { useCallApi, validateEmail, validatePassword } from "Functions";
+import { getCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function SignUp({
   type = "teacher",
 }: SignUpProps): JSX.Element {
   const navigate = useNavigate();
-  const callApi = useCallApi();
+  const callApi = getCallApi();
 
   // const [isVisible, setIsVisible] = useState(false);
   const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
@@ -75,9 +75,12 @@ export default function SignUp({
           navigate("/dashboard");
         } else if (type === "student") {
           setterPopUp && setterPopUp(false);
-          userContext?.setCurrentStudents((prevStudents) =>
-            prevStudents ? [...prevStudents, res.data] : [res.data]
-          );
+          store.currentStudents = store.currentStudents
+            ? [...store.currentStudents, res.data]
+            : [res.data];
+          // userContext?.setCurrentStudents((prevStudents) =>
+          //   prevStudents ? [...prevStudents, res.data] : [res.data]
+          // );
         }
       } catch (error: any) {
         if (error?.response?.data?.message === "email already taken") {

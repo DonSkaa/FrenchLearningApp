@@ -1,39 +1,35 @@
 import DeckItem from "AppContainer/Components/DeckItem/DeckItem";
-import { DeckContext } from "AppContainer/Context/DeckContext";
-import { EventContext } from "AppContainer/Context/EventContext";
 import Expression from "AppContainer/Expression/Expression";
 import { Deck, Event } from "FormattedDatabase";
 import { isToReview, isToday } from "Functions";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { store } from "store";
 import EventItem from "../Components/EventItem/EventItem";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const { events } = useContext(EventContext);
-  const { decks } = useContext(DeckContext);
   const [formattedEvents, setFormattedEvents] = useState<any>([]);
   const [formattedDecks, setFormattedDecks] = useState<any>([]);
 
   useEffect(() => {
-    if (events) {
-      const filteredEvents = events.filter(
+    if (store.events) {
+      const filteredEvents = store.events.filter(
         (event) => isToday(event.date) && new Date(event.end) > new Date()
       );
       setFormattedEvents(filteredEvents);
     }
-  }, [events]);
+  }, [store.events]);
 
   useEffect(() => {
-    const filteredDecks = decks.map((deck) => ({
+    const filteredDecks = store.decks?.map((deck) => ({
       ...deck,
       cards: deck.cards.filter((card) => isToReview(card)),
     }));
-    const formattedDecksCards = filteredDecks.filter(
+    const formattedDecksCards = filteredDecks?.filter(
       (deck) => deck.cards.length > 0
     );
     setFormattedDecks(formattedDecksCards);
-  }, [decks]);
+  }, [store.decks]);
 
   return (
     <div className="full-width flex center gap-2 m-4">

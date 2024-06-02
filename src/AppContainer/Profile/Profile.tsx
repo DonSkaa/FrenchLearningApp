@@ -1,12 +1,12 @@
 import Progression from "AppContainer/Components/Progression/Progression";
 import { Link } from "react-router-dom";
-import { store, store } from "store";
+import { store } from "store";
 import "./Profile.css";
 
 export default function Profile(): JSX.Element {
   return (
     <div className="full-width flex center m-t-40 m-4 gap-1">
-      {store?.currentUser ? (
+      {store.currentUser ? (
         <>
           <div className="quarter-width"></div>
           <div className="main-section">

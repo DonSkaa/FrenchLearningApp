@@ -1,7 +1,7 @@
 import { initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { useCallApi, validatePassword } from "Functions";
+import { getCallApi, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
 import { FormEvent, useState } from "react";
 import { store } from "store";
@@ -11,7 +11,7 @@ interface SettingsProps {
 }
 
 export default function Settings({ setter }: SettingsProps): JSX.Element {
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
   const [passwords, setPasswords] = useState({
@@ -19,12 +19,12 @@ export default function Settings({ setter }: SettingsProps): JSX.Element {
     newPassword: "",
   });
 
-  const logOutFunc = () => {
-    if (userContext) {
-      userContext.logout();
-      setter && setter(false);
-    }
-  };
+  // const logOutFunc = () => {
+  //   if (userContext) {
+  //     userContext.logout();
+  //     setter && setter(false);
+  //   }
+  // };
 
   const updatePasswords = (key: string, value: string) => {
     key === "newPassword" && setError(validatePassword(value));
@@ -74,9 +74,9 @@ export default function Settings({ setter }: SettingsProps): JSX.Element {
         <PasswordRequirements error={error} />
         <button className="strong-button">Enregistrer les modifications</button>
       </form>
-      <button className="strong-button m-t-40" onClick={logOutFunc}>
+      {/* <button className="strong-button m-t-40" onClick={logOutFunc}>
         Se déconnecter
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -1,6 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Card } from "FormattedDatabase";
-import { useNavigate } from "react-router-dom";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 axios.defaults.withCredentials = true;
 
@@ -8,9 +7,7 @@ interface CallApiOptions extends AxiosRequestConfig {
   method?: "get" | "post" | "put" | "delete";
 }
 
-export const useCallApi = () => {
-  const navigate = useNavigate();
-
+export const getCallApi = () => {
   const callApi = async (
     uri: string,
     options: CallApiOptions = { method: "get" },

@@ -13,7 +13,7 @@ class Store {
   events?: Event[];
   currentUser?: CurrentUser;
   currentStudents?: CurrentUser[];
-  currentUserProgram?: UserProgram[];
+  currentUserProgram?: UserProgram;
 
   constructor() {
     makeAutoObservable(this);
