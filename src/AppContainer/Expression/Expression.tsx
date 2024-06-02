@@ -1,12 +1,7 @@
-import { loadDayExpression } from "AppContainer/Context/ExpressionContext";
-import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { store } from "store";
 
-export default function DayExpression() {
-  useEffect(() => {
-    loadDayExpression();
-  }, []);
-
+export const Expression = observer(() => {
   return (
     <>
       {store.expression ? (
@@ -18,4 +13,4 @@ export default function DayExpression() {
       ) : null}
     </>
   );
-}
+});

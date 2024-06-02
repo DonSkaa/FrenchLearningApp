@@ -43,7 +43,7 @@ import { getCallApi } from "Functions";
 const callApi = getCallApi();
 // const limit = 10;
 
-const getCurrentStudents = async (
+export const getCurrentStudents = async (
   teacherId: number,
   offset: number,
   limit: number,
@@ -54,7 +54,7 @@ const getCurrentStudents = async (
     offset,
     limit,
   });
-  return response.data;
+  return response.data.data;
 };
 
 export const fetchCurrentStudents = async () => {

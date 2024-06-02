@@ -1,6 +1,6 @@
 import { studentMenu, teacherMenu } from "AppConstantes";
 import HomePage from "AppContainer/HomePage/HomePage";
-import MyStudents from "AppContainer/MyStudents/MyStudents";
+import { MyStudents } from "AppContainer/MyStudents/MyStudents";
 import Privacy from "AppContainer/Privacy/Privacy";
 import Login from "AppContainer/Profile/Login";
 import Profile from "AppContainer/Profile/Profile";
@@ -8,8 +8,10 @@ import SignUp from "AppContainer/Profile/SignUp";
 import Settings from "AppContainer/Settings/Settings";
 import Terms from "AppContainer/Terms/Terms";
 import { getCallApi } from "Functions";
+import { configure } from "mobx";
+import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./AppContainer/Components/NavBar/NavBar";
 import Dashboard from "./AppContainer/Dashboard/Dashboard";
@@ -18,26 +20,31 @@ import Studying from "./AppContainer/Flashcards/Studying";
 import Schedule from "./AppContainer/Schedule/Schedule";
 import { store } from "./store";
 
-export async function useInitialize() {
+configure({
+  enforceActions: "never",
+});
+
+export async function initialize() {
   const callApi = getCallApi();
-  const navigate = useNavigate();
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await callApi(`/api/user`, { method: "get" }, null);
-        store.currentUser = res.data;
-      } catch (error: any) {
-        if (error.response.status === 401) {
-          store.currentUser = undefined;
-          navigate("/");
-        }
-      }
-    })();
-  }, []);
+
+  console.log("!sdaf");
+  try {
+    const res = await callApi(`/api/user`, { method: "get" }, null);
+    store.setUser(res.data);
+  } catch (error: any) {
+    if (error.response.status === 401) {
+      store.currentUser = undefined;
+
+      // TODO: Use History.push instead of this
+      // navigate("/");
+    }
+  }
 }
 
-function App() {
-  useInitialize();
+const App = observer(() => {
+  useEffect(() => {
+    initialize();
+  }, []);
 
   return (
     <div className="flex">
@@ -69,6 +76,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+});
 
 export default App;

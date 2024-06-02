@@ -16,6 +16,7 @@
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "axios": "^1.6.8",
+    "history": "^5.3.0",
     "js-cookie": "^3.0.5",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
@@ -34,12 +35,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -53,7 +48,16 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/moment": "^2.13.0",
-    "@types/react-big-calendar": "^1.8.9"
+    "@types/react-big-calendar": "^1.8.9",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-mobx": "^0.0.9",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
 }

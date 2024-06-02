@@ -1,35 +1,13 @@
 import DeckItem from "AppContainer/Components/DeckItem/DeckItem";
-import Expression from "AppContainer/Expression/Expression";
+import { Expression } from "AppContainer/Expression/Expression";
 import { Deck, Event } from "FormattedDatabase";
-import { isToReview, isToday } from "Functions";
-import { useEffect, useState } from "react";
 import { store } from "store";
 import EventItem from "../Components/EventItem/EventItem";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const [formattedEvents, setFormattedEvents] = useState<any>([]);
-  const [formattedDecks, setFormattedDecks] = useState<any>([]);
-
-  useEffect(() => {
-    if (store.events) {
-      const filteredEvents = store.events.filter(
-        (event) => isToday(event.date) && new Date(event.end) > new Date()
-      );
-      setFormattedEvents(filteredEvents);
-    }
-  }, [store.events]);
-
-  useEffect(() => {
-    const filteredDecks = store.decks?.map((deck) => ({
-      ...deck,
-      cards: deck.cards.filter((card) => isToReview(card)),
-    }));
-    const formattedDecksCards = filteredDecks?.filter(
-      (deck) => deck.cards.length > 0
-    );
-    setFormattedDecks(formattedDecksCards);
-  }, [store.decks]);
+  const formattedEvents = store.formattedEvents;
+  const formattedDecks = store.formattedDecks;
 
   return (
     <div className="full-width flex center gap-2 m-4">

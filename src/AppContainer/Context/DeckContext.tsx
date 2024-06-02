@@ -1,12 +1,9 @@
 import { Deck } from "FormattedDatabase";
 import { getCallApi } from "Functions";
-import { store } from "store";
 
-export const getCurrentDecks = async (deckIds: number[]): Promise<Deck[]> => {
+export const getDecks = async (): Promise<Deck[]> => {
   const callApi = getCallApi();
-  const response = await callApi(`api/decks`, { method: "get" }, null, {
-    deck_ids: store.currentUserProgram?.deck_ids || [],
-  });
+  const response = await callApi(`api/decks`, { method: "get" }, null);
   return response.data.data;
 };
 

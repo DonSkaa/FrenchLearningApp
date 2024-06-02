@@ -3,10 +3,11 @@ import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenP
 import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
 import SignUp from "AppContainer/Profile/SignUp";
 import { User } from "FormattedDatabase";
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { store } from "store";
 
-export default function MyStudents(): JSX.Element {
+export const MyStudents = observer(() => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
   const [student, SetStudent] = useState<User>();
@@ -20,6 +21,8 @@ export default function MyStudents(): JSX.Element {
     setShowAddEvent(true);
   };
 
+  // console.log(toJS(store.currentStudents));
+
   return (
     <div className="full-width flex center m-4  m-t-40">
       <div className="main-section">
@@ -31,11 +34,11 @@ export default function MyStudents(): JSX.Element {
         {store.currentStudents ? (
           store.currentStudents.length ? (
             <div className="flex column gap-1">
-              {store.currentStudents.map((student: any) => {
+              {store.currentStudents.map((student) => {
                 return (
                   <div key={student.id} className="array-item">
                     <div className="strong">{student.name}</div>
-                    <div>{student.program_id}</div>
+                    <div>{student.user_program_id}</div>
                     <div>
                       <button
                         className="light-button"
@@ -56,7 +59,6 @@ export default function MyStudents(): JSX.Element {
         ) : (
           <Skeleton height={"65px"} />
         )}
-
         <FullScreenPopup show={showSignUp} onClose={() => setShowSignUp(false)}>
           <SignUp type="student" setterPopUp={setShowSignUp} />
         </FullScreenPopup>
@@ -71,4 +73,4 @@ export default function MyStudents(): JSX.Element {
       </div>
     </div>
   );
-}
+});

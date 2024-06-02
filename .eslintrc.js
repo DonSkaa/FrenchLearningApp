@@ -24,16 +24,19 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   plugins: ["mobx"],
-  overrides: [
-    {
-      files: ["*.ts", "*.tsx"],
-      extends: ["plugin:@typescript-eslint/strict"],
-      parserOptions: {
-        project: ["./tsconfig.json"],
-      },
-      rules: {
-        "@typescript-eslint/no-unused-vars": "off",
-      },
-    },
-  ],
+  rules: {
+    "@typescript-eslint/no-unused-vars": "off",
+  },
+  // overrides: [
+  //   {
+  //     files: ["*.ts", "*.tsx"],
+  //     extends: ["plugin:@typescript-eslint/strict"],
+  //     parserOptions: {
+  //       project: ["./tsconfig.json"],
+  //     },
+  //     rules: {
+  //       "@typescript-eslint/no-unused-vars": "off",
+  //     },
+  //   },
+  // ],
 };

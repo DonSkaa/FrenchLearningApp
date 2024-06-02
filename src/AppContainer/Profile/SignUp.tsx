@@ -68,7 +68,7 @@ export default function SignUp({
         if (type === "teacher") {
           const userData = res.data;
           setter && setter(true);
-          store.currentUser = userData;
+          store.setUser(userData);
           // if (userContext) {
           //   userContext.setCurrentUser(userData);
           // }
