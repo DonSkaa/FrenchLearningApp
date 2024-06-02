@@ -10,7 +10,7 @@ interface TimeRemaining {
   seconds: string;
 }
 
-export default function EventItem({ event }: { event: Event }): JSX.Element {
+export default const EventItem = observer(function EventItem({ event }: { event: Event }): JSX.Element {
   const [timeRemaining, setTimeRemaining] = useState<Partial<TimeRemaining>>(
     {}
   );
@@ -96,4 +96,4 @@ export default function EventItem({ event }: { event: Event }): JSX.Element {
       )}
     </>
   );
-}
+})

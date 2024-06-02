@@ -6,7 +6,7 @@ interface SkeletonProps {
     height?: string | number;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ width = '100%', height = '20px' }) => {
+const Skeleton: React.FC<SkeletonProps> = observer(({ width = '100%', height = '20px' }) => {
     const skeletonStyle: React.CSSProperties = {
         position: 'relative',
         width: width,
@@ -33,6 +33,6 @@ const Skeleton: React.FC<SkeletonProps> = ({ width = '100%', height = '20px' }) 
             <div style={highlightStyle}></div>
         </div>
     )
-}
+})
 
 export default Skeleton

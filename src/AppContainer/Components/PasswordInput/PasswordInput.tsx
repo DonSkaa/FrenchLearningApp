@@ -8,7 +8,7 @@ interface PasswordInputProps {
   setter?: (key: string, value: string) => void;
 }
 
-export default function PasswordInput({
+export default const PasswordInput = observer(function PasswordInput({
   className,
   updatingKey,
   placeholder = "Mot de passe",
@@ -40,4 +40,4 @@ export default function PasswordInput({
       </button>
     </div>
   );
-}
+})

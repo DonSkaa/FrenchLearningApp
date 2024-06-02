@@ -7,7 +7,7 @@ interface EventFieldsProps {
   setter: (value: any) => void | null;
 }
 
-export default function EventFields({
+export default const EventFields = observer(function EventFields({
   newEvent,
   setter,
 }: EventFieldsProps): JSX.Element {
@@ -73,4 +73,4 @@ export default function EventFields({
       </div>
     </div>
   );
-}
+})

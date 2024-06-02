@@ -3,7 +3,7 @@ import React from "react";
 const LoadMore: React.FC<{
   onLoadMore: () => void;
   hasMore: boolean;
-}> = ({ onLoadMore, hasMore }) => {
+}> = observer(({ onLoadMore, hasMore }) => {
   return (
     <div className="load-more">
       <button
@@ -15,6 +15,6 @@ const LoadMore: React.FC<{
       </button>
     </div>
   );
-};
+});
 
 export default LoadMore;

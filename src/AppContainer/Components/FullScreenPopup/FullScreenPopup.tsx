@@ -7,7 +7,7 @@ interface FullScreenPopupProps {
     children: React.ReactNode;
 }
 
-const FullScreenPopup: React.FC<FullScreenPopupProps> = ({ show, onClose, children }) => {
+const FullScreenPopup: React.FC<FullScreenPopupProps> = observer(({ show, onClose, children }) => {
     if (!show) {
         return null
     }
@@ -20,6 +20,6 @@ const FullScreenPopup: React.FC<FullScreenPopupProps> = ({ show, onClose, childr
             </div>
         </div>
     )
-}
+})
 
 export default FullScreenPopup

@@ -13,7 +13,7 @@ interface SignUpProps {
   type?: "teacher" | "student";
 }
 
-export default function SignUp({
+export default const SignUp = observer(function SignUp({
   setter,
   setterPopUp,
   type = "teacher",
@@ -184,4 +184,4 @@ export default function SignUp({
       </div>
     </div>
   );
-}
+})

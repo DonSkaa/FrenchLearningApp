@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { store } from "store";
 
-export default function Studying(): JSX.Element {
+export default const Studying = observer(function Studying(): JSX.Element {
   const params = useParams();
   let deckId = Number(params.id);
   const navigate = useNavigate();
@@ -146,4 +146,4 @@ export default function Studying(): JSX.Element {
       </div>
     </div>
   );
-}
+})

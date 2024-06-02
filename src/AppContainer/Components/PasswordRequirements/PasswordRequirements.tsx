@@ -5,7 +5,7 @@ interface PasswordRequirementsProps {
   error: typeof initialErrorState;
 }
 
-export default function PasswordRequirements({
+export default const PasswordRequirements = observer(function PasswordRequirements({
   error,
 }: PasswordRequirementsProps): JSX.Element {
   return (
@@ -27,4 +27,4 @@ export default function PasswordRequirements({
       ))}
     </div>
   );
-}
+})

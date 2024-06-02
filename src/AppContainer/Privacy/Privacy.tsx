@@ -1,4 +1,4 @@
-export default function Privacy(): JSX.Element {
+export default const Privacy = observer(function Privacy(): JSX.Element {
     return (
         <div className="full-width flex column m-4">
             <div>
@@ -97,4 +97,4 @@ export default function Privacy(): JSX.Element {
             </div>
         </div>
     )
-}
+})

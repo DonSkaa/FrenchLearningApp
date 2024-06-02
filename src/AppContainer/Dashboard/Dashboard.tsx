@@ -5,7 +5,7 @@ import { store } from "store";
 import EventItem from "../Components/EventItem/EventItem";
 import "./Dashboard.css";
 
-export default function Dashboard() {
+export default const Dashboard = observer(function Dashboard() {
   const formattedEvents = store.formattedEvents;
   const formattedDecks = store.formattedDecks;
 
@@ -58,4 +58,4 @@ export default function Dashboard() {
       ) : null}
     </div>
   );
-}
+})

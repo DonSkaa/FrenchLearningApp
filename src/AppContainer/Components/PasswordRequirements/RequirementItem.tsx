@@ -1,4 +1,4 @@
-export default function RequirementItem({
+export default const RequirementItem = observer(function RequirementItem({
   completed,
   label,
 }: {
@@ -26,4 +26,4 @@ export default function RequirementItem({
       <div className="small-text">{label}</div>
     </div>
   );
-}
+})

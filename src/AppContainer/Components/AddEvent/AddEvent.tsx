@@ -8,7 +8,7 @@ interface EventFieldsProps {
   setterPopUp: (value: boolean) => void;
 }
 
-export default function AddEvent({
+export default const AddEvent = observer(function AddEvent({
   student,
   setterPopUp,
 }: EventFieldsProps): JSX.Element {
@@ -43,4 +43,4 @@ export default function AddEvent({
       </form>
     </div>
   );
-}
+})

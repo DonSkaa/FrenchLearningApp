@@ -1,4 +1,4 @@
-export default function Terms(): JSX.Element {
+export default const Terms = observer(function Terms(): JSX.Element {
     return (
         <div className="full-width flex column m-4">
             <div>
@@ -78,4 +78,4 @@ export default function Terms(): JSX.Element {
             </div>
         </div>
     )
-}
+})

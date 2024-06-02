@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
-export default function Login(): JSX.Element {
+export default const Login = observer(function Login(): JSX.Element {
   const navigate = useNavigate();
   const callApi = getCallApi();
   const [email, setEmail] = useState("");
@@ -87,4 +87,4 @@ export default function Login(): JSX.Element {
       </div>
     </div>
   );
-}
+})

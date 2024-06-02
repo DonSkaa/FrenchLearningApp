@@ -10,7 +10,7 @@ interface SettingsProps {
   setter?: (value: any) => void | null;
 }
 
-export default function Settings({ setter }: SettingsProps): JSX.Element {
+export default const Settings = observer(function Settings({ setter }: SettingsProps): JSX.Element {
   const callApi = getCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
@@ -79,4 +79,4 @@ export default function Settings({ setter }: SettingsProps): JSX.Element {
       </button> */}
     </div>
   );
-}
+})

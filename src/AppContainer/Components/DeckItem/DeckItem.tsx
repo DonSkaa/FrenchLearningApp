@@ -8,7 +8,7 @@ interface DeckItemProps {
   currentDeck: Deck;
 }
 
-export default function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
+export default const DeckItem = observer(function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
   const [formattedCurrentDeck, setFormattedCurrentDeck] = useState<
     Deck | undefined
   >(undefined);
@@ -35,4 +35,4 @@ export default function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
       )}
     </>
   );
-}
+})

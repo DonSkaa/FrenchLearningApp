@@ -1,7 +1,7 @@
 import "./SecondNavBar.css";
 import { NavLink } from "react-router-dom";
 
-export default function SecondNavBar({ menu }: {
+export default const SecondNavBar = observer(function SecondNavBar({ menu }: {
     menu:
     {
         name: string;
@@ -17,5 +17,5 @@ export default function SecondNavBar({ menu }: {
             ))}
         </div>
     );
-}
+})
 

@@ -2,7 +2,7 @@ import { calculateProgress } from "Functions";
 import { useEffect, useState } from "react";
 import { store } from "store";
 
-export default function Progression(): JSX.Element {
+export default const Progression = observer(function Progression(): JSX.Element {
   const [progress, setProgress] = useState<number | null>(null);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ export default function Progression(): JSX.Element {
       )}
     </div>
   );
-}
+})
