@@ -1,21 +1,22 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { studentMenu, teacherMenu } from "AppConstantes";
+import { UserContext } from "AppContainer/Context/UserContext";
+import HomePage from "AppContainer/HomePage/HomePage";
+import MyStudents from "AppContainer/MyStudents/MyStudents";
+import Privacy from "AppContainer/Privacy/Privacy";
+import Login from "AppContainer/Profile/Login";
+import Profile from "AppContainer/Profile/Profile";
+import SignUp from "AppContainer/Profile/SignUp";
+import Settings from "AppContainer/Settings/Settings";
+import Terms from "AppContainer/Terms/Terms";
+import { useCallApi } from "Functions";
+import { useContext, useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
+import NavBar from "./AppContainer/Components/NavBar/NavBar";
 import Dashboard from "./AppContainer/Dashboard/Dashboard";
 import Flashcards from "./AppContainer/Flashcards/Flashcards";
-import Schedule from "./AppContainer/Schedule/Schedule";
-import NavBar from "./AppContainer/Components/NavBar/NavBar";
 import Studying from "./AppContainer/Flashcards/Studying";
-import Profile from "AppContainer/Profile/Profile";
-import Login from "AppContainer/Profile/Login";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "AppContainer/Context/UserContext";
-import { FLA_ENDPOINT, studentMenu, teacherMenu } from "AppConstantes";
-import { useCallApi } from "Functions";
-import Privacy from "AppContainer/Privacy/Privacy";
-import Terms from "AppContainer/Terms/Terms";
-import SignUp from "AppContainer/Profile/SignUp";
-import MyStudents from "AppContainer/MyStudents/MyStudents";
-import Settings from "AppContainer/Settings/Settings";
+import Schedule from "./AppContainer/Schedule/Schedule";
 
 function App() {
   const userContext = useContext(UserContext);
@@ -60,13 +61,9 @@ function App() {
         />
       ) : null}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Login setter={setIsAuthenticated} />
-            // <SignUp setter={setIsAuthenticated} />
-          }
-        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup-teacher" element={<SignUp type="teacher" />} />
         {isAuthenticated ? (
           <>
             <Route path="/dashboard" element={<Dashboard />} />
