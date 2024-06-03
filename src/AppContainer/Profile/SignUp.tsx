@@ -4,7 +4,7 @@ import PasswordRequirements from "AppContainer/Components/PasswordRequirements/P
 import { UserContext } from "AppContainer/Context/UserContext";
 import { useCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
-import { useState, FormEvent, useContext, useEffect } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface SignUpProps {
@@ -27,7 +27,7 @@ export default function SignUp({
   const [disabled, setDisabled] = useState({ email: false, password: false });
   const isFormValid = Object.values(error).every((value) => value);
   const [userData, setUserData] = useState({
-    program_duration: "",
+    program_duration: "4",
     type: type,
     name: "",
     email: "",
@@ -108,8 +108,8 @@ export default function SignUp({
                 }
                 required
               >
-                <option value="28">28 jours</option>
-                <option value="84">84 jours</option>
+                <option value="4">4 semaines</option>
+                <option value="12">12 semaines</option>
               </select>
             </div>
           ) : null}
