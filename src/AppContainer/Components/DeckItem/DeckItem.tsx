@@ -1,5 +1,6 @@
 import { Deck } from "FormattedDatabase";
 import { isToReview } from "Functions";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./DeckItem.css";
@@ -8,7 +9,9 @@ interface DeckItemProps {
   currentDeck: Deck;
 }
 
-export default const DeckItem = observer(function DeckItem({ currentDeck }: DeckItemProps): JSX.Element {
+export const DeckItem = observer(function DeckItem({
+  currentDeck,
+}: DeckItemProps): JSX.Element {
   const [formattedCurrentDeck, setFormattedCurrentDeck] = useState<
     Deck | undefined
   >(undefined);
@@ -35,4 +38,4 @@ export default const DeckItem = observer(function DeckItem({ currentDeck }: Deck
       )}
     </>
   );
-})
+});

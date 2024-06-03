@@ -1,11 +1,12 @@
 import { cardLevels } from "AppConstantes";
 import { updateUserMeta } from "AppContainer/Context/UserMetaContext";
 import { Card, Deck, UserMeta } from "FormattedDatabase";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { store } from "store";
 
-export default const Studying = observer(function Studying(): JSX.Element {
+export const Studying = observer(function Studying(): JSX.Element {
   const params = useParams();
   let deckId = Number(params.id);
   const navigate = useNavigate();
@@ -146,4 +147,4 @@ export default const Studying = observer(function Studying(): JSX.Element {
       </div>
     </div>
   );
-})
+});

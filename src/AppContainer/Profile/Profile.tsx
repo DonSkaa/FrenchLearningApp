@@ -1,9 +1,10 @@
-import Progression from "AppContainer/Components/Progression/Progression";
+import { Progression } from "AppContainer/Components/Progression/Progression";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { store } from "store";
 import "./Profile.css";
 
-export default const Profile = observer(function Profile(): JSX.Element {
+export const Profile = observer(function Profile(): JSX.Element {
   return (
     <div className="full-width flex center m-t-40 m-4 gap-1">
       {store.currentUser ? (
@@ -23,4 +24,4 @@ export default const Profile = observer(function Profile(): JSX.Element {
       ) : null}
     </div>
   );
-})
+});

@@ -1,10 +1,11 @@
 import { getCallApi } from "Functions";
 import axios from "axios";
+import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
-export default const Login = observer(function Login(): JSX.Element {
+export const Login = observer(function Login(): JSX.Element {
   const navigate = useNavigate();
   const callApi = getCallApi();
   const [email, setEmail] = useState("");
@@ -20,8 +21,7 @@ export default const Login = observer(function Login(): JSX.Element {
         email,
         password,
       }).then((res) => {
-        const userData = res.data;
-        store.currentUser = userData;
+        store.currentUser = res.data;
       });
 
       navigate("/dashboard");
@@ -87,4 +87,4 @@ export default const Login = observer(function Login(): JSX.Element {
       </div>
     </div>
   );
-})
+});

@@ -1,6 +1,7 @@
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
-export default const HomePage = observer(function HomePage(): JSX.Element {
+export const HomePage = observer(function HomePage(): JSX.Element {
   return (
     <div className="full-width m-t-40 m-4 gap-1">
       <h1 className="text-center m-b-40">Bienvenue sur Learning French !</h1>
@@ -20,4 +21,4 @@ export default const HomePage = observer(function HomePage(): JSX.Element {
       </div>
     </div>
   );
-})
+});

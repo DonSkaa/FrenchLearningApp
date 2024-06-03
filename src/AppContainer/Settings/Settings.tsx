@@ -1,8 +1,9 @@
 import { initialErrorState } from "AppConstantes";
-import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
-import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
+import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
+import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
 import { getCallApi, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
+import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
 import { store } from "store";
 
@@ -10,7 +11,9 @@ interface SettingsProps {
   setter?: (value: any) => void | null;
 }
 
-export default const Settings = observer(function Settings({ setter }: SettingsProps): JSX.Element {
+export const Settings = observer(function Settings({
+  setter,
+}: SettingsProps): JSX.Element {
   const callApi = getCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
@@ -79,4 +82,4 @@ export default const Settings = observer(function Settings({ setter }: SettingsP
       </button> */}
     </div>
   );
-})
+});

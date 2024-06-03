@@ -1,7 +1,8 @@
+import { observer } from "mobx-react-lite";
 import { store } from "store";
-import DeckItem from "../Components/DeckItem/DeckItem";
+import { DeckItem } from "../Components/DeckItem/DeckItem";
 
-export default const Flashcards = observer(function Flashcards() {
+export const Flashcards = observer(function Flashcards() {
   return (
     <div className="full-width flex center m-4">
       <div className="main-section m-t-40">
@@ -23,4 +24,4 @@ export default const Flashcards = observer(function Flashcards() {
       </div>
     </div>
   );
-})
+});

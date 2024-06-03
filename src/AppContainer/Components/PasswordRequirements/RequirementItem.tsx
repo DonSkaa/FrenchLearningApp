@@ -1,4 +1,6 @@
-export default const RequirementItem = observer(function RequirementItem({
+import { observer } from "mobx-react-lite";
+
+export const RequirementItem = observer(function RequirementItem({
   completed,
   label,
 }: {
@@ -26,4 +28,4 @@ export default const RequirementItem = observer(function RequirementItem({
       <div className="small-text">{label}</div>
     </div>
   );
-})
+});

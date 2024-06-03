@@ -1,8 +1,9 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
-import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
-import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
+import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
+import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
 import { getCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
+import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
@@ -13,7 +14,7 @@ interface SignUpProps {
   type?: "teacher" | "student";
 }
 
-export default const SignUp = observer(function SignUp({
+export const SignUp = observer(function SignUp({
   setter,
   setterPopUp,
   type = "teacher",
@@ -184,4 +185,4 @@ export default const SignUp = observer(function SignUp({
       </div>
     </div>
   );
-})
+});

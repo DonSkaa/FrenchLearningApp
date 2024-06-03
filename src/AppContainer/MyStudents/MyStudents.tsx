@@ -1,7 +1,7 @@
-import AddEvent from "AppContainer/Components/AddEvent/AddEvent";
+import { AddEvent } from "AppContainer/Components/AddEvent/AddEvent";
 import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenPopup";
 import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
-import SignUp from "AppContainer/Profile/SignUp";
+import { SignUp } from "AppContainer/Profile/SignUp";
 import { User } from "FormattedDatabase";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";

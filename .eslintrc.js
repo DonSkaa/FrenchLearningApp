@@ -25,6 +25,8 @@ module.exports = {
   },
   plugins: ["mobx"],
   rules: {
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "off",
   },
   // overrides: [

@@ -15,7 +15,7 @@ export const addEvent = async (newEvent: EventPostData) => {
 
 export const getCurrentUserEvents = async (
   userId: number,
-  controller: any
+  controller: AbortController
 ): Promise<Event[]> => {
   const currentUserId =
     store?.currentUser?.type === "teacher"
@@ -27,22 +27,5 @@ export const getCurrentUserEvents = async (
     controller.signal,
     currentUserId
   );
-  return response.data.data;
+  return response.data.data as Event[];
 };
-
-// useEffect(() => {
-//   const controller = new AbortController();
-//   const fetchUserEvents = async () => {
-//     if (store?.currentUser?.id) {
-//       const userEvents = await getCurrentUserEvents(
-//         store.currentUser.id,
-//         controller
-//       );
-//       store.events = userEvents;
-//     }
-//   };
-//   fetchUserEvents();
-//   return () => {
-//     controller.abort();
-//   };
-// }, [store?.currentUser]);

@@ -1,11 +1,12 @@
-import DeckItem from "AppContainer/Components/DeckItem/DeckItem";
+import { DeckItem } from "AppContainer/Components/DeckItem/DeckItem";
 import { Expression } from "AppContainer/Expression/Expression";
 import { Deck, Event } from "FormattedDatabase";
+import { observer } from "mobx-react-lite";
 import { store } from "store";
-import EventItem from "../Components/EventItem/EventItem";
+import { EventItem } from "../Components/EventItem/EventItem";
 import "./Dashboard.css";
 
-export default const Dashboard = observer(function Dashboard() {
+export const Dashboard = observer(function Dashboard() {
   const formattedEvents = store.formattedEvents;
   const formattedDecks = store.formattedDecks;
 
@@ -58,4 +59,4 @@ export default const Dashboard = observer(function Dashboard() {
       ) : null}
     </div>
   );
-})
+});

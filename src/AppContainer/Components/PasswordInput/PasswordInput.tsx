@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 
 interface PasswordInputProps {
@@ -8,7 +9,7 @@ interface PasswordInputProps {
   setter?: (key: string, value: string) => void;
 }
 
-export default const PasswordInput = observer(function PasswordInput({
+export const PasswordInput = observer(function PasswordInput({
   className,
   updatingKey,
   placeholder = "Mot de passe",
@@ -40,4 +41,4 @@ export default const PasswordInput = observer(function PasswordInput({
       </button>
     </div>
   );
-})
+});

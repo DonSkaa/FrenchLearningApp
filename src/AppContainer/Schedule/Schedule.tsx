@@ -4,11 +4,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { CalendarEvent } from "FormattedDatabase";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { store } from "store";
 import "./Schedule.css";
 
-export default const Schedule = observer(function Schedule(): JSX.Element {
+export const Schedule = observer(function Schedule(): JSX.Element {
   const [userEvents, setUserEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
@@ -41,4 +42,4 @@ export default const Schedule = observer(function Schedule(): JSX.Element {
       </div>
     </div>
   );
-})
+});

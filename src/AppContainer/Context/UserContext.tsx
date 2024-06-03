@@ -47,7 +47,7 @@ export const getCurrentStudents = async (
   teacherId: number,
   offset: number,
   limit: number,
-  controller: any
+  controller: AbortController
 ): Promise<any> => {
   const response = await callApi(`api/users`, { method: "get" }, null, {
     teacher_id: teacherId,

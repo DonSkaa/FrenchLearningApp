@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Event } from "../../../FormattedDatabase";
 import Skeleton from "../Skeleton/Skeleton";
@@ -10,7 +11,11 @@ interface TimeRemaining {
   seconds: string;
 }
 
-export default const EventItem = observer(function EventItem({ event }: { event: Event }): JSX.Element {
+export const EventItem = observer(function EventItem({
+  event,
+}: {
+  event: Event;
+}): JSX.Element {
   const [timeRemaining, setTimeRemaining] = useState<Partial<TimeRemaining>>(
     {}
   );
@@ -64,7 +69,7 @@ export default const EventItem = observer(function EventItem({ event }: { event:
 
   return (
     <>
-      {timeRemaining.hasOwnProperty("days") ? (
+      {"days" in timeRemaining ? (
         <a
           className={isNow ? "link-button" : "link-button link-desactivated"}
           href={isNow ? event.meeting_link : "#"}
@@ -96,4 +101,4 @@ export default const EventItem = observer(function EventItem({ event }: { event:
       )}
     </>
   );
-})
+});

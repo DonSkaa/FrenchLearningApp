@@ -1,13 +1,14 @@
 import { EventPostData } from "FormattedDatabase";
 import { isGoogleMeetLink } from "Functions";
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 
 interface EventFieldsProps {
   newEvent: EventPostData;
-  setter: (value: any) => void | null;
+  setter: (value: EventPostData) => void | null;
 }
 
-export default const EventFields = observer(function EventFields({
+export const EventFields = observer(function EventFields({
   newEvent,
   setter,
 }: EventFieldsProps): JSX.Element {
@@ -73,4 +74,4 @@ export default const EventFields = observer(function EventFields({
       </div>
     </div>
   );
-})
+});

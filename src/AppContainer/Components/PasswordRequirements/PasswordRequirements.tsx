@@ -1,11 +1,12 @@
 import { initialErrorState } from "AppConstantes";
-import RequirementItem from "./RequirementItem";
+import { observer } from "mobx-react-lite";
+import { RequirementItem } from "./RequirementItem";
 
 interface PasswordRequirementsProps {
   error: typeof initialErrorState;
 }
 
-export default const PasswordRequirements = observer(function PasswordRequirements({
+export const PasswordRequirements = observer(function PasswordRequirements({
   error,
 }: PasswordRequirementsProps): JSX.Element {
   return (
@@ -27,4 +28,4 @@ export default const PasswordRequirements = observer(function PasswordRequiremen
       ))}
     </div>
   );
-})
+});

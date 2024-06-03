@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 
 const LoadMore: React.FC<{

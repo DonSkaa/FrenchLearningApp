@@ -1,14 +1,15 @@
 import { addEvent } from "AppContainer/Context/EventContext";
 import { EventPostData, User } from "FormattedDatabase";
+import { observer } from "mobx-react-lite";
 import { FormEvent, useEffect, useState } from "react";
-import EventFields from "./EventFields";
+import { EventFields } from "./EventFields";
 
 interface EventFieldsProps {
   student: User;
   setterPopUp: (value: boolean) => void;
 }
 
-export default const AddEvent = observer(function AddEvent({
+export const AddEvent = observer(function AddEvent({
   student,
   setterPopUp,
 }: EventFieldsProps): JSX.Element {
@@ -31,7 +32,8 @@ export default const AddEvent = observer(function AddEvent({
     e: FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    addEvent(newEvent);
+    await addEvent(newEvent);
+
     setterPopUp(false);
   };
 
@@ -43,4 +45,4 @@ export default const AddEvent = observer(function AddEvent({
       </form>
     </div>
   );
-})
+});

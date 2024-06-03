@@ -1,23 +1,25 @@
 import { studentMenu, teacherMenu } from "AppConstantes";
-import HomePage from "AppContainer/HomePage/HomePage";
+import { HomePage } from "AppContainer/HomePage/HomePage";
 import { MyStudents } from "AppContainer/MyStudents/MyStudents";
-import Privacy from "AppContainer/Privacy/Privacy";
-import Login from "AppContainer/Profile/Login";
-import Profile from "AppContainer/Profile/Profile";
-import SignUp from "AppContainer/Profile/SignUp";
-import Settings from "AppContainer/Settings/Settings";
-import Terms from "AppContainer/Terms/Terms";
+import { Privacy } from "AppContainer/Privacy/Privacy";
+import { Login } from "AppContainer/Profile/Login";
+import { Profile } from "AppContainer/Profile/Profile";
+import { SignUp } from "AppContainer/Profile/SignUp";
+import { Settings } from "AppContainer/Settings/Settings";
+import { Terms } from "AppContainer/Terms/Terms";
+import { CurrentUser } from "FormattedDatabase";
 import { getCallApi } from "Functions";
+import axios from "axios";
 import { configure } from "mobx";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import NavBar from "./AppContainer/Components/NavBar/NavBar";
-import Dashboard from "./AppContainer/Dashboard/Dashboard";
-import Flashcards from "./AppContainer/Flashcards/Flashcards";
-import Studying from "./AppContainer/Flashcards/Studying";
-import Schedule from "./AppContainer/Schedule/Schedule";
+import { NavBar } from "./AppContainer/Components/NavBar/NavBar";
+import { Dashboard } from "./AppContainer/Dashboard/Dashboard";
+import { Flashcards } from "./AppContainer/Flashcards/Flashcards";
+import { Studying } from "./AppContainer/Flashcards/Studying";
+import { Schedule } from "./AppContainer/Schedule/Schedule";
 import { store } from "./store";
 
 configure({
@@ -26,24 +28,26 @@ configure({
 
 export async function initialize() {
   const callApi = getCallApi();
-
-  console.log("!sdaf");
   try {
     const res = await callApi(`/api/user`, { method: "get" }, null);
-    store.setUser(res.data);
-  } catch (error: any) {
-    if (error.response.status === 401) {
+    store.setUser(res.data as CurrentUser);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
       store.currentUser = undefined;
 
       // TODO: Use History.push instead of this
       // navigate("/");
+    } else {
+      console.error("Unexpected error:", error);
     }
   }
 }
 
 const App = observer(() => {
   useEffect(() => {
-    initialize();
+    initialize().catch((error) => {
+      console.error("Failed to initialize the app:", error);
+    });
   }, []);
 
   return (

@@ -1,8 +1,9 @@
 import { calculateProgress } from "Functions";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { store } from "store";
 
-export default const Progression = observer(function Progression(): JSX.Element {
+export const Progression = observer(function Progression(): JSX.Element {
   const [progress, setProgress] = useState<number | null>(null);
 
   useEffect(() => {
@@ -36,4 +37,4 @@ export default const Progression = observer(function Progression(): JSX.Element 
       )}
     </div>
   );
-})
+});
