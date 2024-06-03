@@ -1,8 +1,7 @@
-import { FLA_ENDPOINT } from "AppConstantes";
 import { UserContext } from "AppContainer/Context/UserContext";
 import { useCallApi } from "Functions";
 import axios from "axios";
-import { useState, FormEvent, useContext, useEffect } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface LoginProps {

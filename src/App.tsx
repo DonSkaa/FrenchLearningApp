@@ -62,7 +62,7 @@ function App() {
       ) : null}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setter={setIsAuthenticated} />} />
         <Route path="/signup-teacher" element={<SignUp type="teacher" />} />
         {isAuthenticated ? (
           <>
