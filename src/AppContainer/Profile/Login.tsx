@@ -1,5 +1,5 @@
 import { UserContext } from "AppContainer/Context/UserContext";
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 import axios from "axios";
 import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ interface LoginProps {
 
 export default function Login({ setter }: LoginProps): JSX.Element {
   const navigate = useNavigate();
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);

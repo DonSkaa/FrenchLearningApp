@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Card } from "FormatedDatabase";
-import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -8,9 +7,11 @@ interface CallApiOptions extends AxiosRequestConfig {
   method?: "get" | "post" | "put" | "delete";
 }
 
-export const useCallApi = () => {
-  const navigate = useNavigate();
+interface CallApiOptions extends AxiosRequestConfig {
+  method?: "get" | "post" | "put" | "delete";
+}
 
+export const getCallApi = () => {
   const callApi = async (
     uri: string,
     options: CallApiOptions = { method: "get" },
@@ -37,6 +38,36 @@ export const useCallApi = () => {
   };
   return callApi;
 };
+
+// export const useCallApi = () => {
+//   const navigate = useNavigate();
+
+//   const callApi = async (
+//     uri: string,
+//     options: CallApiOptions = { method: "get" },
+//     abortSignal?: AbortSignal | null,
+//     data?: Record<string, unknown>
+//   ): Promise<AxiosResponse<any>> => {
+//     const APIoptions: CallApiOptions = {
+//       ...options,
+//       signal: abortSignal ?? undefined,
+//       headers: {
+//         ...options.headers,
+//       },
+//       url: uri,
+//       withCredentials: true,
+//     };
+
+//     if (options.method === "get") {
+//       APIoptions.params = data;
+//     } else {
+//       APIoptions.data = data;
+//     }
+
+//     return axios(APIoptions);
+//   };
+//   return callApi;
+// };
 
 export function isToday(dateString: string): boolean {
   const today = new Date();

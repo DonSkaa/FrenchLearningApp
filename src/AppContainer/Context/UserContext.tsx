@@ -1,11 +1,11 @@
+import { CurrentUser } from "FormatedDatabase";
+import { getCallApi } from "Functions";
 import React, {
+  SetStateAction,
   createContext,
   useEffect,
   useState,
-  SetStateAction,
 } from "react";
-import { CurrentUser } from "FormatedDatabase";
-import { useCallApi } from "Functions";
 
 interface UserContextType {
   currentUser: CurrentUser | null;
@@ -47,7 +47,7 @@ function UserContextProvider(props: React.PropsWithChildren<{}>) {
   const [offset, setOffset] = useState<number>(0);
   const [totalItems, setTotalItems] = useState<number>(0);
 
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const limit = 10;
 
   const getCurrentStudents = async (
@@ -110,6 +110,7 @@ function UserContextProvider(props: React.PropsWithChildren<{}>) {
 
   const logout = () => {
     setCurrentUser(null);
+    setCurrentStudents(null);
   };
 
   return (

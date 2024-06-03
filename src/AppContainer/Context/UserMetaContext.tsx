@@ -1,31 +1,34 @@
-import { createContext } from "react"
-import { UserMeta } from "FormatedDatabase"
-import { useCallApi } from "Functions"
+import { UserMeta } from "FormatedDatabase";
+import { getCallApi } from "Functions";
+import { createContext } from "react";
 
 interface UserMetaContextType {
-    updateUserMeta: (updatedUserMeta: UserMeta) => Promise<UserMeta>
+  updateUserMeta: (updatedUserMeta: UserMeta) => Promise<UserMeta>;
 }
 
 export const UserMetaContext = createContext<UserMetaContextType>({
-    updateUserMeta: async (updatedUserMeta: UserMeta) => {
-        throw new Error("Not implemented")
-    },
-})
+  updateUserMeta: async (updatedUserMeta: UserMeta) => {
+    throw new Error("Not implemented");
+  },
+});
 
 function UserMetaContextProvider(props: React.PropsWithChildren<{}>) {
+  const callApi = getCallApi();
 
-    const callApi = useCallApi()
+  const updateUserMeta = async (
+    updatedUserMeta: UserMeta
+  ): Promise<UserMeta> => {
+    const response = await callApi(`/api/user-meta`, { method: "put" }, null, {
+      updatedUserMeta,
+    });
+    return response.data.data;
+  };
 
-    const updateUserMeta = async (updatedUserMeta: UserMeta): Promise<UserMeta> => {
-        const response = await callApi(`/api/user-meta`, { method: "put" }, null, { updatedUserMeta })
-        return response.data.data
-    }
-
-    return (
-        <UserMetaContext.Provider value={{ updateUserMeta }}>
-            {props.children}
-        </UserMetaContext.Provider>
-    )
+  return (
+    <UserMetaContext.Provider value={{ updateUserMeta }}>
+      {props.children}
+    </UserMetaContext.Provider>
+  );
 }
 
-export default UserMetaContextProvider
+export default UserMetaContextProvider;

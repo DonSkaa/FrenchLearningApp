@@ -2,7 +2,7 @@ import { initialErrorMessages, initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
 import { UserContext } from "AppContainer/Context/UserContext";
-import { useCallApi, validateEmail, validatePassword } from "Functions";
+import { getCallApi, validateEmail, validatePassword } from "Functions";
 import axios from "axios";
 import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function SignUp({
   type = "teacher",
 }: SignUpProps): JSX.Element {
   const navigate = useNavigate();
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const userContext = useContext(UserContext);
   // const [isVisible, setIsVisible] = useState(false);
   const [errorMessages, setErrorMessages] = useState(initialErrorMessages);

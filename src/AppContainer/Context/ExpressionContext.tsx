@@ -1,7 +1,6 @@
-import { createContext } from "react";
 import { Expression } from "FormatedDatabase";
-import { FLA_ENDPOINT } from "AppConstantes";
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
+import { createContext } from "react";
 
 interface ExpressionContextType {
   getDayExpression: () => Promise<Expression>;
@@ -16,7 +15,7 @@ export const ExpressionContext = createContext<ExpressionContextType>({
 function ExpressionContextProvider(props: React.PropsWithChildren<{}>) {
   const controller = new AbortController();
 
-  const callApi = useCallApi();
+  const callApi = getCallApi();
 
   const getDayExpression = async (): Promise<Expression> => {
     const response = await callApi(

@@ -1,10 +1,10 @@
-import { FormEvent, useContext, useState } from "react";
-import { UserContext } from "AppContainer/Context/UserContext";
+import { initialErrorState } from "AppConstantes";
 import PasswordInput from "AppContainer/Components/PasswordInput/PasswordInput";
 import PasswordRequirements from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { initialErrorState } from "AppConstantes";
-import { useCallApi, validatePassword } from "Functions";
+import { UserContext } from "AppContainer/Context/UserContext";
+import { getCallApi, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
+import { FormEvent, useContext, useState } from "react";
 
 interface SettingsProps {
   setter?: (value: any) => void | null;
@@ -12,7 +12,7 @@ interface SettingsProps {
 
 export default function Settings({ setter }: SettingsProps): JSX.Element {
   const userContext = useContext(UserContext);
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
   const [passwords, setPasswords] = useState({

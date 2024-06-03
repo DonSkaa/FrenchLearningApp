@@ -8,7 +8,7 @@ import Profile from "AppContainer/Profile/Profile";
 import SignUp from "AppContainer/Profile/SignUp";
 import Settings from "AppContainer/Settings/Settings";
 import Terms from "AppContainer/Terms/Terms";
-import { useCallApi } from "Functions";
+import { getCallApi } from "Functions";
 import { useContext, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
@@ -20,7 +20,7 @@ import Schedule from "./AppContainer/Schedule/Schedule";
 
 function App() {
   const userContext = useContext(UserContext);
-  const callApi = useCallApi();
+  const callApi = getCallApi();
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
