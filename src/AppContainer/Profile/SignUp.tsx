@@ -28,7 +28,7 @@ export const SignUp = observer(function SignUp({
   const [disabled, setDisabled] = useState({ email: false, password: false });
   const isFormValid = Object.values(error).every((value) => value);
   const [userData, setUserData] = useState({
-    program_duration: "",
+    program_duration: "4",
     type: type,
     name: "",
     email: "",
@@ -67,9 +67,8 @@ export const SignUp = observer(function SignUp({
           userData
         );
         if (type === "teacher") {
-          const userData = res.data;
           setter && setter(true);
-          store.setUser(userData);
+          store.setUser(res.data);
           // if (userContext) {
           //   userContext.setCurrentUser(userData);
           // }
@@ -113,8 +112,8 @@ export const SignUp = observer(function SignUp({
                 }
                 required
               >
-                <option value="28">28 jours</option>
-                <option value="84">84 jours</option>
+                <option value="4">4 semaines</option>
+                <option value="12">12 semaines</option>
               </select>
             </div>
           ) : null}

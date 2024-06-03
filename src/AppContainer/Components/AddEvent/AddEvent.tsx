@@ -1,11 +1,11 @@
 import { addEvent } from "AppContainer/Context/EventContext";
-import { EventPostData, User } from "FormattedDatabase";
+import { CurrentUser, EventPostData } from "FormattedDatabase";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useEffect, useState } from "react";
 import { EventFields } from "./EventFields";
 
 interface EventFieldsProps {
-  student: User;
+  student: CurrentUser;
   setterPopUp: (value: boolean) => void;
 }
 
@@ -16,15 +16,16 @@ export const AddEvent = observer(function AddEvent({
   const [newEvent, setNewEvent] = useState<EventPostData>({} as EventPostData);
 
   useEffect(() => {
-    setNewEvent({
-      event_type: "lesson",
-      date: "",
-      start: "",
-      end: "",
-      user_id: student.id,
-      teacher_id: student.teacher_id,
-      meeting_link: "",
-    });
+    if (student.teacher_id)
+      setNewEvent({
+        event_type: "lesson",
+        date: "",
+        start: "",
+        end: "",
+        user_id: student.id,
+        teacher_id: student.teacher_id,
+        meeting_link: "",
+      });
   }, [student]);
 
   const sendNewEvent = async (

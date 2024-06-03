@@ -8,7 +8,7 @@ import { store } from "store";
 
 export const Studying = observer(function Studying(): JSX.Element {
   const params = useParams();
-  let deckId = Number(params.id);
+  const deckId = Number(params.id);
   const navigate = useNavigate();
 
   const [currentDeck, setCurrentDeck] = useState<Deck | undefined>(undefined);
@@ -25,7 +25,7 @@ export const Studying = observer(function Studying(): JSX.Element {
   const updateCardLevel = (level: string, cardId: Card["id"]): void => {
     const currentCard = currentDeck?.cards.find((card) => card.id === cardId);
 
-    if (currentCard && currentCard.user_meta) {
+    if (currentCard?.user_meta) {
       const updatedUserMeta = {
         ...currentCard.user_meta,
         times_reviewed: currentCard.user_meta.times_reviewed + 1,
@@ -54,33 +54,29 @@ export const Studying = observer(function Studying(): JSX.Element {
             return { ...prvDeck, cards: newCards };
           });
         })
-        .catch((error: any) => console.log(error));
+        .catch((error: Error) => console.log(error));
     }
   };
 
-  // useEffect(() => {
-  //   if (currentDeck) {
-  //     setDecks((pvsDeck) =>
-  //       pvsDeck.map((deck) => {
-  //         if (deck.id === currentDeck.id) {
-  //           return currentDeck;
-  //         } else {
-  //           return deck;
-  //         }
-  //       })
-  //     );
-  //     if (cardIndex === currentDeck.cards.length) {
-  //       navigate("/flashcards");
-  //     }
-  //   }
-  // }, [currentDeck]);
+  useEffect(() => {
+    if (currentDeck) {
+      store.decks = store.decks?.map((deck) => {
+        if (deck.id === currentDeck.id) {
+          return currentDeck;
+        } else {
+          return deck;
+        }
+      });
+      if (cardIndex === currentDeck.cards.length) {
+        navigate("/flashcards");
+      }
+    }
+  }, [currentDeck]);
 
   return (
     <div className="full-width flex center m-4">
       <div className="main-section">
-        {currentDeck &&
-        currentDeck.cards &&
-        cardIndex < currentDeck.cards.length ? (
+        {currentDeck?.cards && cardIndex < currentDeck.cards.length ? (
           <>
             <div className="flex-center gap-1 m-b-40">
               <div style={{ maxHeight: "32px" }}>

@@ -1,20 +1,9 @@
-export interface User {
-  id: number;
-  name: string;
-  last_name: string;
-  profile_image_path: string;
-  mail: string;
-  password: string;
-  user_program_id: number;
-  teacher_id: number;
-  type: string;
-}
-
 export interface CurrentUser {
   id: number;
   type: string;
   name: string;
   email: string;
+  user_programs_id: number;
   user_metas: [];
   teacher_id: number | null;
 }
@@ -29,7 +18,7 @@ export interface Event {
   end: string;
   meeting_link: string;
   teacher_id: number;
-  user: User;
+  user: CurrentUser;
 }
 
 export interface EventPostData {

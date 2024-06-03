@@ -8,7 +8,6 @@ import {
   Deck,
   Event,
   Expression,
-  User,
   UserProgram,
 } from "FormattedDatabase";
 import { isToReview, isToday } from "Functions";
@@ -19,43 +18,52 @@ class Store {
   decks?: Deck[];
   events?: Event[];
   currentUser?: CurrentUser;
-  currentStudents?: User[];
+  currentStudents?: CurrentUser[];
   currentUserProgram?: UserProgram;
+  offset?: number;
+  limit?: number;
+  totalItems?: number;
+  hasMoreStudents?: boolean;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   async setUser(user: CurrentUser) {
+    this.offset = 0;
+    this.limit = 10;
     this.currentUser = user;
     this.expression = await loadDayExpression();
     if (this.currentUser === undefined) {
       return;
     } else {
       if (this.currentUser.type === "teacher") {
-        this.currentStudents = await getCurrentStudents(
+        const response = (await getCurrentStudents(
           user.id,
-          0,
-          10,
-          new AbortController().signal
-        );
+          this.offset,
+          this.limit,
+          new AbortController()
+        )) as unknown;
+        this.currentStudents = response.data as CurrentUser[];
+        this.totalItems = (response as { totalItems: number }).totalItems;
+        this.hasMoreStudents = this.currentStudents
+          ? this.currentStudents.length < this.totalItems
+          : false;
       } else {
         this.currentStudents = undefined;
+        this.totalItems = 0;
       }
       const currentDecks = await getDecks();
       this.currentUserProgram = await getCurrentUserProgram();
       this.decks = currentDecks.filter((deck) =>
         this.currentUserProgram?.deck_ids.includes(deck.id)
       );
-      this.events = await getCurrentUserEvents(
-        user.id,
-        new AbortController().signal
-      );
+      this.events = await getCurrentUserEvents(user.id, new AbortController());
     }
   }
 
   get formattedEvents(): Event[] {
-    if (this.events) {
+    if (this.events?.length) {
       return this.events.filter(
         (event) => isToday(event.date) && new Date(event.end) > new Date()
       );
@@ -79,6 +87,3 @@ class Store {
 }
 
 export const store = new Store();
-
-// @ts-ignore
-// window.printStore = () => toJS(store.currentStudents);

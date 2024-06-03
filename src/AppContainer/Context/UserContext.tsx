@@ -1,4 +1,6 @@
 import { getCallApi } from "Functions";
+import { toJS } from "mobx";
+import { store } from "store";
 
 // interface UserContextType {
 //   currentUser: CurrentUser | null;
@@ -48,49 +50,40 @@ export const getCurrentStudents = async (
   offset: number,
   limit: number,
   controller: AbortController
-): Promise<any> => {
-  const response = await callApi(`api/users`, { method: "get" }, null, {
-    teacher_id: teacherId,
-    offset,
-    limit,
-  });
-  return response.data.data;
+) => {
+  const response = await callApi(
+    `api/users`,
+    { method: "get" },
+    controller.signal,
+    {
+      teacher_id: teacherId,
+      offset,
+      limit,
+    }
+  );
+  return response.data;
 };
 
-export const fetchCurrentStudents = async () => {
-  // if (currentUser && currentUser.type === "teacher" && currentUser.id) {
-  //   const data = await getCurrentStudents(
-  //     currentUser.id,
-  //     offset,
-  //     limit,
-  //     controller
-  //   );
-  //   setCurrentStudents(data.data);
-  //   setTotalItems(data.totalItems);
-  // } else {
-  //   setCurrentStudents([]);
-  //   setTotalItems(0);
-  // }
-};
+export const loadMoreStudents = async (): Promise<void> => {
+  if (store.currentUser && store.offset && store.limit) {
+    console.log(toJS(store.currentUser));
+    console.log(toJS(store.offset));
+    console.log(toJS(store.limit));
 
-export const loadMoreStudents = async () => {
-  // if (currentUser && currentUser.type === "teacher" && currentUser.id) {
-  //   const newOffset = offset + limit;
-  //   const controller = new AbortController();
-  //   const data = await getCurrentStudents(
-  //     currentUser.id,
-  //     newOffset,
-  //     limit,
-  //     controller
-  //   );
-  //   setCurrentStudents((prevStudents) =>
-  //     prevStudents ? [...prevStudents, ...data.data] : data.data
-  //   );
-  //   setOffset(newOffset);
-  //   setTotalItems(data.totalItems);
-  // }
-};
+    const newOffset = store.offset + store.limit;
+    const controller = new AbortController();
+    const response = await getCurrentStudents(
+      store.currentUser.id,
+      newOffset,
+      store.limit,
+      controller
+    );
+    console.log(response);
 
-// const hasMoreStudents = currentStudents
-//   ? currentStudents.length < totalItems
-//   : false;
+    store.currentStudents = store.currentStudents
+      ? [...store.currentStudents, ...response.data.data]
+      : response.data.data;
+    store.offset = newOffset;
+    store.totalItems = response.data.totalItems;
+  }
+};

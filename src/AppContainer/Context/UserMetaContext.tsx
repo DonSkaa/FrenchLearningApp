@@ -6,8 +6,13 @@ const callApi = getCallApi();
 export const updateUserMeta = async (
   updatedUserMeta: UserMeta
 ): Promise<UserMeta> => {
-  const response = await callApi(`/api/user-meta`, { method: "put" }, null, {
-    updatedUserMeta,
-  });
-  return response.data.data;
+  const response: { data: { data: UserMeta } } = await callApi(
+    `/api/user-meta`,
+    { method: "put" },
+    null,
+    {
+      updatedUserMeta,
+    }
+  );
+  return response?.data?.data;
 };

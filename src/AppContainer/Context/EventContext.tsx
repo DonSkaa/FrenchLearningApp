@@ -9,8 +9,8 @@ export const addEvent = async (newEvent: EventPostData) => {
     data: newEvent,
   });
   store.events = store.events
-    ? [...store.events, response.data]
-    : [response.data];
+    ? ([...store.events, response.data] as Event[])
+    : ([response.data] as Event[]);
 };
 
 export const getCurrentUserEvents = async (
@@ -21,11 +21,11 @@ export const getCurrentUserEvents = async (
     store?.currentUser?.type === "teacher"
       ? { teacher_id: userId }
       : { user_id: userId };
-  const response = await callApi(
+  const response: { data: { data: Event[] } } = await callApi(
     `/api/events`,
     { method: "get" },
     controller.signal,
     currentUserId
   );
-  return response.data.data as Event[];
+  return response.data.data;
 };

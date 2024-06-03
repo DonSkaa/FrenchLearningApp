@@ -1,8 +1,11 @@
 import { AddEvent } from "AppContainer/Components/AddEvent/AddEvent";
 import FullScreenPopup from "AppContainer/Components/FullScreenPopup/FullScreenPopup";
+import LoadMore from "AppContainer/Components/LoadMore/LoadMore";
 import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
+import { loadMoreStudents } from "AppContainer/Context/UserContext";
 import { SignUp } from "AppContainer/Profile/SignUp";
-import { User } from "FormattedDatabase";
+import { CurrentUser } from "FormattedDatabase";
+import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { store } from "store";
@@ -10,19 +13,18 @@ import { store } from "store";
 export const MyStudents = observer(() => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
-  const [student, SetStudent] = useState<User>();
+  const [student, SetStudent] = useState<CurrentUser>();
 
   const addStudent = () => {
     setShowSignUp(true);
   };
 
-  const addEventPopUp = (currentStudent: User) => {
+  const addEventPopUp = (currentStudent: CurrentUser) => {
     SetStudent(currentStudent);
     setShowAddEvent(true);
   };
 
-  // console.log(toJS(store.currentStudents));
-
+  console.log(toJS(store.currentStudents));
   return (
     <div className="full-width flex center m-4  m-t-40">
       <div className="main-section">
@@ -38,7 +40,6 @@ export const MyStudents = observer(() => {
                 return (
                   <div key={student.id} className="array-item">
                     <div className="strong">{student.name}</div>
-                    <div>{student.user_program_id}</div>
                     <div>
                       <button
                         className="light-button"
@@ -50,10 +51,10 @@ export const MyStudents = observer(() => {
                   </div>
                 );
               })}
-              {/* <LoadMore
-                onLoadMore={userContext.loadMoreStudents}
-                hasMore={userContext.hasMoreStudents}
-              /> */}
+              <LoadMore
+                onLoadMore={loadMoreStudents}
+                hasMore={store.hasMoreStudents}
+              />
             </div>
           ) : null
         ) : (

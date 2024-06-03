@@ -25,6 +25,9 @@ module.exports = {
   },
   plugins: ["mobx"],
   rules: {
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
     "react/no-unescaped-entities": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "off",
