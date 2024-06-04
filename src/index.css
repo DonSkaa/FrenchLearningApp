@@ -434,6 +434,17 @@ select:focus {
   background-color: var(--third-color);
 }
 
+.item {
+  padding: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: var(--secondary-color);
+  border: 2px solid var(--third-color);
+}
+
 /* Warning */
 .warning {
   color: #ff2626;

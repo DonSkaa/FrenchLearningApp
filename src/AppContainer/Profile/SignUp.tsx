@@ -86,6 +86,12 @@ export default function SignUp({
               "Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.",
           }));
         }
+        if (error?.response?.data?.message === "username already taken") {
+          setErrorMessages((pvsErrorMessages) => ({
+            ...pvsErrorMessages,
+            name: "Ce pseudo est déjà utilisé. Veuillez en choisir une autre.",
+          }));
+        }
         setter && setter(false);
         if (axios.isAxiosError(error)) {
           console.error("Erreur lors de la création de l'utilisateur", error);
@@ -120,6 +126,9 @@ export default function SignUp({
               onChange={(e) => updateUserDataKey("name", e.target.value)}
               required
             />
+            {errorMessages.name && (
+              <div className="warning">{errorMessages.name}</div>
+            )}
           </div>
           <div>
             <input
