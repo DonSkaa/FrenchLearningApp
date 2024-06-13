@@ -19,3 +19,17 @@
 .fc-event-title {
   font-size: 10px !important;
 }
+
+.schedule-item {
+  width: 100%;
+  gap: 10px;
+  padding: 1px;
+  border-radius: 5px;
+  transition: all 0.2s;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.schedule-item div {
+  font-size: 10px;
+}

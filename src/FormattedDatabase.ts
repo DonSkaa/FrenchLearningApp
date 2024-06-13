@@ -63,7 +63,7 @@ export interface UserProgram {
 export interface Program {
   id: number;
   days_duration: number;
-  thematics: Thematic[];
+  title: string;
 }
 
 export interface Thematic {
@@ -76,8 +76,8 @@ export interface Thematic {
 export interface Card {
   id: number;
   deck_id: number;
-  recto: string;
-  verso: string;
+  front_side: string;
+  back_side: string;
   user_meta: {
     id: number;
     card_id: number;

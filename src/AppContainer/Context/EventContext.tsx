@@ -1,12 +1,13 @@
 import { Event, EventPostData } from "FormattedDatabase";
-import { getCallApi } from "Functions";
+import { getCallApi, getTimezone } from "Functions";
 import { store } from "store";
 
 const callApi = getCallApi();
+const timezone = getTimezone();
 
 export const addEvent = async (newEvent: EventPostData) => {
   const response = await callApi(`/api/event`, { method: "post" }, null, {
-    data: newEvent,
+    data: { ...newEvent, timezone: timezone },
   });
   store.events = store.events
     ? ([...store.events, response.data] as Event[])
@@ -25,7 +26,7 @@ export const getCurrentUserEvents = async (
     `/api/events`,
     { method: "get" },
     controller.signal,
-    currentUserId
+    { ...currentUserId, timezone: timezone }
   );
   return response.data.data;
 };

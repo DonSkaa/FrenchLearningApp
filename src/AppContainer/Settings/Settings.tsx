@@ -1,19 +1,14 @@
 import { initialErrorState } from "AppConstantes";
 import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
 import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
+import { logOut } from "AppContainer/Context/UserContext";
 import { getCallApi, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
 import { store } from "store";
 
-interface SettingsProps {
-  setter?: (value: any) => void | null;
-}
-
-export const Settings = observer(function Settings({
-  setter,
-}: SettingsProps): JSX.Element {
+export const Settings = observer(function Settings(): JSX.Element {
   const callApi = getCallApi();
   const [error, setError] = useState(initialErrorState);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,13 +16,6 @@ export const Settings = observer(function Settings({
     currentPassword: "",
     newPassword: "",
   });
-
-  // const logOutFunc = () => {
-  //   if (userContext) {
-  //     userContext.logout();
-  //     setter && setter(false);
-  //   }
-  // };
 
   const updatePasswords = (key: string, value: string) => {
     key === "newPassword" && setError(validatePassword(value));
@@ -59,8 +47,11 @@ export const Settings = observer(function Settings({
 
   return (
     <div className="full-width flex column m-4">
-      <form className="flex start column gap-1" onSubmit={submitNewPassword}>
-        <h3 className="left m-b-0">Modifier le mot de passe</h3>
+      <form
+        className="flex start column gap-1"
+        onSubmit={(x) => void submitNewPassword(x)}
+      >
+        <h3 className="left m-0">Modifier le mot de passe</h3>
         <PasswordInput
           placeholder="Mot de passe actuel"
           value={passwords.currentPassword}
@@ -77,9 +68,9 @@ export const Settings = observer(function Settings({
         <PasswordRequirements error={error} />
         <button className="strong-button">Enregistrer les modifications</button>
       </form>
-      {/* <button className="strong-button m-t-40" onClick={logOutFunc}>
+      <button className="strong-button" onClick={() => void logOut()}>
         Se déconnecter
-      </button> */}
+      </button>
     </div>
   );
 });

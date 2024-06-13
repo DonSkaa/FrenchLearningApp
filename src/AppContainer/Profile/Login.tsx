@@ -1,4 +1,5 @@
-import { getCallApi } from "Functions";
+import { CurrentUser } from "FormattedDatabase";
+import { getCallApi, getTimezone } from "Functions";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
 export const Login = observer(function Login(): JSX.Element {
+  const timezone = getTimezone();
   const navigate = useNavigate();
   const callApi = getCallApi();
   const [email, setEmail] = useState("");
@@ -17,12 +19,12 @@ export const Login = observer(function Login(): JSX.Element {
     e.preventDefault();
     setWrongPassword(false);
     try {
-      await callApi(`/api/login`, { method: "post" }, null, {
+      const res = await callApi(`/api/login`, { method: "post" }, null, {
         email,
         password,
-      }).then((res) => {
-        store.currentUser = res.data;
+        timezone,
       });
+      void store.setUser(res.data as CurrentUser);
 
       navigate("/dashboard");
     } catch (error: unknown) {
@@ -39,7 +41,10 @@ export const Login = observer(function Login(): JSX.Element {
     <div className="full-width flex center gap-3">
       <div className="main-section m-t-40">
         <h2>Se connecter</h2>
-        <form className="flex column gap-1" onSubmit={handleSubmit}>
+        <form
+          className="flex column gap-1"
+          onSubmit={(x) => void handleSubmit(x)}
+        >
           <div>
             <input
               type="email"

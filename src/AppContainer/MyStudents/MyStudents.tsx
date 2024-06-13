@@ -5,7 +5,6 @@ import Skeleton from "AppContainer/Components/Skeleton/Skeleton";
 import { loadMoreStudents } from "AppContainer/Context/UserContext";
 import { SignUp } from "AppContainer/Profile/SignUp";
 import { CurrentUser } from "FormattedDatabase";
-import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { store } from "store";
@@ -24,7 +23,6 @@ export const MyStudents = observer(() => {
     setShowAddEvent(true);
   };
 
-  console.log(toJS(store.currentStudents));
   return (
     <div className="full-width flex center m-4  m-t-40">
       <div className="main-section">
@@ -51,10 +49,12 @@ export const MyStudents = observer(() => {
                   </div>
                 );
               })}
-              <LoadMore
-                onLoadMore={loadMoreStudents}
-                hasMore={store.hasMoreStudents}
-              />
+              {store.hasMoreStudents ? (
+                <LoadMore
+                  onLoadMore={() => void loadMoreStudents()}
+                  hasMore={store.hasMoreStudents}
+                />
+              ) : null}
             </div>
           ) : null
         ) : (

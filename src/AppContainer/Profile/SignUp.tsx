@@ -1,7 +1,13 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
 import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
 import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { getCallApi, validateEmail, validatePassword } from "Functions";
+import { CurrentUser } from "FormattedDatabase";
+import {
+  getCallApi,
+  getTimezone,
+  validateEmail,
+  validatePassword,
+} from "Functions";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
@@ -9,17 +15,16 @@ import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
 interface SignUpProps {
-  setter?: (value: any) => void | null;
   setterPopUp?: (value: any) => void | null;
   type?: "teacher" | "student";
 }
 
 export const SignUp = observer(function SignUp({
-  setter,
   setterPopUp,
   type = "teacher",
 }: SignUpProps): JSX.Element {
   const navigate = useNavigate();
+  const timezone = getTimezone();
   const callApi = getCallApi();
 
   // const [isVisible, setIsVisible] = useState(false);
@@ -28,6 +33,7 @@ export const SignUp = observer(function SignUp({
   const [disabled, setDisabled] = useState({ email: false, password: false });
   const isFormValid = Object.values(error).every((value) => value);
   const [userData, setUserData] = useState({
+    timezone: timezone,
     program_duration: "4",
     type: type,
     name: "",
@@ -60,27 +66,20 @@ export const SignUp = observer(function SignUp({
       }
     } else {
       try {
-        const res = await callApi(
+        const res = (await callApi(
           `/api/signup`,
           { method: "post" },
           null,
           userData
-        );
+        )) as { data: CurrentUser };
         if (type === "teacher") {
-          setter && setter(true);
-          store.setUser(res.data);
-          // if (userContext) {
-          //   userContext.setCurrentUser(userData);
-          // }
+          void store.setUser(res.data);
           navigate("/dashboard");
         } else if (type === "student") {
           setterPopUp && setterPopUp(false);
           store.currentStudents = store.currentStudents
             ? [...store.currentStudents, res.data]
             : [res.data];
-          // userContext?.setCurrentStudents((prevStudents) =>
-          //   prevStudents ? [...prevStudents, res.data] : [res.data]
-          // );
         }
       } catch (error: any) {
         if (error?.response?.data?.message === "email already taken") {
@@ -90,7 +89,6 @@ export const SignUp = observer(function SignUp({
               "Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.",
           }));
         }
-        setter && setter(false);
         if (axios.isAxiosError(error)) {
           console.error("Erreur lors de la création de l'utilisateur", error);
         }
@@ -102,7 +100,10 @@ export const SignUp = observer(function SignUp({
     <div className="full-width flex center gap-3">
       <div className="half-width m-t-40">
         <h2>Créer un compte</h2>
-        <form className="flex column gap-1" onSubmit={handleSubmit}>
+        <form
+          className="flex column gap-1"
+          onSubmit={(x) => void handleSubmit(x)}
+        >
           {type === "student" ? (
             <div className="m-b-10">
               <select

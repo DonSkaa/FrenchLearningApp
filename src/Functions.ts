@@ -149,3 +149,7 @@ export const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
+
+export const getTimezone = () => {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+};

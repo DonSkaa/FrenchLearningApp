@@ -40,7 +40,7 @@ export const AddEvent = observer(function AddEvent({
 
   return (
     <div className="full-width flex center m-4">
-      <form onSubmit={(e) => sendNewEvent(newEvent, e)}>
+      <form onSubmit={(e) => void sendNewEvent(newEvent, e)}>
         <EventFields newEvent={newEvent} setter={setNewEvent} />
         <button className="strong-button m-t-10">Valider</button>
       </form>

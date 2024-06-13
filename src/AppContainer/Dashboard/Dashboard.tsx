@@ -12,9 +12,9 @@ export const Dashboard = observer(function Dashboard() {
 
   return (
     <div className="full-width flex center gap-2 m-4">
-      <div className="main-section m-t-40">
+      <div className="main-section">
         <div className="flex start align-center gap-1">
-          <h2>
+          <h2 className="m-0">
             {store?.currentUser?.type === "student"
               ? "Tâches du jour"
               : "Leçons du jour"}
@@ -53,7 +53,7 @@ export const Dashboard = observer(function Dashboard() {
         </div>
       </div>
       {store?.currentUser?.type === "student" ? (
-        <div className="side-section m-t-40">
+        <div className="side-section">
           <Expression />
         </div>
       ) : null}

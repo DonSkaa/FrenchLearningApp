@@ -1,7 +1,5 @@
 import { Deck } from "FormattedDatabase";
-import { isToReview } from "Functions";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./DeckItem.css";
 
@@ -12,18 +10,9 @@ interface DeckItemProps {
 export const DeckItem = observer(function DeckItem({
   currentDeck,
 }: DeckItemProps): JSX.Element {
-  const [formattedCurrentDeck, setFormattedCurrentDeck] = useState<
-    Deck | undefined
-  >(undefined);
-
-  useEffect(() => {
-    const formattedCards = currentDeck.cards.filter((card) => isToReview(card));
-    setFormattedCurrentDeck({ ...currentDeck, cards: formattedCards });
-  }, [currentDeck]);
-
   return (
     <>
-      {formattedCurrentDeck && formattedCurrentDeck.cards.length > 0 ? (
+      {currentDeck?.cards.length > 0 ? (
         <Link className="deck-item review" to={`/study/${currentDeck.id}`}>
           <div className="strong">{currentDeck.thematic}</div>
           <div className="strong">{currentDeck.cards.length}</div>

@@ -1,5 +1,7 @@
-html {
-  min-height: 100%;
+html,
+body,
+#root {
+  height: 100%;
 }
 
 :root {
@@ -26,7 +28,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   background-color: var(--secondary-color);
-  min-height: 100%;
 }
 
 h1,

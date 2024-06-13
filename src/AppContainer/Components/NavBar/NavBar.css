@@ -1,15 +1,14 @@
 @media (min-width: 500px) {
-    .main-navigation {
-        display: flex;
-        flex-direction: column;
-        left: 0;
-        position: relative !important;
-        z-index: 1;
-        height: 100vh;
-        border-right: 2px solid var(--third-color);
-        gap: 20px;
-        padding: 0 16px;
-    }
+  .main-navigation {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    position: relative !important;
+    z-index: 1;
+    border-right: 2px solid var(--third-color);
+    gap: 20px;
+    padding: 0 16px;
+  }
 }
 
 /* @media (min-width: 1160px) {
@@ -19,64 +18,64 @@
 } */
 
 @media (max-width: 500px) {
-    .title {
-        display: none;
-    }
+  .title {
+    display: none;
+  }
 
-    .main-navigation {
-        background-color: var(--secondary-color);
-        border-top: 2px solid var(--third-color);
-        padding: 10px;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        height: 90px;
-    }
+  .main-navigation {
+    background-color: var(--secondary-color);
+    border-top: 2px solid var(--third-color);
+    padding: 10px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    height: 90px;
+  }
 }
 
 .navigation-button {
-    color: var(--forth-color);
-    padding: 10px;
-    font-size: 22px;
-    font-weight: 600;
+  color: var(--forth-color);
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .navigation-button:hover {
-    background-color: var(--seventh-color);
-    padding: 10px;
-    border-radius: 15px;
+  background-color: var(--seventh-color);
+  padding: 10px;
+  border-radius: 15px;
 }
 
 .navigation-button.active {
-    color: var(--sixth-color);
-    background-color: var(--seventh-color);
-    font-size: 22px;
-    font-weight: 600;
-    padding: 10px;
-    outline: solid 2px;
-    border-radius: 15px;
+  color: var(--sixth-color);
+  background-color: var(--seventh-color);
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px;
+  outline: solid 2px;
+  border-radius: 15px;
 }
 
 .navigation-btn-img {
-    object-fit: contain;
-    max-height: 26px;
+  object-fit: contain;
+  max-height: 26px;
 }
 
 @media (max-width: 500px) {
-    .navigation-btn-img {
-        display: none;
-    }
+  .navigation-btn-img {
+    display: none;
+  }
 }
 
 @media (max-width: 400px) {
-    .menu-item {
-        display: none;
-    }
+  .menu-item {
+    display: none;
+  }
 
-    .navigation-btn-img {
-        display: block;
-    }
+  .navigation-btn-img {
+    display: block;
+  }
 }

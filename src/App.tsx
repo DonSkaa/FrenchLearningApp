@@ -10,7 +10,7 @@ import { Terms } from "AppContainer/Terms/Terms";
 import { CurrentUser } from "FormattedDatabase";
 import { getCallApi } from "Functions";
 import axios from "axios";
-import { configure } from "mobx";
+import { configure, toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -28,9 +28,10 @@ configure({
 
 export async function initialize() {
   const callApi = getCallApi();
+
   try {
     const res = await callApi(`/api/user`, { method: "get" }, null);
-    store.setUser(res.data as CurrentUser);
+    void store.setUser(res.data as CurrentUser);
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       store.currentUser = undefined;
@@ -50,8 +51,12 @@ const App = observer(() => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(toJS(store.currentUser));
+  }, [store.currentUser]);
+
   return (
-    <div className="flex">
+    <div className="flex full-width full-height">
       {store.currentUser ? (
         <NavBar
           menu={
@@ -60,7 +65,11 @@ const App = observer(() => {
         />
       ) : null}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {!store.currentUser ? (
+          <Route path="/" element={<HomePage />} />
+        ) : (
+          <Route path="/dashboard" element={<Dashboard />} />
+        )}
         <Route path="/login" element={<Login />} />
         <Route path="/signup-teacher" element={<SignUp type="teacher" />} />
         {store.currentUser ? (

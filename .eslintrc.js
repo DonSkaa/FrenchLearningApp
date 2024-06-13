@@ -28,6 +28,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "react/no-unescaped-entities": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "off",
