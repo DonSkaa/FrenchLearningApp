@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 
 export const Privacy = observer(function Privacy(): JSX.Element {
   return (
-    <div className="full-width flex column m-4">
+    <div className="container column start">
       <div>
         <div className="m-b-10">
           <h2>Politique de Confidentialité</h2>

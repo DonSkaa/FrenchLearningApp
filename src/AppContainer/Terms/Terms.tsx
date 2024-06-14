@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 
 export const Terms = observer(function Terms(): JSX.Element {
   return (
-    <div className="full-width flex column m-4">
+    <div className="container column start">
       <div>
         <h2>Conditions Générales d'Utilisation</h2>
         <div className="m-b-10">

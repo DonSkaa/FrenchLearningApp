@@ -49,7 +49,7 @@ const renderEventContent = (eventInfos: EventInfos) => {
 export const Schedule = observer(function Schedule(): JSX.Element {
   return (
     <>
-      <div className="full-width flex center m-4">
+      <div className="container">
         <div className="full-width">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

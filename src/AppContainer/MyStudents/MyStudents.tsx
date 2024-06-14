@@ -24,7 +24,7 @@ export const MyStudents = observer(() => {
   };
 
   return (
-    <div className="full-width flex center m-4  m-t-40">
+    <div className="container">
       <div className="main-section">
         <div className="flex gap-1 m-b-10">
           <button className="strong-button" onClick={() => addStudent()}>

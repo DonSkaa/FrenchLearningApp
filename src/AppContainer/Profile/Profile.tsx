@@ -6,7 +6,7 @@ import "./Profile.css";
 
 export const Profile = observer(function Profile(): JSX.Element {
   return (
-    <div className="full-width flex center m-4 gap-1">
+    <div className="container">
       {store.currentUser ? (
         <>
           <div className="quarter-width"></div>

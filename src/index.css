@@ -127,24 +127,24 @@ a {
 }
 
 .flex {
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-between !important;
 }
 
 .justify-center {
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .align-center {
-  align-items: center;
+  align-items: center !important;
 }
 
 .start {
-  justify-content: start;
+  justify-content: start !important;
 }
 
 .column {
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .flex-center {
@@ -507,6 +507,14 @@ select:focus {
 }
 
 /*sections */
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 4%;
+  overflow-y: auto;
+}
 .main-section {
   width: 60%;
 }

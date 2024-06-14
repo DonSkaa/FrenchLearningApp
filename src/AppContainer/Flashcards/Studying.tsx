@@ -46,7 +46,7 @@ export const Studying = observer(function Studying(): JSX.Element {
   };
 
   return (
-    <div className="full-width flex center m-4">
+    <div className="container">
       <div className="main-section">
         {currentDeck?.cards && cardIndex < currentDeck.cards.length ? (
           <>

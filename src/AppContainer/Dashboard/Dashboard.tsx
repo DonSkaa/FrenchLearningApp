@@ -11,7 +11,7 @@ export const Dashboard = observer(function Dashboard() {
   const formattedDecks = store.formattedDecks;
 
   return (
-    <div className="full-width flex center gap-2 m-4">
+    <div className="container">
       <div className="main-section">
         <div className="flex start align-center gap-1">
           <h2 className="m-0">

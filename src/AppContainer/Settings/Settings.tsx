@@ -46,7 +46,7 @@ export const Settings = observer(function Settings(): JSX.Element {
   };
 
   return (
-    <div className="full-width flex column m-4">
+    <div className="container column flex">
       <form
         className="flex start column gap-1"
         onSubmit={(x) => void submitNewPassword(x)}

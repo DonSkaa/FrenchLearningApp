@@ -4,7 +4,7 @@ import { DeckItem } from "../Components/DeckItem/DeckItem";
 
 export const Flashcards = observer(function Flashcards() {
   return (
-    <div className="full-width flex center m-4">
+    <div className="container">
       <div className="main-section">
         <div className="m-b-40">
           <div className="flex">
