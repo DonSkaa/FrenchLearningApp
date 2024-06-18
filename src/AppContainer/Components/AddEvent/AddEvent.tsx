@@ -1,5 +1,5 @@
-import { addEvent } from "AppContainer/Context/EventContext";
 import { CurrentUser, EventPostData } from "FormattedDatabase";
+import { addEvent } from "Functions";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useEffect, useState } from "react";
 import { EventFields } from "./EventFields";

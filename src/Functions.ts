@@ -1,5 +1,13 @@
-import { Card } from "FormattedDatabase";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import {
+  Card,
+  Deck,
+  EventPostData,
+  Expression,
+  UserMeta,
+  UserProgram,
+} from "FormattedDatabase";
+import { store } from "store";
 
 axios.defaults.withCredentials = true;
 
@@ -152,4 +160,120 @@ export const validateEmail = (email: string) => {
 
 export const getTimezone = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
+};
+
+// API'S CALLS //
+export const getDecks = async (): Promise<Deck[]> => {
+  const callApi = getCallApi();
+  const response = await callApi(`/api/decks`, { method: "get" }, null);
+  return (response.data as { data: Deck[] }).data;
+};
+
+export const loadDayExpression = async () => {
+  const callApi = getCallApi();
+  const response: { data: { data: Expression } } = await callApi(
+    `/api/day-expression`,
+    { method: "get" }
+  );
+  return response.data.data;
+};
+
+export const updateUserMeta = async (updatedUserMeta: UserMeta) => {
+  const callApi = getCallApi();
+  await callApi(`/api/user-meta`, { method: "put" }, null, {
+    updatedUserMeta,
+  });
+};
+
+export const getCurrentUserProgram = async (): Promise<
+  UserProgram | undefined
+> => {
+  const callApi = getCallApi();
+  if (store.currentUser?.type === "teacher") {
+    return (store.currentUserProgram = undefined);
+  }
+
+  const response = await callApi(`/api/user-program`, { method: "get" }, null, {
+    user_id: store.currentUser?.id,
+  });
+  return (response.data as { data: UserProgram }).data;
+};
+
+export const getCurrentStudents = async (
+  teacherId: number,
+  offset: number,
+  limit: number,
+  controller: AbortController
+) => {
+  const callApi = getCallApi();
+  const response = await callApi(
+    `api/users`,
+    { method: "get" },
+    controller.signal,
+    {
+      teacher_id: teacherId,
+      offset,
+      limit,
+    }
+  );
+  return response.data;
+};
+
+export const loadMoreStudents = async (): Promise<void> => {
+  if (store.currentUser && store.limit) {
+    const newOffset = store.offset + store.limit;
+    const controller = new AbortController();
+    const response = await getCurrentStudents(
+      store.currentUser.id,
+      newOffset,
+      store.limit,
+      controller
+    );
+    store.currentStudents = store.currentStudents
+      ? [...store.currentStudents, ...response.data]
+      : response.data;
+    store.offset = newOffset;
+    store.totalItems = response.data.totalItems;
+  }
+};
+
+export const logOut = async () => {
+  try {
+    const callApi = getCallApi();
+    await callApi(`/api/logout`, { method: "post" });
+    store.logout();
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Erreur lors de la déconnexion de l'utilisateur", error);
+  }
+};
+
+export const addEvent = async (newEvent: EventPostData) => {
+  const callApi = getCallApi();
+  const timezone = getTimezone();
+  const response = await callApi(`/api/event`, { method: "post" }, null, {
+    data: { ...newEvent, timezone: timezone },
+  });
+  store.events = store.events
+    ? [...store.events, response.data]
+    : [response.data];
+};
+
+export const getCurrentUserEvents = async (
+  userId: number,
+  controller: AbortController
+): Promise<Event[]> => {
+  const currentUserId =
+    store?.currentUser?.type === "teacher"
+      ? { teacher_id: userId }
+      : { user_id: userId };
+  const callApi = getCallApi();
+  const timezone = getTimezone();
+  const response: { data: { data: Event[] } } = await callApi(
+    `/api/events`,
+    { method: "get" },
+    controller.signal,
+    { ...currentUserId, timezone: timezone }
+  );
+  return response.data.data;
 };
