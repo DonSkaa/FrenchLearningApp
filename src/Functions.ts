@@ -94,7 +94,9 @@ export function calculateProgress(
 
 export function addDays(date: string | null, daysToAdd: number): Date {
   const newDate = new Date(date!);
+
   newDate.setTime(newDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+
   return newDate;
 }
 
@@ -128,8 +130,7 @@ export function isToReview(card: Card): Card | undefined {
       card.user_meta.last_review_date,
       intervalRevision
     );
-
-    if (newRevisionDate.getTime() === new Date().getTime()) {
+    if (new Date().getTime() >= newRevisionDate.getTime()) {
       return card;
     }
   }
