@@ -8,19 +8,6 @@ export interface CurrentUser {
   teacher_id: number | null;
 }
 
-export interface Event {
-  id: number;
-  user_id: number;
-  event_type: string;
-  title: string;
-  date: string;
-  start: string;
-  end: string;
-  meeting_link: string;
-  teacher_id: number;
-  user: CurrentUser;
-}
-
 export interface EventPostData {
   user_id: number;
   event_type: string;
@@ -93,6 +80,19 @@ export interface Deck {
   thematic: string;
   cards: Card[];
   updated: true | false;
+}
+
+export interface Event {
+  id: number;
+  user_id: number;
+  event_type: string;
+  title: string;
+  date: string;
+  start: string;
+  end: string;
+  meeting_link: string;
+  teacher_id: number;
+  user: CurrentUser;
 }
 
 export interface Expression {

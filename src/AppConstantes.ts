@@ -49,4 +49,5 @@ export const initialErrorState = {
 export const initialErrorMessages = {
   email: "",
   password: "",
+  date_of_birth: "",
 };

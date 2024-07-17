@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const HomePage = observer(function HomePage(): JSX.Element {
   return (
     <div className="full-width m-t-40 m-4 gap-1">
-      <h1 className="text-center m-b-40">Bienvenue sur Learning French !</h1>
+      <h1 className="text-center m-b-40">Bienvenue sur Learn Languages !</h1>
       <div className="flex center gap-1">
         <Link className="item" to={"/signup-teacher"}>
           <div className="flex column">

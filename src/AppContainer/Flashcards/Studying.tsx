@@ -1,6 +1,6 @@
 import { cardLevels } from "AppConstantes";
-import { updateUserMeta } from "AppContainer/Context/UserMetaContext";
-import { Card, UserMeta } from "FormattedDatabase";
+import { updateUserMeta } from "Functions";
+import { Card, UserMeta } from "Interfaces";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

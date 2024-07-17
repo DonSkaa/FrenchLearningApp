@@ -2,11 +2,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import {
   Card,
   Deck,
+  Event,
   EventPostData,
   Expression,
   UserMeta,
   UserProgram,
-} from "FormattedDatabase";
+} from "Interfaces";
 import { store } from "store";
 
 axios.defaults.withCredentials = true;
@@ -144,18 +145,45 @@ export const isGoogleMeetLink = (url: string): boolean => {
 
 export const validatePassword = (password: string) => {
   const minLength = 12;
+  const maxLength = 64;
   return {
     minLength: password.length >= minLength,
+    maxLength: password.length <= maxLength,
     hasUpperCase: /[A-Z]/.test(password),
     hasLowerCase: /[a-z]/.test(password),
     hasNumbers: /\d/.test(password),
-    hasSpecialChars: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    hasSpecialChars: /[!@#$%^&*(),.?':{}|<>]/.test(password),
   };
 };
 
 export const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+};
+
+export const validateName = (name: string): boolean => {
+  const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]{1,45}$/;
+  return nameRegex.test(name);
+};
+
+export const isAdult = (dateOfBirth: string): boolean => {
+  const birthDate = new Date(dateOfBirth);
+
+  // Vérifier si la date est valide
+  if (isNaN(birthDate.getTime())) {
+    return false;
+  }
+
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  const dayDifference = today.getDate() - birthDate.getDate();
+
+  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+    return age > 18;
+  } else {
+    return age >= 18;
+  }
 };
 
 export const getTimezone = () => {
@@ -275,5 +303,6 @@ export const getCurrentUserEvents = async (
     controller.signal,
     { ...currentUserId, timezone: timezone }
   );
+
   return response.data.data;
 };

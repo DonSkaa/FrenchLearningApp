@@ -1,5 +1,5 @@
-import { EventPostData } from "FormattedDatabase";
 import { isGoogleMeetLink } from "Functions";
+import { EventPostData } from "Interfaces";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 

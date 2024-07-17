@@ -1,13 +1,15 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
 import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
 import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { CurrentUser } from "FormattedDatabase";
 import {
   getCallApi,
   getTimezone,
+  isAdult,
   validateEmail,
+  validateName,
   validatePassword,
 } from "Functions";
+import { CurrentUser } from "Interfaces";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";
@@ -30,13 +32,22 @@ export const SignUp = observer(function SignUp({
   // const [isVisible, setIsVisible] = useState(false);
   const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
   const [error, setError] = useState(initialErrorState);
-  const [disabled, setDisabled] = useState({ email: false, password: false });
+  const [disabled, setDisabled] = useState({
+    email: false,
+    password: false,
+    name: false,
+    last_name: false,
+    date_of_birth: false,
+  });
   const isFormValid = Object.values(error).every((value) => value);
   const [userData, setUserData] = useState({
     timezone: timezone,
     program_duration: "4",
     type: type,
+    username: "",
     name: "",
+    last_name: "",
+    date_of_birth: "",
     email: "",
     password: "",
     teacher_id: type === "teacher" ? null : store?.currentUser?.id,
@@ -54,11 +65,29 @@ export const SignUp = observer(function SignUp({
         ? setDisabled((pvsDisabled) => ({ ...pvsDisabled, email: false }))
         : setDisabled((pvsDisabled) => ({ ...pvsDisabled, email: true }));
     }
+    if (key === "name" || key === "last_name") {
+      validateName(value)
+        ? setDisabled((pvsDisabled) => ({ ...pvsDisabled, [key]: false }))
+        : setDisabled((pvsDisabled) => ({ ...pvsDisabled, [key]: true }));
+    }
+    if (key === "date_of_birth") {
+      isAdult(value)
+        ? setDisabled((pvsDisabled) => ({
+            ...pvsDisabled,
+            date_of_birth: false,
+          }))
+        : setDisabled((pvsDisabled) => ({
+            ...pvsDisabled,
+            date_of_birth: true,
+          }));
+    }
     setUserData({ ...userData, [key]: value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    console.log(isFormValid);
 
     if (!isFormValid || disabled.email) {
       if (!isFormValid) {
@@ -104,28 +133,6 @@ export const SignUp = observer(function SignUp({
           className="flex column gap-1"
           onSubmit={(x) => void handleSubmit(x)}
         >
-          {type === "student" ? (
-            <div className="m-b-10">
-              <select
-                value={userData.program_duration}
-                onChange={(e) =>
-                  updateUserDataKey("program_duration", e.target.value)
-                }
-                required
-              >
-                <option value="4">4 semaines</option>
-                <option value="12">12 semaines</option>
-              </select>
-            </div>
-          ) : null}
-          <div>
-            <input
-              placeholder="Nom d'utilisateur"
-              value={userData.name}
-              onChange={(e) => updateUserDataKey("name", e.target.value)}
-              required
-            />
-          </div>
           <div>
             <input
               placeholder="E-mail"
@@ -143,6 +150,54 @@ export const SignUp = observer(function SignUp({
               <div className="warning">{errorMessages.email}</div>
             )}
           </div>
+          <div>
+            <input
+              placeholder="Nom d'utilisateur"
+              value={userData.username}
+              onChange={(e) => updateUserDataKey("username", e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Nom"
+              value={userData.last_name}
+              onChange={(e) => updateUserDataKey("last_name", e.target.value)}
+              required
+            />
+            {disabled.last_name ? (
+              <div className="warning">Le format du nom n'est pas valide.</div>
+            ) : null}
+          </div>
+          <div>
+            <input
+              placeholder="Prénom"
+              value={userData.name}
+              onChange={(e) => updateUserDataKey("name", e.target.value)}
+              required
+            />
+            {disabled.name ? (
+              <div className="warning">
+                Le format du prénom n'est pas valide.
+              </div>
+            ) : null}
+          </div>
+          <div>
+            <input
+              type="date"
+              placeholder="Date de naissance"
+              value={userData.date_of_birth}
+              onChange={(e) =>
+                updateUserDataKey("date_of_birth", e.target.value)
+              }
+              required
+            />
+            {disabled.date_of_birth ? (
+              <div className="warning">
+                Vous devez avoir 18 ans au minimum pour vous inscrire.
+              </div>
+            ) : null}
+          </div>
           <PasswordInput
             className={disabled.password ? "error-border" : ""}
             updatingKey="password"
@@ -150,35 +205,33 @@ export const SignUp = observer(function SignUp({
             value={userData.password}
             setter={updateUserDataKey}
           />
-          {/* <div className="relative">
-            <input
-              className={disabled.password ? "error-border" : ""}
-              type={isVisible ? "text" : "password"}
-              placeholder="Mot de passe"
-              value={userData.password}
-              onChange={(e) => updateUserDataKey("password", e.target.value)}
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setIsVisible(!isVisible)}
-              className="input-icon-btn"
-            >
-              {isVisible ? (
-                <img
-                  alt="Masquer le mot de passe"
-                  src="assets/not-visible.png"
-                ></img>
-              ) : (
-                <img
-                  alt="Afficher le mot de passe"
-                  src="assets/visible.png"
-                ></img>
-              )}
-            </button>
-          </div> */}
+          {type === "student" ? (
+            <div className="m-b-10">
+              <label htmlFor="">Durée de programme</label>
+              <select
+                value={userData.program_duration}
+                onChange={(e) =>
+                  updateUserDataKey("program_duration", e.target.value)
+                }
+                required
+              >
+                <option value="4">4 semaines</option>
+                <option value="12">12 semaines</option>
+              </select>
+            </div>
+          ) : null}
           <PasswordRequirements error={error} />
-          <button className="strong-button" type="submit">
+          <button
+            className="strong-button"
+            type="submit"
+            disabled={
+              disabled.email ||
+              disabled.password ||
+              disabled.name ||
+              disabled.last_name ||
+              disabled.date_of_birth
+            }
+          >
             Créer un compte
           </button>
         </form>

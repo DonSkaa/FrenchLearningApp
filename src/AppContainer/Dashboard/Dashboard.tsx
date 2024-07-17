@@ -1,6 +1,6 @@
 import { DeckItem } from "AppContainer/Components/DeckItem/DeckItem";
 import { Expression } from "AppContainer/Expression/Expression";
-import { Deck, Event } from "FormattedDatabase";
+import { Deck, Event } from "Interfaces";
 import { observer } from "mobx-react-lite";
 import { store } from "store";
 import { EventItem } from "../Components/EventItem/EventItem";

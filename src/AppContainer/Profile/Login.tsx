@@ -1,5 +1,5 @@
-import { CurrentUser } from "FormattedDatabase";
 import { getCallApi, getTimezone } from "Functions";
+import { CurrentUser } from "Interfaces";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";

@@ -1,10 +1,4 @@
-import {
-  CurrentUser,
-  Deck,
-  Event,
-  Expression,
-  UserProgram,
-} from "FormattedDatabase";
+import { CurrentUser, Deck, Event, Expression, UserProgram } from "Interfaces";
 // Rest of the code remains the same
 import {
   getCurrentStudents,

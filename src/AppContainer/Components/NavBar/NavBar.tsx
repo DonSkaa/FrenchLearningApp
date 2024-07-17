@@ -15,7 +15,9 @@ export const NavBar = observer(function NavBar({
   return (
     <>
       <div className="main-navigation">
-        <h1 className="title">Learning French</h1>
+        <h1 className="title">
+          <img src="assets/learn_languages_logo.png" alt="" />
+        </h1>
         {menu.map((menuItem, index) => (
           <NavLink
             key={index}

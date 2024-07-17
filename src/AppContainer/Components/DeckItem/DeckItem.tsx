@@ -1,4 +1,4 @@
-import { Deck } from "FormattedDatabase";
+import { Deck } from "Interfaces";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import "./DeckItem.css";

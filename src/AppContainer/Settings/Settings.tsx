@@ -1,8 +1,7 @@
 import { initialErrorState } from "AppConstantes";
 import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
 import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
-import { logOut } from "AppContainer/Context/UserContext";
-import { getCallApi, validatePassword } from "Functions";
+import { getCallApi, logOut, validatePassword } from "Functions";
 import axios, { AxiosError } from "axios";
 import { observer } from "mobx-react-lite";
 import { FormEvent, useState } from "react";

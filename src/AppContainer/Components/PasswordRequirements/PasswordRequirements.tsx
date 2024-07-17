@@ -11,14 +11,15 @@ export const PasswordRequirements = observer(function PasswordRequirements({
 }: PasswordRequirementsProps): JSX.Element {
   return (
     <div className="m-b-10">
-      <h5 className="left m-0 m-b-10">
-        Votre mot de passe doit comporter au moins :
-      </h5>
+      <h5 className="left m-0 m-b-10">Votre mot de passe doit comporter :</h5>
       {Object.entries({
-        hasUpperCase: "Une lettre majuscule",
-        minLength: "12 caractères",
-        hasNumbers: "1 chiffre",
-        hasSpecialChars: "Un caractère spécial (exemple :  # ? ! &)",
+        minLength: "12 caractères minimum",
+        maxLength: "64 caractères maximum",
+        hasLowerCase: "au moins une lettre minuscule",
+        hasUpperCase: "au moins une lettre majuscule",
+        hasNumbers: "au moins 1 chiffre",
+        hasSpecialChars:
+          "au moins un des caractères spéciaux suivants : ! @ # $ % ^ & * ( ) , . ? ' : { } | < > < / > ",
       }).map(([key, label]) => (
         <RequirementItem
           key={key}
