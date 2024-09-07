@@ -1,4 +1,5 @@
 import { initialErrorMessages, initialErrorState } from "AppConstantes";
+import { CheckBoxGroup } from "AppContainer/Components/CheckBoxGroup/CheckBoxGroup";
 import { PasswordInput } from "AppContainer/Components/PasswordInput/PasswordInput";
 import { PasswordRequirements } from "AppContainer/Components/PasswordRequirements/PasswordRequirements";
 import {
@@ -12,7 +13,7 @@ import {
 import { CurrentUser } from "Interfaces";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
@@ -38,6 +39,8 @@ export const SignUp = observer(function SignUp({
     name: false,
     last_name: false,
     date_of_birth: false,
+    accept_terms: false,
+    is_old_enough: false,
   });
   const isFormValid = Object.values(error).every((value) => value);
   const [userData, setUserData] = useState({
@@ -52,26 +55,22 @@ export const SignUp = observer(function SignUp({
     password: "",
     teacher_id: type === "teacher" ? null : store?.currentUser?.id,
   });
-
-  const updateUserDataKey = (key: string, value: string) => {
+  const updateUserDataKey = (key: string, value: string | boolean) => {
     if (key === "password") {
-      setError(validatePassword(value));
+      setError(validatePassword(value as string)); // Cast to string
       if (isFormValid) {
         setDisabled((pvsDisabled) => ({ ...pvsDisabled, password: false }));
       }
-    }
-    if (key === "email") {
-      validateEmail(value)
+    } else if (key === "email") {
+      validateEmail(value as string)
         ? setDisabled((pvsDisabled) => ({ ...pvsDisabled, email: false }))
         : setDisabled((pvsDisabled) => ({ ...pvsDisabled, email: true }));
-    }
-    if (key === "name" || key === "last_name") {
-      validateName(value)
+    } else if (key === "name" || key === "last_name") {
+      validateName(value as string)
         ? setDisabled((pvsDisabled) => ({ ...pvsDisabled, [key]: false }))
         : setDisabled((pvsDisabled) => ({ ...pvsDisabled, [key]: true }));
-    }
-    if (key === "date_of_birth") {
-      isAdult(value)
+    } else if (key === "date_of_birth") {
+      isAdult(value as string)
         ? setDisabled((pvsDisabled) => ({
             ...pvsDisabled,
             date_of_birth: false,
@@ -80,14 +79,22 @@ export const SignUp = observer(function SignUp({
             ...pvsDisabled,
             date_of_birth: true,
           }));
+    } else if (key === "is_old_enough" || key === "accept_terms") {
+      console.log(key, value);
+      setDisabled((prevDisabled) => ({
+        ...prevDisabled,
+        [key]: value,
+      }));
     }
     setUserData({ ...userData, [key]: value });
   };
 
+  useEffect(() => {
+    console.log(disabled);
+  }, [disabled]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    console.log(isFormValid);
 
     if (!isFormValid || disabled.email) {
       if (!isFormValid) {
@@ -221,6 +228,7 @@ export const SignUp = observer(function SignUp({
             </div>
           ) : null}
           <PasswordRequirements error={error} />
+          <CheckBoxGroup disabled={disabled} setter={updateUserDataKey} />
           <button
             className="strong-button"
             type="submit"
