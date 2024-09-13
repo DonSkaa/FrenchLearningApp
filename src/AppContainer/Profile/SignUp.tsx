@@ -13,9 +13,17 @@ import {
 import { CurrentUser } from "Interfaces";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
+
+// Interface pour grecaptcha
+interface Grecaptcha {
+  ready: (callback: () => void) => void;
+  execute: (siteKey: string, options: { action: string }) => Promise<string>;
+}
+
+declare const grecaptcha: Grecaptcha;
 
 interface SignUpProps {
   setterPopUp?: (value: any) => void | null;
@@ -29,8 +37,6 @@ export const SignUp = observer(function SignUp({
   const navigate = useNavigate();
   const timezone = getTimezone();
   const callApi = getCallApi();
-
-  // const [isVisible, setIsVisible] = useState(false);
   const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
   const [error, setError] = useState(initialErrorState);
   const [disabled, setDisabled] = useState({
@@ -55,6 +61,7 @@ export const SignUp = observer(function SignUp({
     password: "",
     teacher_id: type === "teacher" ? null : store?.currentUser?.id,
   });
+
   const updateUserDataKey = (key: string, value: string | boolean) => {
     if (key === "password") {
       setError(validatePassword(value as string)); // Cast to string
@@ -80,7 +87,6 @@ export const SignUp = observer(function SignUp({
             date_of_birth: true,
           }));
     } else if (key === "is_old_enough" || key === "accept_terms") {
-      console.log(key, value);
       setDisabled((prevDisabled) => ({
         ...prevDisabled,
         [key]: value,
@@ -89,45 +95,56 @@ export const SignUp = observer(function SignUp({
     setUserData({ ...userData, [key]: value });
   };
 
-  useEffect(() => {
-    console.log(disabled);
-  }, [disabled]);
-
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!isFormValid || disabled.email) {
-      if (!isFormValid) {
-        setDisabled((pvsDisabled) => ({ ...pvsDisabled, password: true }));
+    grecaptcha.ready(() => {
+      void handleRecaptcha();
+    });
+  };
+
+  const handleRecaptcha = async () => {
+    try {
+      const captchaToken = await grecaptcha.execute(
+        "6Leajj8qAAAAANVNJNKmgIOJO3PB_rBhATWs-H6g", // Remplace par ta clé site reCAPTCHA v3
+        { action: "signup" }
+      );
+
+      if (!captchaToken) {
+        alert("Erreur avec reCAPTCHA.");
+        return;
       }
-    } else {
-      try {
-        const res = (await callApi(
-          `/api/signup`,
-          { method: "post" },
-          null,
-          userData
-        )) as { data: CurrentUser };
-        if (type === "teacher") {
-          void store.setUser(res.data);
-          navigate("/dashboard");
-        } else if (type === "student") {
-          setterPopUp && setterPopUp(false);
-          store.currentStudents = store.currentStudents
-            ? [...store.currentStudents, res.data]
-            : [res.data];
+
+      if (!isFormValid || disabled.email) {
+        if (!isFormValid) {
+          setDisabled((pvsDisabled) => ({ ...pvsDisabled, password: true }));
         }
-      } catch (error: any) {
-        if (error?.response?.data?.message === "email already taken") {
-          setErrorMessages((pvsErrorMessages) => ({
-            ...pvsErrorMessages,
-            email:
-              "Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.",
-          }));
-        }
-        if (axios.isAxiosError(error)) {
-          console.error("Erreur lors de la création de l'utilisateur", error);
-        }
+        return;
+      }
+
+      const res = (await callApi(`/api/signup`, { method: "post" }, null, {
+        ...userData,
+        captchaToken,
+      })) as { data: CurrentUser };
+
+      if (type === "teacher") {
+        void store.setUser(res.data);
+        navigate("/dashboard");
+      } else if (type === "student") {
+        setterPopUp && setterPopUp(false);
+        store.currentStudents = store.currentStudents
+          ? [...store.currentStudents, res.data]
+          : [res.data];
+      }
+    } catch (error: any) {
+      if (error?.response?.data?.message === "email already taken") {
+        setErrorMessages((pvsErrorMessages) => ({
+          ...pvsErrorMessages,
+          email: "Cette adresse e-mail est déjà utilisée.",
+        }));
+      }
+      if (axios.isAxiosError(error)) {
+        console.error("Erreur lors de la création de l'utilisateur", error);
       }
     }
   };

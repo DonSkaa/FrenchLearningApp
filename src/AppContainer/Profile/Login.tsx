@@ -6,6 +6,13 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { store } from "store";
 
+interface Grecaptcha {
+  ready: (callback: () => void) => void;
+  execute: (siteKey: string, options: { action: string }) => Promise<string>;
+}
+
+declare const grecaptcha: Grecaptcha;
+
 export const Login = observer(function Login(): JSX.Element {
   const timezone = getTimezone();
   const navigate = useNavigate();
@@ -13,17 +20,38 @@ export const Login = observer(function Login(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setWrongPassword(false);
+
+    grecaptcha.ready(() => {
+      void handleRecaptcha();
+    });
+  };
+
+  const handleRecaptcha = async () => {
     try {
+      const captchaToken = await grecaptcha.execute(
+        "6Leajj8qAAAAANVNJNKmgIOJO3PB_rBhATWs-H6g",
+        {
+          action: "login",
+        }
+      );
+
+      if (!captchaToken) {
+        alert("Erreur avec reCAPTCHA.");
+        return;
+      }
+
+      setWrongPassword(false);
+
       const res = await callApi(`/api/login`, { method: "post" }, null, {
         email,
         password,
         timezone,
+        captchaToken,
       });
+
       void store.setUser(res.data as CurrentUser);
 
       navigate("/dashboard");
@@ -54,31 +82,14 @@ export const Login = observer(function Login(): JSX.Element {
               required
             />
           </div>
-          <div className="relative">
+          <div>
             <input
-              type={isVisible ? "text" : "password"}
+              type="password"
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button
-              type="button"
-              onClick={() => setIsVisible(!isVisible)}
-              className="input-icon-btn"
-            >
-              {isVisible ? (
-                <img
-                  alt="Masquer le mot de passe"
-                  src="assets/not-visible.png"
-                ></img>
-              ) : (
-                <img
-                  alt="Afficher le mot de passe"
-                  src="assets/visible.png"
-                ></img>
-              )}
-            </button>
           </div>
           {wrongPassword ? (
             <div className="warning">
