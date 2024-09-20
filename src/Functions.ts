@@ -11,10 +11,21 @@ import {
 import { store } from "store";
 
 axios.defaults.withCredentials = true;
-
 interface CallApiOptions extends AxiosRequestConfig {
   method?: "get" | "post" | "put" | "delete";
 }
+
+const getCsrfToken = async (): Promise<string> => {
+  try {
+    const response = await axios.get("/api/csrf-token", {
+      withCredentials: true,
+    });
+    return response.data.csrfToken;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du token CSRF:", error);
+    throw new Error("CSRF token non récupéré.");
+  }
+};
 
 export const getCallApi = () => {
   const callApi = async (
@@ -32,6 +43,13 @@ export const getCallApi = () => {
       url: uri,
       withCredentials: true,
     };
+
+    APIoptions.headers = APIoptions.headers ?? {};
+
+    if (options.method !== "get") {
+      const csrfToken = await getCsrfToken();
+      APIoptions.headers["csrf-token"] = csrfToken;
+    }
 
     if (options.method === "get") {
       APIoptions.params = data;
